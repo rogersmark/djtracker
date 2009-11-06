@@ -130,7 +130,11 @@ class Issue(models.Model):
     priority = models.CharField(max_length=128,
         choices=choices.PRIORITIES
     )
+    issue_type = models.CharField(max_length=128,
+        choices=choices.BUG_TYPES
+    )
     description = models.TextField()
+    active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)
 
