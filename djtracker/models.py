@@ -20,7 +20,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-categories", (), {'slug': self.slug})
+        return ("project-categories", (), {'category_slug': self.slug})
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -83,7 +83,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-index", (), {'slug': self.slug})
+        return ("project-index", (), {'project_slug': self.slug})
 
 class Milestone(models.Model):
     """
