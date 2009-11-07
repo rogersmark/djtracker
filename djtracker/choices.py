@@ -1,8 +1,8 @@
 STATUS_OPTIONS = (
-    ('Closed', 'Closed'),
     ('Open', 'Open'),
     ('Deferred', 'Deferred'),
-    ("Won't Fix", "Won't Fix")
+    ("Won't Fix", "Won't Fix"),
+    ('Closed', 'Closed'),
 )
 
 PRIORITIES = (

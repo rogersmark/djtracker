@@ -79,7 +79,8 @@ class IssueAdmin(admin.ModelAdmin):
             'fields': ('project', ('component', 'version'),
                 ('milestone', 'status'),
                 ('priority', 'issue_type'),
-                'description')
+                'description', ('created_by',
+                'assigned_to'),)
         }),
     )
 

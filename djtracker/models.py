@@ -173,6 +173,15 @@ class Issue(models.Model):
         choices=choices.BUG_TYPES
     )
     description = models.TextField()
+    created_by = models.ForeignKey(User,
+        blank=True,
+        null=True,
+        related_name="issue_creator"
+    )
+    assigned_to = models.ForeignKey(User,
+        blank=True,
+        null=True
+    )
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)
@@ -182,7 +191,8 @@ class Issue(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-issue", (), {'slug': self.slug})
+        return ("project-issue", (), {'project_slug': self.project.slug,
+            'issue_slug': self.slug})
 
 class FileUpload(models.Model):
     """

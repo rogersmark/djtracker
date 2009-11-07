@@ -1,0 +1,36 @@
+{% extends "djtracker/base.html" %}
+{% load comments %}
+{% block content %}
+  <h3> {{ issue }}</h3>
+  <ul>
+    <p><li>Project: {{ issue.project }}</li></p>
+    {% if issue.component %}
+      <p><li>Component: {{ issue.component }}</li></p>
+    {% endif %}
+    {% if issue.version %}
+      <p><li>Version: {{ issue.version }}</li></p>
+    {% endif %}
+    {% if issue.milestone %}
+      <p><li>Milestone: {{ issue.milestone }}</li></p>
+    {% endif %}
+    <p><li>Status: {{ issue.status }}</li></p>
+    <p><li>Priority: {{ issue.priority }}</li></p>
+    <p><li>Issue Type: {{ issue.issue_type }}</li></p>
+    <p><li>Description: {{ issue.description }}</li></p>
+  {% if can_modify %}
+    <p><a href="{% url project_modify_issue project.slug issue.slug %}">Modify Issue</a></p>
+  {% endif %}
+  <hr />
+  {% get_comment_list for issue as comments %}
+  {% if comments %}
+    <h4>Comments:</h4>
+    {% for comment in comments %}
+      {{ comment }}
+    {% endfor %}
+    <hr />
+  {% endif %}
+  {% if can_comment %}
+  <h4>Update Issue</h4>
+    {% render_comment_form for issue %}
+  {% endif %}
+{% endblock %}

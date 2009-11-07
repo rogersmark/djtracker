@@ -1,0 +1,7 @@
+{% extends "djtracker/base.html" %}
+{% block content %}
+  <form action="{% url project_modify_issue project.slug issue.slug %}" method="post"> 
+    {{ form.as_p }}
+    <input type="submit" value="Submit Issue" />
+  </form>
+{% endblock %}
