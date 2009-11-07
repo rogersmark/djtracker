@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 
-def project_index(request):
+def index(request):
     projects = models.Project.objects.all()
     if request.user.is_authenticated():
         user = request.user
@@ -35,7 +35,7 @@ def project_index(request):
         queryset=display_projects,
         paginate_by=10,
         allow_empty=True,
-        template_name="djtracker/project_index.html",
+        template_name="djtracker/index.html",
         template_object_name="project"
     )
 
