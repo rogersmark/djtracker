@@ -44,28 +44,34 @@ class Project(models.Model):
 
     groups_can_view = models.ManyToManyField(Group,
         blank=True,
-        null=True
+        null=True,
+        related_name='view_group_set'
     )
     groups_can_edit = models.ManyToManyField(Group,
         blank=True,
-        null=True
+        null=True,
+        related_name='edit_group_set'
     )
     groups_can_comment = models.ManyToManyField(Group,
         blank=True,
-        null=True
+        null=True,
+        related_name='comment_group_set'
     )
 
     users_can_view = models.ManyToManyField(User,
         blank=True,
-        null=True
+        null=True,
+        related_name='view_user_set'
     )
     users_can_edit = models.ManyToManyField(User,
         blank=True,
-        null=True
+        null=True,
+        related_name='edit_user_set'
     )
     users_can_comment = models.ManyToManyField(User,
         blank=True,
-        null=True
+        null=True,
+        related_name='comment_user_set'
     )
 
     active = models.BooleanField(default=True)

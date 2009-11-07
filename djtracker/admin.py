@@ -20,6 +20,13 @@ class ProjectAdmin(admin.ModelAdmin):
             'fields': ('name', 'slug', 'category',
                 'description', 'active')
         }),
+        ('Project Permissions', {
+            'fields': (('allow_anon_viewing', 'allow_anon_editing',
+                'allow_anon_comment',), ('groups_can_view',
+                'groups_can_edit', 'groups_can_comment',),
+                ('users_can_view', 'users_can_edit',
+                'users_can_comment'))
+        }),
     )
 
 class MilestoneAdmin(admin.ModelAdmin):
