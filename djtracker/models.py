@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from djtracker import choices
 
@@ -31,10 +31,43 @@ class Project(models.Model):
     issue is attached to a project, which has components, and so on and so
     forth. Consider it a grouping mechanism for all the moving parts.
     """
+    ## Project descriptions
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
     category = models.ForeignKey(Category)
     description = models.TextField(blank=True, null=True)
+
+    ## Project level permissions
+    allow_anon_viewing = models.BooleanField(default=False)
+    allow_anon_editing = models.BooleanField(default=False)
+    allow_anon_comment = models.BooleanField(default=False)
+
+    groups_can_view = models.ManyToManyField(Group,
+        blank=True,
+        null=True
+    )
+    groups_can_edit = models.ManyToManyField(Group,
+        blank=True,
+        null=True
+    )
+    groups_can_comment = models.ManyToManyField(Group,
+        blank=True,
+        null=True
+    )
+
+    users_can_view = models.ManyToManyField(User,
+        blank=True,
+        null=True
+    )
+    users_can_edit = models.ManyToManyField(User,
+        blank=True,
+        null=True
+    )
+    users_can_comment = models.ManyToManyField(User,
+        blank=True,
+        null=True
+    )
+
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)
