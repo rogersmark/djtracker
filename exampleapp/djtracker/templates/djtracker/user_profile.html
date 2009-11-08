@@ -1,0 +1,34 @@
+{% extends "djtracker/base.html" %}
+{% block content %}
+  {% if user %}
+    <h3>User: {{ user.username }}</h3>
+    <p>IM Information: {{ profile.instant_messanger }}</p>
+    <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+    <hr />
+    {% if profile.issue_set.all %}
+      {% for issue in profile.issue_set.all %}
+        {% if forloop.first %}
+          <h4>Assigned Issues:</h4>
+          <ul>
+        {% endif %}
+          <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
+        {% if forloop.last %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if profile.issue_creator.all %}
+       {% for issue in profile.issue_set.all %}
+        {% if forloop.first %}
+          <h4>Created Issues:</h4>
+          <ul>
+        {% endif %}
+          <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
+        {% if forloop.last %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
