@@ -48,19 +48,69 @@ def project_index(request, project_slug):
         can_comment = True
     if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
         return HttpResponseNotFound()
-    elif request.user.is_authenticated():
-        user = request.user
-        groups = user.groups.all()
-        if utils.check_permissions("view", request.user, project) is False:
-            return HttpResponseNotFound()
-        else:
-            return list_detail.object_detail(request,
-                queryset=models.Project.objects.all(),
-                extra_context={'can_comment': can_comment},
-                slug=project_slug,
-                template_name="djtracker/project_index.html",
-                template_object_name="project"
-            )
+    elif utils.check_permissions("view", request.user, project) is False \
+        and project.allow_anon_viewing is False:
+        return HttpResponseNotFound()
+    else:
+        return list_detail.object_detail(request,
+            queryset=models.Project.objects.all(),
+            extra_context={'can_comment': can_comment},
+            slug=project_slug,
+            template_name="djtracker/project_index.html",
+            template_object_name="project"
+        )
+
+def project_component(request, project_slug, modi_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    modifier = get_object_or_404(models.Component, slug=modi_slug)
+    modifier_type = "Component"
+    if project.allow_anon_comment is True or \
+        utils.check_permissions("", request.user, project) is True:
+        can_comment = True
+    if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
+        return HttpResponseNotFound()
+    elif utils.check_permissions("view", request.user, project) is False \
+        and project.allow_anon_viewing is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/modifier_view.html", locals(),
+            context_instance=RequestContext(request))
+
+def project_milestone(request, project_slug, modi_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    modifier = get_object_or_404(models.Milestone, slug=modi_slug)
+    modifier_type = "Milestone"
+    if project.allow_anon_comment is True or \
+        utils.check_permissions("", request.user, project) is True:
+        can_comment = True
+    if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
+        return HttpResponseNotFound()
+    elif utils.check_permissions("view", request.user, project) is False \
+        and project.allow_anon_viewing is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/modifier_view.html", locals(),
+            context_instance=RequestContext(request))
+
+def project_version(request, project_slug, modi_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    modifier = get_object_or_404(models.Version, slug=modi_slug)
+    modifier_type = "Version"
+    if project.allow_anon_comment is True or \
+        utils.check_permissions("", request.user, project) is True:
+        can_comment = True
+    if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
+        return HttpResponseNotFound()
+    elif utils.check_permissions("view", request.user, project) is False \
+        and project.allow_anon_viewing is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/modifier_view.html", locals(),
+            context_instance=RequestContext(request))
+
 
 def submit_issue(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)

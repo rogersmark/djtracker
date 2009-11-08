@@ -1,0 +1,21 @@
+{% extends "djtracker/base.html" %}
+{% block title %} - {{ project }}: {{ modifier_type }}{% endblock %}
+{% block content %}
+  {% if project %}
+    <h3>{{ project }}</h3>
+    <p> {{ project.description }}</p>
+    <h4> {{ project }} Issues by {{ modifier_type}}: {{ modifier }}</h4>
+    {% for issue in modifier.issue_set.all %}
+      {% if forloop.first %}
+        <ul>
+      {% endif %}
+      <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+    {% if can_comment %}
+      <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}

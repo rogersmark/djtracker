@@ -1,0 +1,187 @@
+[
+    {
+        "pk": 1, 
+        "model": "djtracker.category", 
+        "fields": {
+            "active": true, 
+            "modified_Date": "2009-11-07 11:38:35", 
+            "created_date": "2009-11-07 11:38:35", 
+            "name": "django", 
+            "slug": "django"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.project", 
+        "fields": {
+            "category": 1, 
+            "allow_anon_comment": true, 
+            "groups_can_view": [], 
+            "description": "DjTracker is an issue tracker.", 
+            "modified_Date": "2009-11-07 11:39:03", 
+            "groups_can_edit": [], 
+            "groups_can_comment": [], 
+            "name": "DjTracker", 
+            "users_can_edit": [], 
+            "users_can_comment": [], 
+            "users_can_view": [], 
+            "created_date": "2009-11-07 11:39:03", 
+            "active": true, 
+            "allow_anon_viewing": true, 
+            "slug": "djtracker", 
+            "allow_anon_editing": true
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.milestone", 
+        "fields": {
+            "modified_Date": "2009-11-07 11:39:18", 
+            "description": "dafasfdasdfa", 
+            "project": 1, 
+            "created_date": "2009-11-07 11:39:18", 
+            "active": true, 
+            "goal_date": null, 
+            "slug": "version-1", 
+            "name": "Version 1"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.component", 
+        "fields": {
+            "modified_Date": "2009-11-07 11:39:07", 
+            "name": "Issues", 
+            "project": 1, 
+            "created_date": "2009-11-07 11:39:07", 
+            "active": true, 
+            "slug": "issues"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Closed", 
+            "priority": "Urgent", 
+            "name": "sdfasdfa", 
+            "created_date": "2009-11-07 11:49:44", 
+            "modified_Date": "2009-11-07 11:49:44", 
+            "assigned_to": null, 
+            "component": null, 
+            "created_by": null, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Defect", 
+            "milestone": null, 
+            "active": true, 
+            "slug": "sdfasdfa", 
+            "description": "asdfasfa"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Closed", 
+            "priority": "Urgent", 
+            "name": "asdfafa", 
+            "created_date": "2009-11-07 11:55:52", 
+            "modified_Date": "2009-11-07 11:55:52", 
+            "assigned_to": null, 
+            "component": null, 
+            "created_by": null, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Defect", 
+            "milestone": null, 
+            "active": true, 
+            "slug": "asdfafa", 
+            "description": "asdfasdfa"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Closed", 
+            "priority": "Urgent", 
+            "name": "asdfafaasdfa", 
+            "created_date": "2009-11-07 11:58:05", 
+            "modified_Date": "2009-11-07 11:58:05", 
+            "assigned_to": 1, 
+            "component": null, 
+            "created_by": null, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Defect", 
+            "milestone": null, 
+            "active": true, 
+            "slug": "asdfafaasdfa", 
+            "description": "asdfasdfa"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Open", 
+            "priority": "Urgent", 
+            "name": "weqwrq", 
+            "created_date": "2009-11-07 11:59:10", 
+            "modified_Date": "2009-11-07 12:10:09", 
+            "assigned_to": 1, 
+            "component": 1, 
+            "created_by": 1, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Feature Request", 
+            "milestone": 1, 
+            "active": true, 
+            "slug": "weqwrq", 
+            "description": "qwerqwrasdas"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Open", 
+            "priority": "High", 
+            "name": "weqwrq", 
+            "created_date": "2009-11-07 12:03:59", 
+            "modified_Date": "2009-11-07 12:03:59", 
+            "assigned_to": 1, 
+            "component": 1, 
+            "created_by": 1, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Feature Request", 
+            "milestone": 1, 
+            "active": true, 
+            "slug": "", 
+            "description": "qwerqwr"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Open", 
+            "priority": "Urgent", 
+            "name": "asdfasf", 
+            "created_date": "2009-11-07 12:20:39", 
+            "modified_Date": "2009-11-07 12:20:49", 
+            "assigned_to": null, 
+            "component": null, 
+            "created_by": 1, 
+            "project": 1, 
+            "version": null, 
+            "issue_type": "Feature Request", 
+            "milestone": null, 
+            "active": true, 
+            "slug": "asdfasf", 
+            "description": "asdfadfsa"
+        }
+    }
+]

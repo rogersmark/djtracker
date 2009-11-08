@@ -120,7 +120,8 @@ class Milestone(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_milestone", (), {'mile_slug': self.slug})
+        return ("project_milestone", (), {'project_slug': self.project.slug,
+            'modi_slug': self.slug})
 
 class Component(models.Model):
     """
@@ -139,7 +140,8 @@ class Component(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_component", (), {'comp_slug': self.slug})
+        return ("project_component", (), {'project_slug': self.project.slug, 
+            'modi_slug': self.slug})
 
 class Version(models.Model):
     """
@@ -158,7 +160,8 @@ class Version(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_version", (), {'version_slug': self.slug})
+        return ("project_version", (), {'project_slug': self.project.slug,
+            'modi_slug': self.slug})
 
 class Issue(models.Model):
     """
