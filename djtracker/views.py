@@ -34,6 +34,7 @@ def index(request):
 
     return list_detail.object_list(request,
         queryset=display_projects,
+        extra_context={'user': user},
         paginate_by=10,
         allow_empty=True,
         template_name="djtracker/index.html",
@@ -117,7 +118,7 @@ def submit_issue(request, project_slug):
     can_edit = False
     if request.user.id:
         try:
-            profile = request.user.userprofile_set.all()[0]
+            profile = request.user.userprofile
             profile_id = profile.id
         except:
             profile_id = None
@@ -222,7 +223,7 @@ def issue_attach(request, project_slug, issue_slug):
 
 def view_profile(request, username):
     user = User.objects.get(username=username)
-    profile = user.userprofile_set.all()[0]
+    profile = user.userprofile
     return render_to_response(
         "djtracker/user_profile.html", locals(),
         context_instance=RequestContext(request))

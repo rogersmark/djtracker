@@ -66,7 +66,8 @@ border-top: 1px solid gray;
 </div>
 <div id="leftnav">
 <p>
-SideBar
+<a href="/">Home</a><br />
+<a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
 {% block sidebar %}
 {% endblock %}
 </p>

@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     user
     """
     instant_messanger = models.CharField(max_length=256)
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)
 
@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_user", (), {'user': self.username})
+        return ("project_user", (), {'username': self.user.username})
 
 class Category(models.Model):
     """
