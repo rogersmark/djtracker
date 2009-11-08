@@ -37,12 +37,12 @@ class IssueForm(forms.ModelForm):
     )
     description = forms.CharField(widget=forms.Textarea)
     created_by = forms.ModelChoiceField(
-        queryset = User.objects.all(),
+        queryset = models.UserProfile.objects.all(),
         widget=forms.HiddenInput,
         required=False
     )
     assigned_to = forms.ModelChoiceField(
-        queryset = User.objects.all(),
+        queryset = models.UserProfile.objects.all(),
         required=False
     )
 
@@ -84,5 +84,11 @@ class IssueForm(forms.ModelForm):
         return issue
     
 
-class FileUploadForm(forms.Form):
-    pass
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = models.FileUpload
+
+    issue = forms.ModelChoiceField(
+        queryset=models.Issue.objects.all(),
+        widget=forms.HiddenInput
+    )

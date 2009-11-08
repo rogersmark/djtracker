@@ -3,6 +3,23 @@ from django.contrib.auth.models import User, Group
 
 from djtracker import choices
 
+class UserProfile(models.Model):
+    """
+    Extension of User to allow for more detailed information about a
+    user
+    """
+    instant_messanger = models.CharField(max_length=256)
+    user = models.ForeignKey(User, unique=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_Date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.user.username
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("project_user", (), {'user': self.username})
+
 class Category(models.Model):
     """
     Projects will be able to be assigned to different categories. For 
@@ -20,7 +37,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-categories", (), {'category_slug': self.slug})
+        return ("project_categories", (), {'category_slug': self.slug})
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -83,7 +100,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-index", (), {'project_slug': self.slug})
+        return ("project_index", (), {'project_slug': self.slug})
 
 class Milestone(models.Model):
     """
@@ -103,7 +120,7 @@ class Milestone(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-milestone", (), {'slug': self.slug})
+        return ("project_milestone", (), {'mile_slug': self.slug})
 
 class Component(models.Model):
     """
@@ -122,7 +139,7 @@ class Component(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-component", (), {'slug': self.slug})
+        return ("project_component", (), {'comp_slug': self.slug})
 
 class Version(models.Model):
     """
@@ -141,7 +158,7 @@ class Version(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-version", (), {'slug': self.slug})
+        return ("project_version", (), {'version_slug': self.slug})
 
 class Issue(models.Model):
     """
@@ -173,12 +190,12 @@ class Issue(models.Model):
         choices=choices.BUG_TYPES
     )
     description = models.TextField()
-    created_by = models.ForeignKey(User,
+    created_by = models.ForeignKey(UserProfile,
         blank=True,
         null=True,
         related_name="issue_creator"
     )
-    assigned_to = models.ForeignKey(User,
+    assigned_to = models.ForeignKey(UserProfile,
         blank=True,
         null=True
     )
@@ -191,7 +208,7 @@ class Issue(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-issue", (), {'project_slug': self.project.slug,
+        return ("project_issue", (), {'project_slug': self.project.slug,
             'issue_slug': self.slug})
 
 class FileUpload(models.Model):
@@ -210,21 +227,5 @@ class FileUpload(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project-file", (), {'file': self.file})
+        return ("project_file", (), {'file': self.file})
 
-class UserProfile(models.Model):
-    """
-    Extension of User to allow for more detailed information about a
-    user
-    """
-    instant_messanger = models.CharField(max_length=256)
-    user = models.ForeignKey(User, unique=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return user
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ("project-user", (), {'user': self.user})

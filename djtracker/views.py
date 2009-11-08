@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 
 def index(request):
-    projects = models.Project.objects.all()
+    projects = models.Project.objects.filter(active=True)
     if request.user.is_authenticated():
         user = request.user
         groups = user.groups.all()
@@ -65,6 +65,14 @@ def project_index(request, project_slug):
 def submit_issue(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     can_edit = False
+    if request.user.id:
+        try:
+            profile = request.user.userprofile_set.all()[0]
+            profile_id = profile.id
+        except:
+            profile_id = None
+    else:
+        profile_id = None
     if project.allow_anon_editing is False and \
         utils.check_permissions("", request.user, project) is False:
         can_edit = False
@@ -83,7 +91,7 @@ def submit_issue(request, project_slug):
         else:
             if request.user:
                 form = forms.IssueForm(project.id, can_edit, 
-                    initial={ 'project': project.id, 'created_by': request.user.id})
+                    initial={ 'project': project.id, 'created_by': profile_id})
             else:
                 form = forms.IssueForm(project.id, can_edit,
                     initial={ 'project': project.id })
@@ -138,3 +146,33 @@ def view_issue(request, project_slug, issue_slug):
         return render_to_response(
             "djtracker/issue_detail.html", locals(),
             context_instance=RequestContext(request))
+
+def issue_attach(request, project_slug, issue_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    issue = get_object_or_404(models.Issue, slug=issue_slug)
+
+    if project.allow_anon_comment is False and request.user.is_authenticated() is False:
+        return HttpResponseNotFound()
+    elif utils.check_permissions("view", request.user, project) is False:
+        return HttpResponseNotFound()
+    else:
+        if request.method == "POST":
+            print request.POST
+            form = forms.FileUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(
+                    issue.get_absolute_url()
+                )
+        else:
+            form = forms.FileUploadForm(initial={'issue': issue.id})
+    return render_to_response(
+        "djtracker/upload_form.html", locals(),
+        context_instance=RequestContext(request))
+
+def view_profile(request, username):
+    user = User.objects.get(username=username)
+    profile = user.userprofile_set.all()[0]
+    return render_to_response(
+        "djtracker/user_profile.html", locals(),
+        context_instance=RequestContext(request))
