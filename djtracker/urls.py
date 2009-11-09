@@ -32,3 +32,13 @@ urlpatterns = patterns('djtracker.views',
     (r'profile/detail/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
     (r'profile/list/$', 'view_users', None, 'project_user_list'),
 )
+
+urlpatterns += patterns('',
+    (r'^profile/login/$', 'django.contrib.auth.views.login', 
+        {'template_name': 'djtracker/login.html'},
+        'project_login'),
+    (r'^profile/logout/$', 'django.contrib.auth.views.logout', 
+        {'template_name': 'djtracker/logout.html'},
+        'project_logout'),
+
+)
