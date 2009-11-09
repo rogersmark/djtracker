@@ -77,6 +77,22 @@ border-top: 1px solid gray;
 {% block sidebar %}
 {% endblock %}
 </p>
+<h4>Projects</h4>
+{% load get_objects %}
+  {% get_object_models "djtracker" "project" "name" "20" "project_list" %}
+  <ul>
+  {% for project in project_list %}
+    <p><li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li></p>
+  {% endfor %}
+  </ul>
+
+<h4>Project Categories</h4>
+  {% get_object_models "djtracker" "category" "name" "20" "cat_list" %}
+  <ul>
+  {% for cat in cat_list %}
+    <p><li><a href="{{ cat.get_absolute_url }}">{{ cat }}</a></li></p>
+  {% endfor %}
+  </ul>
 </div>
 <div id="content">
 {% block content %}
