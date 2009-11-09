@@ -40,7 +40,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_categories", (), {'category_slug': self.slug})
+        return ("project_category", (), {'cat_slug': self.slug})
 
     class Meta:
         verbose_name_plural = "Categories"

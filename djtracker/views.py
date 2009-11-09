@@ -42,6 +42,18 @@ def index(request):
         template_object_name="project"
     )
 
+def view_category(request, cat_slug):
+    category = get_object_or_404(models.Category, slug=cat_slug)
+    project_ids = []
+    for x in category.project_set.all():
+        if x.allow_anon_viewing or \
+            utils.check_permissions("view", request.user, x):
+            project_ids.append(x.id)
+    project_list = models.Project.objects.filter(id__in=project_ids)
+    return render_to_response(
+        "djtracker/index.html", locals(),
+        context_instance=RequestContext(request))
+
 def project_index(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     open_issues = project.issue_set.filter(status="Open")
@@ -49,7 +61,8 @@ def project_index(request, project_slug):
     if project.allow_anon_comment is True or \
         utils.check_permissions("", request.user, project) is True:
         can_comment = True
-    if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
+    if project.allow_anon_viewing is False and \
+        request.user.is_authenticated() is False:
         return HttpResponseNotFound()
     elif utils.check_permissions("view", request.user, project) is False \
         and project.allow_anon_viewing is False:
