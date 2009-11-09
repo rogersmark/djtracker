@@ -30,6 +30,7 @@ def index(request):
         display_projects = models.Project.objects.filter(
             id__in=viewable_projects)
     else:
+        user = None
         display_projects = projects.filter(allow_anon_viewing=True)
 
     return list_detail.object_list(request,
