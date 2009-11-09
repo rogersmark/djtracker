@@ -243,3 +243,13 @@ def view_profile(request, username):
     return render_to_response(
         "djtracker/user_profile.html", locals(),
         context_instance=RequestContext(request))
+
+def view_users(request):
+    users = models.UserProfile.objects.all()
+    return list_detail.object_list(request,
+        queryset=users,
+        paginate_by=20,
+        template_name="djtracker/user_list.html",
+        template_object_name="user"
+    )
+

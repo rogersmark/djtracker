@@ -29,5 +29,6 @@ urlpatterns = patterns('djtracker.views',
         None, 'project_file_upload'),
 
     ## Profile views
-    (r'profile/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
+    (r'profile/detail/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
+    (r'profile/list/$', 'view_users', None, 'project_user_list'),
 )

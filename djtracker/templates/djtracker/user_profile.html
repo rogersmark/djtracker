@@ -3,7 +3,9 @@
   {% if user %}
     <h3>User: {{ user.username }}</h3>
     <p>IM Information: {{ profile.instant_messanger }}</p>
-    <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+    {% if request.user.is_authenticated %}
+      <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+    {% endif %}
     <hr />
     {% if profile.issue_set.all %}
       {% for issue in profile.issue_set.all %}
