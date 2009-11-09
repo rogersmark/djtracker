@@ -44,6 +44,7 @@ def index(request):
 
 def project_index(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
+    open_issues = project.issue_set.filter(status="Open")
     can_comment = False
     if project.allow_anon_comment is True or \
         utils.check_permissions("", request.user, project) is True:
@@ -56,7 +57,8 @@ def project_index(request, project_slug):
     else:
         return list_detail.object_detail(request,
             queryset=models.Project.objects.all(),
-            extra_context={'can_comment': can_comment},
+            extra_context={'can_comment': can_comment,
+                'open_issues': open_issues},
             slug=project_slug,
             template_name="djtracker/project_index.html",
             template_object_name="project"
