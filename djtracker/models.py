@@ -8,7 +8,10 @@ class UserProfile(models.Model):
     Extension of User to allow for more detailed information about a
     user
     """
-    instant_messanger = models.CharField(max_length=256)
+    instant_messanger = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
     user = models.OneToOneField(User, unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)

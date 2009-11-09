@@ -67,8 +67,12 @@ border-top: 1px solid gray;
 <div id="leftnav">
 <p>
 <a href="/">Home</a><br />
-{% if request.user %}
+{% if user %}
   <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
+{% else %}
+  {% if request.USER %}
+    <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
+  {% endif %}
 {% endif %}
 {% block sidebar %}
 {% endblock %}
