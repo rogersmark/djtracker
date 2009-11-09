@@ -1,0 +1,8 @@
+{% extends "djtracker/base.html" %}
+  {% block content %}
+    <h3>Users:</h3>
+    <ul>
+    {% for user in user_list %}
+      <p><li><a href="{{ user.get_absolute_url }}">{{ user }}</a></li></p>
+    {% endfor %}
+  {% endblock %}
