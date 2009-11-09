@@ -10,7 +10,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_NAME = '/home/markr/python-dev/tracker/src/thetracker/db'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -48,7 +48,7 @@ MEDIA_URL = ''
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'iy778+76=(#mnu7gu0h32!)7zux9i^3&1s^o-j5j(d5#1a%3m0'
+SECRET_KEY = '@vhi@@dsyxmm8z_&awlpd@7)mx4ugud*cenbmzzsv7tyt7bop2'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -80,7 +80,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.comments',
+    'django_extensions',
+    'test_extensions',
+    'registration',
     'djtracker',
 )
 
-AUTH_PROFILE_MODULE = "djtracker.UserProfile"
+ACCOUNT_ACTIVIATION_DAYS = 7

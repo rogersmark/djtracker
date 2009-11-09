@@ -1,9 +1,0 @@
-{% extends "djtracker/base.html" %}
-{% block content %}
-  {% if project_list %}
-    {% for project in project_list %}
-      <h3><a href="{{ project.get_absolute_url }}">{{ project }}</a></h3>
-      <p> {{ project.description }}</p>
-    {% endfor %}
-  {% endif %}
-{% endblock %}
