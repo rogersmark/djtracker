@@ -68,10 +68,12 @@ border-top: 1px solid gray;
 <p>
 <a href="/">Home</a><br />
 {% if user %}
-  <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
-{% else %}
-  {% if request.USER %}
+  {% if user.id %}
     <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
+  {% endif %}
+{% else %}
+  {% if request.user.is_authenticated %}
+    <a href="{{ request.user.userprofile.get_absolute_url }}">Profile</a><br />
   {% endif %}
 {% endif %}
 {% block sidebar %}
