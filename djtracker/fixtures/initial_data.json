@@ -143,27 +143,6 @@
         }
     }, 
     {
-        "pk": 5, 
-        "model": "djtracker.issue", 
-        "fields": {
-            "status": "Open", 
-            "priority": "High", 
-            "name": "weqwrq", 
-            "created_date": "2009-11-07 12:03:59", 
-            "modified_Date": "2009-11-07 12:03:59", 
-            "assigned_to": 1, 
-            "component": 1, 
-            "created_by": 1, 
-            "project": 1, 
-            "version": null, 
-            "issue_type": "Feature Request", 
-            "milestone": 1, 
-            "active": true, 
-            "slug": "", 
-            "description": "qwerqwr"
-        }
-    }, 
-    {
         "pk": 6, 
         "model": "djtracker.issue", 
         "fields": {
