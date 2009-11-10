@@ -1,0 +1,93 @@
+Application Name: DjTracker
+Author: Mark Rogers (f4nt)
+License: BSD License
+
+DjTracker
+Introduction:
+
+    DjTracker is meant to be an issue tracker built with Python and Django. I hadn't personally seen an active one that
+    suited my needs, so I set out to build this. Trac is great and all, but it's a jack of all trades and not a master of
+    issue tracking. Below is the proposed feature list of DjTracker with their completion status. Everything marked as
+    complete is 'done' at this time. This doesn't mean it won't change in the feature as new needs arise, but they're
+    functional at this point.
+
+    *NOTE*
+    Extensive testing at this time has not been completed. In fact, a tests.py doesn't even exist yet. That'll come
+    soon enough though.
+
+Project Creation:
+
+    Every issue in DjTracker is attached to a corresponding Project. Each project is built of the following parts:
+        Components (complete):
+            Components are separate pieces of the overall beast that makes up a project. For instance, you may have a
+            cart component in your ecommerce site.
+
+        Versions (complete):
+            Track multiple versions of your application by creating different version instance of your project. This way
+            you can track issues against the latest version, while you also can continue to supporte users using legacy
+            versions of your software.
+
+        Milestones (complete):
+            This is used to help you keep track of issues as you're working towards a major milestone in the product
+            development. This'll allow you to view all issues still open before you reach the milestone completion
+            point.
+
+        Permissions (70% complete):
+            DjTracker supports a permission scheme involving row level permissions. There are 3 levels of permissions:
+
+                View:
+                    Allow users to simply view an issue. This is the base permission, and is required for most all other
+                    permissions. You can't edit what you can't see.
+
+                Modify:
+                    Users with modification permissions can change the status of an issue, and otherwise adjust the
+                    issue anyway they see fit.
+
+                Comment:
+                    This'll be the permission that you give to most users. This will give them the ability to create an
+                    issue, and comment on the issue. They will not be able to modify the issue though.
+
+            These permissions break down into three methods so that you can give groups, individual users, or anonymous
+            users these permissions. The big piece left is allowing any authenticated user to view/modify/edit.
+            Currently if a user is authenticated, you need to manually assign their groups they're in, or them
+            individually to a permission schemes for each project.
+
+Issue Creation (90% complete):
+
+    Issues are attached to projects via foreign keys. You can comment on issues, change their status, and the like
+    assuming you have proper permissions. You can also "watch" an issue if you're an authenticated user. This means that
+    you'll receive email updates on any comments to an issue. In the future you'll get notified on status changes, and
+    other modifications of the issue as well.
+
+User Profiles (70% complete):
+
+    Currently I don't see an excessively large need for these, but that could change depending on use cases. As a result
+    I went ahead and built a user profile module just in case. It's currently very limited, but you can view your
+    profile (and the profile of others) to see what issues they have assigned to them. 
+
+    There is currently a security hole here, where anonymous users can see the titles of issues assigned to users, even
+    though they may not be able to browse the project they are assigned to.
+
+Installation:
+
+    Currently you can clone the github repository for your installation needs. Just clone it, and then run "python
+    setup.py build; python setup install". This will install it to your python path. You can then enter the example app
+    path that's included with your clone, and run the following "python manage.py syncdb; python manage runserver" to
+    get up and running. If you wish to other plug the application into your setup you can do the following:
+
+        Dependencies:
+            django-registration
+
+        Settings:
+            There's only one setting addition you'll need:
+                ISSUE_ADDRESS = "user@example.com"
+
+            This is the address issue updates will be sent from.
+
+        URLs:
+            You'll need the following URL pattern:
+                (r'', include('djtracker.urls')),
+
+            Feel free to change the path to suit your needs. Keep in mind it's only been tested at a root path thus far.
+            It should work fine at other paths though.
+                
