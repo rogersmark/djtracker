@@ -90,7 +90,7 @@ border-top: 1px solid gray;
   {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
   <ul>
   {% for bar_project in bar_project_list %}
-    <p><li><a href="{{ bar_project.get_absolute_url }}">{{ project }}</a></li></p>
+    <p><li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li></p>
   {% endfor %}
   </ul>
 
