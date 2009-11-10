@@ -21,6 +21,8 @@ def update_watchers(sender, instance, created, **kwargs):
         email_addresses = []
         for x in users:
             email_addresses.append(x.user.email)
+        if comment.content_object.assigned_to.user.email not in email_addresses:
+            email_address.append(comment.content_object.assigned_to.user.email)
         email_title = "%s has been updated by %s" % (comment.content_object.name, 
             comment.name)
         email_message = """
