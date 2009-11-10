@@ -87,3 +87,4 @@ INSTALLED_APPS = (
 )
 
 ACCOUNT_ACTIVIATION_DAYS = 7
+ISSUE_ADDRESS = "user@example.com"
