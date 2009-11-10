@@ -24,6 +24,13 @@
   {% if can_comment %}
     <p><a href="{% url project_file_upload project.slug issue.slug %}">Attach File to Issue</a></p>
   {% endif %}
+  {% if request.user.is_authenticated %}
+    {% if is_watching %}
+      <p><a href="{% url project_issue project.slug issue.slug %}?watch=no">Stop Watching</a></p>
+    {% else %}
+      <p><a href="{% url project_issue project.slug issue.slug %}?watch=yes">Watch Issue</a></p>
+    {% endif %}
+  {% endif %}
   <hr />
   {% for file in issue.fileupload_set.all %}
     {% if file %}

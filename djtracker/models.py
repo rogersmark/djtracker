@@ -205,6 +205,11 @@ class Issue(models.Model):
         blank=True,
         null=True
     )
+    watched_by = models.ManyToManyField(UserProfile,
+        blank=True,
+        null=True,
+        related_name="watched_set"
+    )
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_Date = models.DateTimeField(auto_now=True)

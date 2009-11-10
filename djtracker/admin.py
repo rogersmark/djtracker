@@ -80,7 +80,7 @@ class IssueAdmin(admin.ModelAdmin):
                 ('milestone', 'status'),
                 ('priority', 'issue_type'),
                 'description', ('created_by',
-                'assigned_to'),)
+                'assigned_to'), 'watched_by')
         }),
     )
 

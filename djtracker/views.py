@@ -198,12 +198,43 @@ def view_issue(request, project_slug, issue_slug):
     if utils.check_permissions("comment", request.user, project):
         can_comment = True
 
+    ## Check if we can modify
     can_modify = False
     if project.allow_anon_editing is True:
         can_modify = True
     if utils.check_permissions("", request.user, project):
         can_modify = True
-    
+
+    ## Check if we're watching
+    is_watching = False
+    if request.user.is_authenticated():
+        try:
+            profile = models.UserProfile.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            is_watching = False
+            profile = None
+        if profile in issue.watched_by.all():
+            is_watching = True
+
+    ## Check for GET variables
+    if "watch" in request.GET:
+        if request.GET['watch'] == "yes":
+            try:
+                profile = models.UserProfile.objects.get(user=request.user)
+            except ObjectDoesNotExist:
+                profile = models.UserProfile.create(user=request.user)
+                profile.save()
+            issue.watched_by.add(profile)
+            return HttpResponseRedirect(
+                reverse("project_issue", args=[project.slug, issue.slug])
+            )
+        elif request.GET['watch'] == "no":
+            profile = models.UserProfile.objects.get(user=request.user)
+            issue.watched_by.remove(profile)
+            return HttpResponseRedirect(
+                reverse("project_issue", args=[project.slug, issue.slug])
+            )
+                
     ## Check if we can view
     if project.allow_anon_viewing is False and request.user.is_authenticated() is False:
         return HttpResponseNotFound()
