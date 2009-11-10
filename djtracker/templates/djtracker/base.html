@@ -87,10 +87,10 @@ border-top: 1px solid gray;
 </p>
 <h4>Projects</h4>
 {% load get_objects %}
-  {% get_object_models "djtracker" "project" "name" "20" "project_list" %}
+  {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
   <ul>
-  {% for project in project_list %}
-    <p><li><a href="{{ project.get_absolute_url }}">{{ project }}</a></li></p>
+  {% for bar_project in bar_project_list %}
+    <p><li><a href="{{ bar_project.get_absolute_url }}">{{ project }}</a></li></p>
   {% endfor %}
   </ul>
 

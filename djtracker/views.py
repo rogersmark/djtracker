@@ -49,7 +49,9 @@ def view_category(request, cat_slug):
         if x.allow_anon_viewing or \
             utils.check_permissions("view", request.user, x):
             project_ids.append(x.id)
+            print project_ids
     project_list = models.Project.objects.filter(id__in=project_ids)
+    print project_list
     return render_to_response(
         "djtracker/index.html", locals(),
         context_instance=RequestContext(request))
