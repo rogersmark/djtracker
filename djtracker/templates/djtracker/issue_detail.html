@@ -47,12 +47,33 @@
   {% if comments %}
     <h4>Comments:</h4>
     {% for comment in comments %}
-      {{ comment }}
+      {% if comment.user %}
+        <p><a href="{{ comment.user.userprofile.get_absolute_url }}">{{ comment.user}}</a>: {{ comment.comment }}</p>
+      {% else %}
+        <p>{{ comment }}</p>
+      {% endif %}
     {% endfor %}
     <hr />
   {% endif %}
   {% if can_comment %}
   <h4>Update Issue</h4>
+  {% if request.user.is_authenticated %}
+    {% get_comment_form for issue as form %}
+    <form action="{% comment_form_target %}" method="POST">
+         {{ form.content_type }}
+         {{ form.object_pk }}
+         {{ form.timestamp }}
+         {{ form.security_hash }}
+      <p>{{ form.comment }}</p>
+      <p style="display:none">{{ form.honeypot }}</p>
+      <tr>
+        <td></td>
+        <td><input type="submit" name="post" class="submit-post" value="Post"></td>
+        <input type="hidden" name="next" value="{% url project_issue project.slug issue.slug %}" />
+      </tr>
+    </form>
+  {% else %}
     {% render_comment_form for issue %}
+  {% endif %}
   {% endif %}
 {% endblock %}
