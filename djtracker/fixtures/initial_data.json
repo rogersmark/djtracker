@@ -1,0 +1,198 @@
+[
+    {
+        "pk": 1, 
+        "model": "djtracker.userprofile", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:28:03", 
+            "user": 1, 
+            "instant_messanger": null, 
+            "created_date": "2009-11-09 20:28:03"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.category", 
+        "fields": {
+            "active": true, 
+            "modified_Date": "2009-11-09 20:28:39", 
+            "created_date": "2009-11-09 20:28:39", 
+            "name": "Django", 
+            "slug": "django"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.category", 
+        "fields": {
+            "active": true, 
+            "modified_Date": "2009-11-09 20:28:45", 
+            "created_date": "2009-11-09 20:28:45", 
+            "name": "Business", 
+            "slug": "business"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.project", 
+        "fields": {
+            "category": 2, 
+            "allow_anon_comment": true, 
+            "groups_can_view": [], 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. ", 
+            "modified_Date": "2009-11-09 20:29:15", 
+            "groups_can_edit": [], 
+            "groups_can_comment": [], 
+            "name": "Enterprise Application", 
+            "users_can_edit": [], 
+            "users_can_comment": [], 
+            "users_can_view": [], 
+            "created_date": "2009-11-09 20:29:15", 
+            "active": true, 
+            "allow_anon_viewing": true, 
+            "slug": "enterprise-application", 
+            "allow_anon_editing": true
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.project", 
+        "fields": {
+            "category": 1, 
+            "allow_anon_comment": true, 
+            "groups_can_view": [], 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. ", 
+            "modified_Date": "2009-11-09 20:35:22", 
+            "groups_can_edit": [], 
+            "groups_can_comment": [], 
+            "name": "Cool Django Application", 
+            "users_can_edit": [], 
+            "users_can_comment": [], 
+            "users_can_view": [], 
+            "created_date": "2009-11-09 20:29:34", 
+            "active": true, 
+            "allow_anon_viewing": true, 
+            "slug": "cool-django-application", 
+            "allow_anon_editing": true
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.milestone", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:30:21", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. ", 
+            "project": 1, 
+            "created_date": "2009-11-09 20:30:21", 
+            "active": true, 
+            "goal_date": "2009-11-25 20:30:19", 
+            "slug": "release-1", 
+            "name": "Release 1"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.milestone", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:30:34", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. ", 
+            "project": 2, 
+            "created_date": "2009-11-09 20:30:34", 
+            "active": true, 
+            "goal_date": "2009-11-22 20:30:32", 
+            "slug": "plug-done", 
+            "name": "Plug Done"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.component", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:29:51", 
+            "name": "Enterprise Component", 
+            "project": 1, 
+            "created_date": "2009-11-09 20:29:51", 
+            "active": true, 
+            "slug": "enterprise-component"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.component", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:29:59", 
+            "name": "Django Pluggable", 
+            "project": 2, 
+            "created_date": "2009-11-09 20:29:59", 
+            "active": true, 
+            "slug": "django-pluggable"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.version", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:30:45", 
+            "name": "1.0", 
+            "project": 1, 
+            "created_date": "2009-11-09 20:30:45", 
+            "active": true, 
+            "slug": "10"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.version", 
+        "fields": {
+            "modified_Date": "2009-11-09 20:30:51", 
+            "name": "2.0", 
+            "project": 2, 
+            "created_date": "2009-11-09 20:30:51", 
+            "active": true, 
+            "slug": "20"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Open", 
+            "priority": "Urgent", 
+            "name": "Too Enterprisey", 
+            "created_date": "2009-11-09 20:31:27", 
+            "modified_Date": "2009-11-09 20:31:27", 
+            "assigned_to": 1, 
+            "component": 2, 
+            "created_by": 1, 
+            "project": 2, 
+            "version": 2, 
+            "watched_by": [], 
+            "issue_type": "Defect", 
+            "milestone": 2, 
+            "active": true, 
+            "slug": "too-enterprisey", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. "
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": "Open", 
+            "priority": "Critical", 
+            "name": "Test Issue", 
+            "created_date": "2009-11-09 20:31:50", 
+            "modified_Date": "2009-11-09 20:31:50", 
+            "assigned_to": 1, 
+            "component": 1, 
+            "created_by": 1, 
+            "project": 1, 
+            "version": 1, 
+            "watched_by": [], 
+            "issue_type": "Feature Request", 
+            "milestone": 1, 
+            "active": true, 
+            "slug": "test-issue", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a magna elit, consectetur porta risus. Nulla aliquam elementum lacinia. Sed ultrices dictum lectus sit amet gravida. Curabitur quis dolor nunc. Nunc sagittis leo et leo molestie et volutpat quam condimentum. Donec sit amet pellentesque turpis. Etiam blandit, purus non pulvinar dignissim, lorem enim dictum nisi, vitae pulvinar orci mi et velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur nunc quam, accumsan eget bibendum ut, dictum in lorem. Donec orci leo, convallis et pellentesque et, tempus id dui. Donec at commodo leo. Aenean feugiat velit at velit pellentesque non pretium sapien ornare. Fusce tempus quam eget metus faucibus vehicula. Morbi mollis, lorem nec vestibulum mollis, erat nisi pulvinar diam, non dictum quam nisl at quam. Duis sodales elementum ullamcorper. In nisi erat, sodales at placerat at, molestie aliquet lacus. Nunc tincidunt sodales arcu non fringilla. "
+        }
+    }
+]
