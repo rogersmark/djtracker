@@ -14,8 +14,6 @@ def index(request):
     viewable_projects = []
     for x in projects:
         can_view, can_edit, can_comment = utils.check_perms(request, x)
-        print "%s. %s. %s." % (can_view, can_edit, can_comment)
-        print "Project: %s. Can view: %s" % (x, can_view)
         if can_view:
             viewable_projects.append(x.id)
 
@@ -197,7 +195,6 @@ def issue_attach(request, project_slug, issue_slug):
         return HttpResponseNotFound()
     else:
         if request.method == "POST":
-            print request.POST
             form = forms.FileUploadForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
