@@ -32,7 +32,7 @@ Project Creation:
             development. This'll allow you to view all issues still open before you reach the milestone completion
             point.
 
-        Permissions (70% complete):
+        Permissions (90% complete):
             DjTracker supports a permission scheme involving row level permissions. There are 3 levels of permissions:
 
                 View:
@@ -48,9 +48,6 @@ Project Creation:
                     issue, and comment on the issue. They will not be able to modify the issue though.
 
             These permissions break down into three methods so that you can give groups, individual users, or anonymous
-            users these permissions. The big piece left is allowing any authenticated user to view/modify/edit.
-            Currently if a user is authenticated, you need to manually assign their groups they're in, or them
-            individually to a permission schemes for each project.
 
 Issue Creation (90% complete):
 
@@ -59,14 +56,11 @@ Issue Creation (90% complete):
     you'll receive email updates on any comments to an issue. In the future you'll get notified on status changes, and
     other modifications of the issue as well.
 
-User Profiles (70% complete):
+User Profiles (80% complete):
 
     Currently I don't see an excessively large need for these, but that could change depending on use cases. As a result
     I went ahead and built a user profile module just in case. It's currently very limited, but you can view your
     profile (and the profile of others) to see what issues they have assigned to them. 
-
-    There is currently a security hole here, where anonymous users can see the titles of issues assigned to users, even
-    though they may not be able to browse the project they are assigned to.
 
 Installation:
 
