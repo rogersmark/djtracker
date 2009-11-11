@@ -22,10 +22,11 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         ('Project Permissions', {
             'fields': (('allow_anon_viewing', 'allow_anon_editing',
-                'allow_anon_comment',), ('groups_can_view',
-                'groups_can_edit', 'groups_can_comment',),
-                ('users_can_view', 'users_can_edit',
-                'users_can_comment'))
+                'allow_anon_comment',), ('allow_authed_viewing',
+                'allow_authed_editing', 'allow_authed_comment'),
+                ('groups_can_view', 'groups_can_edit', 
+                'groups_can_comment',), ('users_can_view', 
+                'users_can_edit', 'users_can_comment'),) 
         }),
     )
 

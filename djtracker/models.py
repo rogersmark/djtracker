@@ -62,6 +62,10 @@ class Project(models.Model):
     allow_anon_editing = models.BooleanField(default=False)
     allow_anon_comment = models.BooleanField(default=False)
 
+    allow_authed_viewing = models.BooleanField(default=False)
+    allow_authed_editing = models.BooleanField(default=False)
+    allow_authed_comment = models.BooleanField(default=False)
+
     groups_can_view = models.ManyToManyField(Group,
         blank=True,
         null=True,

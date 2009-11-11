@@ -7,8 +7,8 @@
       <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
     {% endif %}
     <hr />
-    {% if profile.issue_set.all %}
-      {% for issue in profile.issue_set.all %}
+    {% if assigned %}
+      {% for issue in assigned %}
         {% if forloop.first %}
           <h4>Assigned Issues:</h4>
           <ul>
@@ -19,8 +19,8 @@
         {% endif %}
       {% endfor %}
     {% endif %}
-    {% if profile.issue_creator.all %}
-       {% for issue in profile.issue_set.all %}
+    {% if created %}
+       {% for issue in created %}
         {% if forloop.first %}
           <h4>Created Issues:</h4>
           <ul>
