@@ -21,7 +21,7 @@ def index(request):
 
     return list_detail.object_list(request,
         queryset=display_projects,
-        extra_context={'user': request.user},
+        extra_context={'user': request.user, 'request': request},
         paginate_by=10,
         allow_empty=True,
         template_name="djtracker/index.html",

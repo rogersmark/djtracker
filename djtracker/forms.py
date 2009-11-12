@@ -45,6 +45,11 @@ class IssueForm(forms.ModelForm):
         queryset = models.UserProfile.objects.all(),
         required=False
     )
+    watched_by = forms.ModelMultipleChoiceField(
+        queryset=models.UserProfile.objects.all(),
+        widget=forms.HiddenInput,
+        required=False
+    )
 
     def __init__(self, project_id, can_edit, *args, **kwargs):
         super(IssueForm, self).__init__(*args, **kwargs)

@@ -1,5 +1,8 @@
 from django import template
 from django.db.models import get_model
+from django.template import resolve_variable
+
+from djtracker import utils
 
 register = template.Library()
 
@@ -16,6 +19,10 @@ class ModelObjectNode(template.Node):
 
     def render(self, context):
         try:
+            request = resolve_variable('request', context)
+        except:
+            request = None
+        try:
             model = get_model(self.app_name, self.model_name)
         except:
             raise TemplateSyntaxError, "Failed to retrieve model"
@@ -24,6 +31,13 @@ class ModelObjectNode(template.Node):
         object_list = object_list.order_by(self.sort)
         if object_list.count() > self.count:
             object_list = object_list[:self.count]
+        project_ids = []
+        for x in object_list:
+            if hasattr(x, "category_id") and request:
+                can_view, can_edit, can_comment = utils.check_perms(request, x)
+                if can_view:
+                    project_ids.append(x.id)
+                    object_list = model.objects.filter(id__in=project_ids)
         context.update({self.var_name: object_list})
         return ''
 

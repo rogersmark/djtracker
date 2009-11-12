@@ -38,7 +38,7 @@ urlpatterns += patterns('',
         {'template_name': 'djtracker/login.html'},
         'project_login'),
     (r'^profile/logout/$', 'django.contrib.auth.views.logout', 
-        {'template_name': 'djtracker/logout.html'},
+        {'template_name': 'djtracker/logout.html', 'next_page': '/'},
         'project_logout'),
 
 )
