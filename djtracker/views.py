@@ -51,11 +51,44 @@ def project_index(request, project_slug):
         return list_detail.object_detail(request,
             queryset=models.Project.objects.all(),
             extra_context={'can_comment': can_comment,
-                'open_issues': open_issues},
+                'open_issues': open_issues[:5]},
             slug=project_slug,
             template_name="djtracker/project_index.html",
             template_object_name="project"
         )
+
+def project_all_issues(request, project_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    issues = project.issue_set.all()
+    can_view, can_edit, can_comment = utils.check_perms(request, project)
+    status_choices = choices.STATUS_OPTIONS_ARRAY
+    priority_choices = choices.PRIORITIES_ARRAY
+    type_choices = choices.BUG_TYPES_ARRAY
+    if 'component' in request.GET:
+        if request.GET.get('component'):
+            issues = issues.filter(component__slug=request.GET.get('component'))
+    if 'version' in request.GET:
+        if request.GET.get('version'):
+            issues = issues.filter(version__slug=request.GET.get('version'))
+    if 'milestone' in request.GET:
+        if request.GET.get('milestone'):
+            issues = issues.filter(milestone__slug=request.GET.get('milestone'))
+    if 'status' in request.GET:
+        if request.GET.get('status'):
+            issues = issues.filter(status=request.GET.get('status'))
+    if 'type' in request.GET:
+        if request.GET.get('type'):
+            issues = issues.filter(issue_type=request.GET.get('type'))
+    if 'priority' in request.GET:
+        if request.GET.get('priority'):
+            issues = issues.filter(priority=request.GET.get('priority'))
+
+    if can_view is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/issue_view_all.html", locals(),
+            context_instance=RequestContext(request))
 
 def project_component(request, project_slug, modi_slug):
     project = get_object_or_404(models.Project, slug=project_slug)

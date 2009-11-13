@@ -38,6 +38,7 @@
         </ul>
       {% endif %}
     {% endfor %}
+      <p><a href="{% url project_all_issues project.slug %}">View all Issues</a></p>
     {% if can_comment %}
       <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>
     {% endif %}
