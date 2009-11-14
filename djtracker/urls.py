@@ -5,7 +5,6 @@ urlpatterns = patterns('djtracker.views',
     (r'^$', 'index', None, 'index'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/$', 'project_index', None, 'project_index'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/view_all/$', 'project_all_issues', None, 'project_all_issues'),
-    (r'^category/(?P<cat_slug>[a-z0-9-]+)/$', 'view_category', None, 'project_category'),
 
     ## View 'modifiers' (list issues by component, milestone, version
     (r'^project/(?P<project_slug>[a-z0-9-]+)/component/(?P<modi_slug>[a-z0-9-]+)/$', 

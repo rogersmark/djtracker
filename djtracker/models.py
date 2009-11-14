@@ -23,28 +23,6 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return ("project_user", (), {'username': self.user.username})
 
-class Category(models.Model):
-    """
-    Projects will be able to be assigned to different categories. For 
-    instance you may have some HR projects in here, as well as dev
-    projects
-    """
-    name = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True)
-    active = models.BooleanField(default=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.name
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ("project_category", (), {'cat_slug': self.slug})
-
-    class Meta:
-        verbose_name_plural = "Categories"
-
 class Project(models.Model):
     """
     Projects are the central location of where everything comes together. An
@@ -54,7 +32,6 @@ class Project(models.Model):
     ## Project descriptions
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
-    category = models.ForeignKey(Category)
     description = models.TextField(blank=True, null=True)
 
     ## Project level permissions
@@ -170,6 +147,54 @@ class Version(models.Model):
         return ("project_version", (), {'project_slug': self.project.slug,
             'modi_slug': self.slug})
 
+class Status(models.Model):
+    """
+    Status dictate what status an issue is in, such as open, closed, etc
+    """
+    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("project_status", (), {'project_slug': self.project.slug,
+            'status_slug': self.slug})
+
+class Priority(models.Model):
+    """
+    Priority dictates the emphasis an issue carries. Urgent, critical, etc
+    """
+    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("project_priority", (), {'project_slug': self.project.slug,
+            'priority_slug': self.slug})
+
+    class Meta:
+        verbose_name_plural = "Priorities"
+
+class IssueType(models.Model):
+    """
+    Bug, defect, feature request, etc
+    """
+    name = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ("project_issue_type", (), {'project_slug': self.project.slug,
+            'type_slug': self.slug})
+
 class Issue(models.Model):
     """
     This will be the root problem that is created. It will have a version,
@@ -190,15 +215,9 @@ class Issue(models.Model):
         blank=True,
         null=True
     )
-    status = models.CharField(max_length=128,
-        choices=choices.STATUS_OPTIONS
-    )
-    priority = models.CharField(max_length=128,
-        choices=choices.PRIORITIES
-    )
-    issue_type = models.CharField(max_length=128,
-        choices=choices.BUG_TYPES
-    )
+    status = models.ForeignKey(Status)
+    priority = models.ForeignKey(Priority)
+    issue_type = models.ForeignKey(IssueType)
     description = models.TextField()
     created_by = models.ForeignKey(UserProfile,
         blank=True,

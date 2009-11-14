@@ -1,23 +1,13 @@
 from django.contrib import admin
 from djtracker import models
 
-class CategoryAdmin(admin.ModelAdmin):
+class ProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'active',)
     list_filter = ('active',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
-        ('Category Information', {
-            'fields': ('name', 'slug', 'active')
-        }),
-    )
-
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'active',)
-    list_filter = ('active',)
-    prepopulated_fields = {'slug': ('name',)}
-    fieldsets = (
         ('Project Information', {
-            'fields': ('name', 'slug', 'category',
+            'fields': ('name', 'slug',
                 'description', 'active')
         }),
         ('Project Permissions', {
@@ -85,6 +75,15 @@ class IssueAdmin(admin.ModelAdmin):
         }),
     )
 
+class StatusAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+class PriorityAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+class IssueTypeAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
 class FileUploadAdmin(admin.ModelAdmin):
     pass
 
@@ -99,3 +98,6 @@ admin.site.register(models.Version, VersionAdmin)
 admin.site.register(models.Issue, IssueAdmin)
 admin.site.register(models.FileUpload, FileUploadAdmin)
 admin.site.register(models.UserProfile, UserProfileAdmin)
+admin.site.register(models.Status, StatusAdmin)
+admin.site.register(models.IssueType, IssueTypeAdmin)
+admin.site.register(models.Priority, PriorityAdmin)

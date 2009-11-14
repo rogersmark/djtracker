@@ -28,19 +28,6 @@ def index(request):
         template_object_name="project"
     )
 
-def view_category(request, cat_slug):
-    category = get_object_or_404(models.Category, slug=cat_slug)
-    project_ids = []
-    for x in category.project_set.all():
-        can_view, can_edit, can_comment = utils.check_perms(request, x)
-        if can_view:
-            project_ids.append(x.id)
-
-    project_list = models.Project.objects.filter(id__in=project_ids)
-    return render_to_response(
-        "djtracker/index.html", locals(),
-        context_instance=RequestContext(request))
-
 def project_index(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     open_issues = project.issue_set.filter(status="Open")
@@ -61,9 +48,9 @@ def project_all_issues(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     issues = project.issue_set.all()
     can_view, can_edit, can_comment = utils.check_perms(request, project)
-    status_choices = choices.STATUS_OPTIONS_ARRAY
-    priority_choices = choices.PRIORITIES_ARRAY
-    type_choices = choices.BUG_TYPES_ARRAY
+    status_choices = models.Status.objects.all()
+    priority_choices = models.Priority.objects.all()
+    type_choices = models.IssueType.objects.all()
     if 'component' in request.GET:
         if request.GET.get('component'):
             issues = issues.filter(component__slug=request.GET.get('component'))
@@ -271,3 +258,12 @@ def view_users(request):
         template_object_name="user"
     )
 
+def dashboard(request):
+    user = request.user
+    profile = user.userprofile
+    assigned_issues = models.Issue.objects.filter(assigned_to=profile)
+    created_issues = models.Issue.objects.filter(created_by=profile)
+    watched_issues = models.Issue.objects.filter(watched_by=profile)
+    return render_to_response(
+        "djtracker/user_dashboard.html", locals(),
+        context_instance=RequestContext(request))

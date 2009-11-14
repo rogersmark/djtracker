@@ -93,14 +93,6 @@ border-top: 1px solid gray;
     <p><li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li></p>
   {% endfor %}
   </ul>
-
-<h4>Project Categories</h4>
-  {% get_object_models "djtracker" "category" "name" "20" "cat_list" %}
-  <ul>
-  {% for cat in cat_list %}
-    <p><li><a href="{{ cat.get_absolute_url }}">{{ cat }}</a></li></p>
-  {% endfor %}
-  </ul>
 </div>
 <div id="content">
 {% block content %}

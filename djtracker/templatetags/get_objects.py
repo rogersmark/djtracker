@@ -33,7 +33,7 @@ class ModelObjectNode(template.Node):
             object_list = object_list[:self.count]
         project_ids = []
         for x in object_list:
-            if hasattr(x, "category_id") and request:
+            if hasattr(x, "allow_anon_viewing") and request:
                 can_view, can_edit, can_comment = utils.check_perms(request, x)
                 if can_view:
                     project_ids.append(x.id)
