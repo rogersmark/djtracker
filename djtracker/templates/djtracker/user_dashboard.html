@@ -1,0 +1,57 @@
+{% extends "djtracker/base.html" %}
+  {% block content %}
+  <h4>Recently Updated Issues: </h4>
+  {% for issue in recently_updated %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+
+  <h4>Assigned Issues: </h4>
+  {% for issue in assigned_issues %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+
+  <h4>Created Issues: </h4>
+  {% for issue in created_issues %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+
+  <h4>Watched Issues: </h4>
+  {% for issue in assigned_issues %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+
+  <h4>Commented Issues: </h4>
+  {% for issue in commented_issues %}
+    {% if forloop.first %}
+      <ul>
+    {% endif %}
+    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+    {% if forloop.last %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

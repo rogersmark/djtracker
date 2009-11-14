@@ -1,3 +1,5 @@
+import datetime
+
 from djtracker import models
 
 from django.contrib.auth.models import User
@@ -43,5 +45,13 @@ def update_watchers(sender, instance, created, **kwargs):
         send_mail(email_title, email_message, settings.ISSUE_ADDRESS,
             email_addresses, fail_silently=False)
 
+def update_modified_time(sender, instance, created, **kwargs):
+    comment = instance
+    if comment.content_type.name == "issue":
+        issue = comment.content_object
+        issue.modified_Date = datetime.datetime.now()
+        issue.save()
+
 post_save.connect(create_profile, sender=User)
 post_save.connect(update_watchers, sender=Comment)
+post_save.connect(update_modified_time, sender=Comment)

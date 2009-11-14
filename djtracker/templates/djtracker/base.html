@@ -70,6 +70,7 @@ border-top: 1px solid gray;
 {% if user %}
   {% if user.id %}
     <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
+    <a href="{% url project_user_dashboard %}">Dashboard</a><br />
     <a href="{% url project_logout %}">Logout</a><br />
   {% else %}
     <a href="{% url project_login %}">Login</a><br />

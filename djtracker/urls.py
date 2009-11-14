@@ -4,7 +4,15 @@ urlpatterns = patterns('djtracker.views',
     ## Project views
     (r'^$', 'index', None, 'index'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/$', 'project_index', None, 'project_index'),
-    (r'^project/(?P<project_slug>[a-z0-9-]+)/view_all/$', 'project_all_issues', None, 'project_all_issues'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/status/(?P<status_slug>[a-z0-9-]+)/$',
+        'project_status_issues', None, 'project_status'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/priority/(?P<priority_slug>[a-z0-9-]+)/$',
+        'project_priority_issues', None, 'project_priority'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/type/(?P<type_slug>[a-z0-9-]+)/$',
+        'project_type_issues', None, 'project_issue_type'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/view_all/$', 'project_all_issues', 
+        None, 'project_all_issues'),
+    
 
     ## View 'modifiers' (list issues by component, milestone, version
     (r'^project/(?P<project_slug>[a-z0-9-]+)/component/(?P<modi_slug>[a-z0-9-]+)/$', 
@@ -29,6 +37,7 @@ urlpatterns = patterns('djtracker.views',
         None, 'project_file_upload'),
 
     ## Profile views
+    (r'^profile/dashboard/$', 'dashboard', None, 'project_user_dashboard'),
     (r'^profile/detail/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
     (r'^profile/list/$', 'view_users', None, 'project_user_list'),
 )

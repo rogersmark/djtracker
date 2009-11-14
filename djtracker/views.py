@@ -2,6 +2,7 @@ from djtracker import models, choices, utils, forms
 
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User, Group
+from django.contrib.comments.models import Comment
 from django.core.urlresolvers import reverse
 from django.views.generic import list_detail
 from django.template import RequestContext
@@ -43,6 +44,48 @@ def project_index(request, project_slug):
             template_name="djtracker/project_index.html",
             template_object_name="project"
         )
+
+def project_status_issues(request, project_slug, status_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    issues = project.issue_set.filter(status__slug=status_slug)
+    can_view, can_edit, can_comment = utils.check_perms(request, project)
+    status_choices = models.Status.objects.all()
+    priority_choices = models.Priority.objects.all()
+    type_choices = models.IssueType.objects.all()
+    if can_view is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/issue_view_all.html", locals(),
+            context_instance=RequestContext(request))        
+
+def project_priority_issues(request, project_slug, priority_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    issues = project.issue_set.filter(priority__slug=priority_slug)
+    can_view, can_edit, can_comment = utils.check_perms(request, project)
+    status_choices = models.Status.objects.all()
+    priority_choices = models.Priority.objects.all()
+    type_choices = models.IssueType.objects.all()
+    if can_view is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/issue_view_all.html", locals(),
+            context_instance=RequestContext(request))
+
+def project_type_issues(request, project_slug, type_slug):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    issues = project.issue_set.filter(issue_type__slug=type_slug)
+    can_view, can_edit, can_comment = utils.check_perms(request, project)
+    status_choices = models.Status.objects.all()
+    priority_choices = models.Priority.objects.all()
+    type_choices = models.IssueType.objects.all()
+    if can_view is False:
+        return HttpResponseNotFound()
+    else:
+        return render_to_response(
+            "djtracker/issue_view_all.html", locals(),
+            context_instance=RequestContext(request))        
 
 def project_all_issues(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
@@ -264,6 +307,31 @@ def dashboard(request):
     assigned_issues = models.Issue.objects.filter(assigned_to=profile)
     created_issues = models.Issue.objects.filter(created_by=profile)
     watched_issues = models.Issue.objects.filter(watched_by=profile)
+    comments = []
+    for x in Comment.objects.all():
+        if x.content_type.name == "issue":
+            if x.user == user:
+                print x.id
+                comments.append(x.content_object.id)
+
+    commented_issues = models.Issue.objects.filter(id__in=comments)
+    all_relevant_issues = []
+    for x in assigned_issues:
+        if x not in all_relevant_issues:
+            all_relevant_issues.append(x.id)
+    for x in created_issues:
+        if x not in all_relevant_issues:
+            all_relevant_issues.append(x.id)
+    for x in watched_issues:
+        if x not in all_relevant_issues:
+            all_relevant_issues.append(x.id)
+    for x in commented_issues:
+        if x not in all_relevant_issues:
+            all_relevant_issues.append(x.id)
+
+    recently_updated = models.Issue.objects.filter(
+        id__in=all_relevant_issues).order_by(
+        '-modified_Date')
     return render_to_response(
         "djtracker/user_dashboard.html", locals(),
         context_instance=RequestContext(request))
