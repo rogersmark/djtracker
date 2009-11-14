@@ -90,7 +90,6 @@ class FileUploadAdmin(admin.ModelAdmin):
 class UserProfileAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Project, ProjectAdmin)
 admin.site.register(models.Milestone, MilestoneAdmin)
 admin.site.register(models.Component, ComponentAdmin)

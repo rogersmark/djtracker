@@ -26,15 +26,6 @@ class IssueForm(forms.ModelForm):
         queryset=models.Milestone.objects.none(),
         required=False
     )
-    status = forms.ChoiceField(
-        choices=choices.STATUS_OPTIONS
-    )
-    priority = forms.ChoiceField(
-        choices=choices.PRIORITIES
-    )
-    issue_type = forms.ChoiceField(
-        choices=choices.BUG_TYPES
-    )
     description = forms.CharField(widget=forms.Textarea)
     created_by = forms.ModelChoiceField(
         queryset = models.UserProfile.objects.all(),
