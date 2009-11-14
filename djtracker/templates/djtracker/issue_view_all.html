@@ -36,7 +36,7 @@
           {% if forloop.first %}
             <option value="">-----</option>
           {% endif %}
-          <option value="{{ x }}">{{ x }}</option>
+          <option value="{{ x.slug }}">{{ x }}</option>
         {% endfor %}
       </select>  
       </p>
@@ -45,7 +45,7 @@
           {% if forloop.first %}
             <option value="">-----</option>
           {% endif %}
-          <option value="{{ x }}">{{ x }}</option>
+          <option value="{{ x.slug }}">{{ x }}</option>
         {% endfor %}
         </select>
         </p>
@@ -54,7 +54,7 @@
           {% if forloop.first %}
             <option value="">-----</option>
           {% endif %}
-          <option value="{{ x }}">{{ x }}</option>
+          <option value="{{ x.slug }}">{{ x }}</option>
         {% endfor %}
       </select>
       </p>

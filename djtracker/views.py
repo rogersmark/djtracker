@@ -62,13 +62,13 @@ def project_all_issues(request, project_slug):
             issues = issues.filter(milestone__slug=request.GET.get('milestone'))
     if 'status' in request.GET:
         if request.GET.get('status'):
-            issues = issues.filter(status=request.GET.get('status'))
+            issues = issues.filter(status__slug=request.GET.get('status'))
     if 'type' in request.GET:
         if request.GET.get('type'):
-            issues = issues.filter(issue_type=request.GET.get('type'))
+            issues = issues.filter(issue_type__slug=request.GET.get('type'))
     if 'priority' in request.GET:
         if request.GET.get('priority'):
-            issues = issues.filter(priority=request.GET.get('priority'))
+            issues = issues.filter(priority__slug=request.GET.get('priority'))
 
     if can_view is False:
         return HttpResponseNotFound()

@@ -11,6 +11,68 @@
     }, 
     {
         "pk": 1, 
+        "model": "djtracker.project", 
+        "fields": {
+            "allow_anon_comment": false, 
+            "modified_Date": "2009-11-14 16:50:17", 
+            "allow_authed_editing": true, 
+            "groups_can_comment": [], 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in diam est. In id tortor vitae nulla iaculis imperdiet. Quisque scelerisque ipsum suscipit nibh scelerisque gravida. In sit amet dolor lectus. Vestibulum sit amet consectetur urna. Nam sit amet ligula ac turpis consequat dapibus sed et leo. Donec eget quam massa. Sed ac porta ante. In mi metus, rhoncus quis viverra in, vulputate eu erat. Aenean facilisis mauris nec lacus congue tempor. Vivamus facilisis, augue at imperdiet interdum, velit urna consequat nisi, sed tempus erat felis sed turpis. Suspendisse bibendum leo vel metus ultrices congue. In fringilla purus varius velit rutrum eget faucibus turpis blandit. Cras mauris metus, cursus et hendrerit id, rutrum at purus. Vestibulum accumsan tincidunt ante sed pretium. Phasellus nec mattis lacus.", 
+            "groups_can_edit": [], 
+            "users_can_comment": [], 
+            "allow_authed_viewing": true, 
+            "groups_can_view": [], 
+            "name": "Default Project", 
+            "users_can_edit": [], 
+            "allow_authed_comment": true, 
+            "users_can_view": [], 
+            "created_date": "2009-11-14 16:50:17", 
+            "active": true, 
+            "allow_anon_viewing": true, 
+            "slug": "default-project", 
+            "allow_anon_editing": false
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.milestone", 
+        "fields": {
+            "modified_Date": "2009-11-14 16:52:10", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in diam est. In id tortor vitae nulla iaculis imperdiet. Quisque scelerisque ipsum suscipit nibh scelerisque gravida. In sit amet dolor lectus. Vestibulum sit amet consectetur urna. Nam sit amet ligula ac turpis consequat dapibus sed et leo. Donec eget quam massa. Sed ac porta ante. In mi metus, rhoncus quis viverra in, vulputate eu erat. Aenean facilisis mauris nec lacus congue tempor. Vivamus facilisis, augue at imperdiet interdum, velit urna consequat nisi, sed tempus erat felis sed turpis. Suspendisse bibendum leo vel metus ultrices congue. In fringilla purus varius velit rutrum eget faucibus turpis blandit. Cras mauris metus, cursus et hendrerit id, rutrum at purus. Vestibulum accumsan tincidunt ante sed pretium. Phasellus nec mattis lacus.", 
+            "project": 1, 
+            "created_date": "2009-11-14 16:52:10", 
+            "active": true, 
+            "goal_date": "2009-11-24 16:52:08", 
+            "slug": "default-milestone", 
+            "name": "Default Milestone"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.component", 
+        "fields": {
+            "modified_Date": "2009-11-14 16:52:19", 
+            "name": "Default Component", 
+            "project": 1, 
+            "created_date": "2009-11-14 16:52:19", 
+            "active": true, 
+            "slug": "default-component"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.version", 
+        "fields": {
+            "modified_Date": "2009-11-14 16:52:41", 
+            "name": "Default Version", 
+            "project": 1, 
+            "created_date": "2009-11-14 16:52:41", 
+            "active": true, 
+            "slug": "default-version"
+        }
+    }, 
+    {
+        "pk": 1, 
         "model": "djtracker.status", 
         "fields": {
             "name": "Open", 
@@ -111,6 +173,30 @@
         "fields": {
             "name": "Feature Request", 
             "slug": "feature-request"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "djtracker.issue", 
+        "fields": {
+            "status": 1, 
+            "priority": 2, 
+            "name": "Test Issue", 
+            "created_date": "2009-11-14 16:52:57", 
+            "modified_Date": "2009-11-14 16:52:57", 
+            "assigned_to": 1, 
+            "component": 1, 
+            "created_by": 1, 
+            "project": 1, 
+            "version": 1, 
+            "watched_by": [
+                1
+            ], 
+            "issue_type": 1, 
+            "milestone": 1, 
+            "active": true, 
+            "slug": "test-issue", 
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in diam est. In id tortor vitae nulla iaculis imperdiet. Quisque scelerisque ipsum suscipit nibh scelerisque gravida. In sit amet dolor lectus. Vestibulum sit amet consectetur urna. Nam sit amet ligula ac turpis consequat dapibus sed et leo. Donec eget quam massa. Sed ac porta ante. In mi metus, rhoncus quis viverra in, vulputate eu erat. Aenean facilisis mauris nec lacus congue tempor. Vivamus facilisis, augue at imperdiet interdum, velit urna consequat nisi, sed tempus erat felis sed turpis. Suspendisse bibendum leo vel metus ultrices congue. In fringilla purus varius velit rutrum eget faucibus turpis blandit. Cras mauris metus, cursus et hendrerit id, rutrum at purus. Vestibulum accumsan tincidunt ante sed pretium. Phasellus nec mattis lacus."
         }
     }
 ]
