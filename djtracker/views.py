@@ -335,3 +335,36 @@ def dashboard(request):
     return render_to_response(
         "djtracker/user_dashboard.html", locals(),
         context_instance=RequestContext(request))
+
+def protected_files(request, project_slug, file_id):
+    project = get_object_or_404(models.Project, slug=project_slug)
+    file = get_object_or_404(models.FileUpload, id=file_id)
+    can_view, can_edit, can_modify = utils.check_perms(request, project)
+
+    if settings.WEB_SERVER == 'nginx':
+        if can_view is False:
+            return HttpResponseNotFound()
+        else:
+            response = HttpResponse()
+            response['Content-Type'] = ""
+            response['X-Accel-Redirect'] = file.get_absolute_url()
+            return response
+
+    elif settings.WEB_SERVER == 'apache':
+        if can_view is False:
+            return HttpResponseNotFound()
+        else:
+            response = HttpResponse()
+            response['X-Sendfile'] = os.path.join(
+                settings.MEDIA_ROOT, file.file)
+            content_type, encoding = mimetypes.guess_type(
+                file.file)
+            if not content_type:
+                content_type = 'application/cotet-stream'
+            response['Content-Type'] = content_type
+            #response['Content-Length'] = None
+            response['Content-Disposition'] = 'attachment; filename="%s"' % \
+                file.get_absolute_url()
+            return response
+    else:
+        return HttpResponseNotFound()
