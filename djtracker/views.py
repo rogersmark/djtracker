@@ -364,11 +364,11 @@ def project_issue_file(request, project_slug, file_id):
             content_type, encoding = mimetypes.guess_type(
                 file.file.read())
             if not content_type:
-                content_type = 'application/cotet-stream'
+                content_type = 'application/octet-stream'
             response['Content-Type'] = content_type
             response['Content-Length'] = file.file.size
             response['Content-Disposition'] = 'attachment; filename="%s"' % \
-                file.get_absolute_url()
+                file.file.name
             return response
     else:
         return HttpResponseNotFound()

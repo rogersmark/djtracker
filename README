@@ -80,7 +80,8 @@ Installation:
                 WEB_SERVER = "apache"
 
             This is the address issue updates will be sent from, and to handle sending files from protected locations.
-            WEB_SERVER can be 'apache' or 'nginx'. The app will default to Apache if left unset.
+            WEB_SERVER can be 'apache' or 'nginx'. The app will default to Apache if left unset. If you do use Apache
+            you will need to install the mod_xsendfile module ( http://tn123.ath.cx/mod_xsendfile/ ). 
 
         URLs:
             You'll need the following URL pattern:
