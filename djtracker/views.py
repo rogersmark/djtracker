@@ -1,3 +1,6 @@
+import os
+import mimetypes
+
 from djtracker import models, choices, utils, forms
 
 from django.http import HttpResponseNotFound
@@ -9,6 +12,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
 
 def index(request):
     projects = models.Project.objects.filter(active=True)
@@ -336,7 +340,7 @@ def dashboard(request):
         "djtracker/user_dashboard.html", locals(),
         context_instance=RequestContext(request))
 
-def protected_files(request, project_slug, file_id):
+def project_issue_file(request, project_slug, file_id):
     project = get_object_or_404(models.Project, slug=project_slug)
     file = get_object_or_404(models.FileUpload, id=file_id)
     can_view, can_edit, can_modify = utils.check_perms(request, project)
@@ -356,13 +360,13 @@ def protected_files(request, project_slug, file_id):
         else:
             response = HttpResponse()
             response['X-Sendfile'] = os.path.join(
-                settings.MEDIA_ROOT, file.file)
+                settings.MEDIA_ROOT, file.file.path)
             content_type, encoding = mimetypes.guess_type(
-                file.file)
+                file.file.read())
             if not content_type:
                 content_type = 'application/cotet-stream'
             response['Content-Type'] = content_type
-            #response['Content-Length'] = None
+            response['Content-Length'] = file.file.size
             response['Content-Disposition'] = 'attachment; filename="%s"' % \
                 file.get_absolute_url()
             return response

@@ -75,10 +75,12 @@ Installation:
             django-registration
 
         Settings:
-            There's only one setting addition you'll need:
+            There's only two setting additions you'll need:
                 ISSUE_ADDRESS = "user@example.com"
+                WEB_SERVER = "apache"
 
-            This is the address issue updates will be sent from.
+            This is the address issue updates will be sent from, and to handle sending files from protected locations.
+            WEB_SERVER can be 'apache' or 'nginx'. The app will default to Apache if left unset.
 
         URLs:
             You'll need the following URL pattern:

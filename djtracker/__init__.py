@@ -55,3 +55,6 @@ def update_modified_time(sender, instance, created, **kwargs):
 post_save.connect(create_profile, sender=User)
 post_save.connect(update_watchers, sender=Comment)
 post_save.connect(update_modified_time, sender=Comment)
+
+if not hasattr(settings, "WEB_SERVER"):
+    settings.WEB_SERVER = 'apache'

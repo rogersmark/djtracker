@@ -261,5 +261,6 @@ class FileUpload(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ("project_file", (), {'file': self.file})
+            return ("project_issue_file", (), {'project_slug': self.issue.project.slug,
+                                               'file_id': self.id})
 

@@ -12,7 +12,8 @@ urlpatterns = patterns('djtracker.views',
         'project_type_issues', None, 'project_issue_type'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/view_all/$', 'project_all_issues', 
         None, 'project_all_issues'),
-    
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/file/(?P<file_id>[-\d]+)/$',
+        'project_issue_file', None, 'project_issue_file'),
 
     ## View 'modifiers' (list issues by component, milestone, version
     (r'^project/(?P<project_slug>[a-z0-9-]+)/component/(?P<modi_slug>[a-z0-9-]+)/$', 
