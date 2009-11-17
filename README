@@ -81,7 +81,16 @@ Installation:
 
             This is the address issue updates will be sent from, and to handle sending files from protected locations.
             WEB_SERVER can be 'apache' or 'nginx'. The app will default to Apache if left unset. If you do use Apache
-            you will need to install the mod_xsendfile module ( http://tn123.ath.cx/mod_xsendfile/ ). 
+            you will need to install the mod_xsendfile module ( http://tn123.ath.cx/mod_xsendfile/ ). Using this you may
+            run into the issue that /media/attachments/ will be served by Apache regardless, if they go directly to the
+            path of the file where Apache will serve it. This can be circumvented with a directive such as:
+
+            <Directory /var/www/domains/f4ntasmic.com/issues/htdocs/media/attachments/>
+               Deny from all
+            </Directory>
+
+            Django will still be able to get there, but everyday users won't be able to. This will lock it down so that
+            only authenticated users can get to the file. Nginx, much more straight forward.
 
         URLs:
             You'll need the following URL pattern:
