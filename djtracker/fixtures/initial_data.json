@@ -3,7 +3,7 @@
         "pk": 1, 
         "model": "djtracker.userprofile", 
         "fields": {
-            "modified_Date": "2009-11-14 16:40:33", 
+            "modified_date": "2009-11-14 16:40:33", 
             "user": 1, 
             "instant_messanger": null, 
             "created_date": "2009-11-14 16:40:33"
@@ -14,7 +14,7 @@
         "model": "djtracker.project", 
         "fields": {
             "allow_anon_comment": false, 
-            "modified_Date": "2009-11-14 16:50:17", 
+            "modified_date": "2009-11-14 16:50:17", 
             "allow_authed_editing": true, 
             "groups_can_comment": [], 
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in diam est. In id tortor vitae nulla iaculis imperdiet. Quisque scelerisque ipsum suscipit nibh scelerisque gravida. In sit amet dolor lectus. Vestibulum sit amet consectetur urna. Nam sit amet ligula ac turpis consequat dapibus sed et leo. Donec eget quam massa. Sed ac porta ante. In mi metus, rhoncus quis viverra in, vulputate eu erat. Aenean facilisis mauris nec lacus congue tempor. Vivamus facilisis, augue at imperdiet interdum, velit urna consequat nisi, sed tempus erat felis sed turpis. Suspendisse bibendum leo vel metus ultrices congue. In fringilla purus varius velit rutrum eget faucibus turpis blandit. Cras mauris metus, cursus et hendrerit id, rutrum at purus. Vestibulum accumsan tincidunt ante sed pretium. Phasellus nec mattis lacus.", 
@@ -37,7 +37,7 @@
         "pk": 1, 
         "model": "djtracker.milestone", 
         "fields": {
-            "modified_Date": "2009-11-14 16:52:10", 
+            "modified_date": "2009-11-14 16:52:10", 
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in diam est. In id tortor vitae nulla iaculis imperdiet. Quisque scelerisque ipsum suscipit nibh scelerisque gravida. In sit amet dolor lectus. Vestibulum sit amet consectetur urna. Nam sit amet ligula ac turpis consequat dapibus sed et leo. Donec eget quam massa. Sed ac porta ante. In mi metus, rhoncus quis viverra in, vulputate eu erat. Aenean facilisis mauris nec lacus congue tempor. Vivamus facilisis, augue at imperdiet interdum, velit urna consequat nisi, sed tempus erat felis sed turpis. Suspendisse bibendum leo vel metus ultrices congue. In fringilla purus varius velit rutrum eget faucibus turpis blandit. Cras mauris metus, cursus et hendrerit id, rutrum at purus. Vestibulum accumsan tincidunt ante sed pretium. Phasellus nec mattis lacus.", 
             "project": 1, 
             "created_date": "2009-11-14 16:52:10", 
@@ -51,7 +51,7 @@
         "pk": 1, 
         "model": "djtracker.component", 
         "fields": {
-            "modified_Date": "2009-11-14 16:52:19", 
+            "modified_date": "2009-11-14 16:52:19", 
             "name": "Default Component", 
             "project": 1, 
             "created_date": "2009-11-14 16:52:19", 
@@ -63,7 +63,7 @@
         "pk": 1, 
         "model": "djtracker.version", 
         "fields": {
-            "modified_Date": "2009-11-14 16:52:41", 
+            "modified_date": "2009-11-14 16:52:41", 
             "name": "Default Version", 
             "project": 1, 
             "created_date": "2009-11-14 16:52:41", 
@@ -183,7 +183,7 @@
             "priority": 2, 
             "name": "Test Issue", 
             "created_date": "2009-11-14 16:52:57", 
-            "modified_Date": "2009-11-14 16:52:57", 
+            "modified_date": "2009-11-14 16:52:57", 
             "assigned_to": 1, 
             "component": 1, 
             "created_by": 1, 

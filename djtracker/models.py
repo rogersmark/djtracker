@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     )
     user = models.OneToOneField(User, unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.user.username
@@ -77,7 +77,7 @@ class Project(models.Model):
 
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -97,7 +97,7 @@ class Milestone(models.Model):
     goal_date = models.DateTimeField(blank=True, null=True)
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -117,7 +117,7 @@ class Component(models.Model):
     project = models.ForeignKey(Project)
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -137,7 +137,7 @@ class Version(models.Model):
     project = models.ForeignKey(Project)
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -235,7 +235,7 @@ class Issue(models.Model):
     )
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name
@@ -254,7 +254,7 @@ class FileUpload(models.Model):
     file = models.FileField(upload_to='attachments')
     issue = models.ForeignKey(Issue)
     created_date = models.DateTimeField(auto_now_add=True)
-    modified_Date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name

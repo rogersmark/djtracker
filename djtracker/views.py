@@ -335,7 +335,7 @@ def dashboard(request):
 
     recently_updated = models.Issue.objects.filter(
         id__in=all_relevant_issues).order_by(
-        '-modified_Date')
+        '-modified_date')
     return render_to_response(
         "djtracker/user_dashboard.html", locals(),
         context_instance=RequestContext(request))
