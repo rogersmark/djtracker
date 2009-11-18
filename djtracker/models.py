@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.core.urlresolvers import reverse
 
 from djtracker import choices
 
@@ -264,3 +265,47 @@ class FileUpload(models.Model):
             return ("project_issue_file", (), {'project_slug': self.issue.project.slug,
                                                'file_id': self.id})
 
+class IssueFilter(models.Model):
+    """
+    This allows users to save their favorite view filters
+    """
+    project = models.ForeignKey(Project)
+    user = models.ForeignKey(UserProfile,
+        blank=True,
+        null=True
+    )
+    component = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    version = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    milestone = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    status = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    type = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    priority = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+
+    def __unicode__(self):
+        return "Filter for %s" % self.user
+
+    def get_filtered_url(self):
+        base_url = reverse("project_all_issues", kwargs={'project_slug': self.project.slug})
+        get_vars = "?component=%s&version=%s&milestone=%s&status=%s&type=%s&priority=%s" % (
+            self.component, self.version, self.milestone, self.status, self.type,
+            self.priority)
+        final_url = base_url + get_vars
+        return final_url

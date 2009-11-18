@@ -116,6 +116,19 @@ def project_all_issues(request, project_slug):
     if 'priority' in request.GET:
         if request.GET.get('priority'):
             issues = issues.filter(priority__slug=request.GET.get('priority'))
+    if 'save' in request.GET:
+        if request.GET.get('priority'):
+            filter = models.IssueFilter()
+            filter.component = request.GET.get('component')
+            filter.version = request.GET.get('version')
+            filter.milestone = request.GET.get('milestone')
+            filter.status = request.GET.get('status')
+            filter.type = request.GET.get('type')
+            filter.priority = request.GET.get('priority')
+            filter.project = project
+            if request.user.is_authenticated():
+                filter.user = request.user.userprofile
+            filter.save()
 
     if can_view is False:
         return HttpResponseNotFound()
