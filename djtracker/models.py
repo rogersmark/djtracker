@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
-from djtracker import choices
-
 class UserProfile(models.Model):
     """
     Extension of User to allow for more detailed information about a

@@ -1,4 +1,4 @@
-from djtracker import models, choices
+from djtracker import models 
 
 from django import forms
 from django.contrib.auth.models import User, Group

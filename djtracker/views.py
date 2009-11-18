@@ -1,7 +1,7 @@
 import os
 import mimetypes
 
-from djtracker import models, choices, utils, forms
+from djtracker import models, utils, forms
 
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User, Group
@@ -35,7 +35,7 @@ def index(request):
 
 def project_index(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
-    open_issues = project.issue_set.filter(status="Open")
+    open_issues = project.issue_set.filter(status__slug="open")
     can_view, can_edit, can_comment = utils.check_perms(request, project)
     if can_view is False:
         return HttpResponseNotFound()
