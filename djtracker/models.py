@@ -274,6 +274,7 @@ class IssueFilter(models.Model):
         blank=True,
         null=True
     )
+    name = models.CharField(max_length=256)
     component = models.CharField(max_length=256,
         blank=True,
         null=True
@@ -300,7 +301,7 @@ class IssueFilter(models.Model):
     )
 
     def __unicode__(self):
-        return "Filter for %s" % self.user
+        return "Filter for %s: %s" % (self.user, self.name)
 
     def get_filtered_url(self):
         base_url = reverse("project_all_issues", kwargs={'project_slug': self.project.slug})

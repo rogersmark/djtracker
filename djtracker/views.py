@@ -117,8 +117,9 @@ def project_all_issues(request, project_slug):
         if request.GET.get('priority'):
             issues = issues.filter(priority__slug=request.GET.get('priority'))
     if 'save' in request.GET:
-        if request.GET.get('priority'):
+        if request.GET.get('priority') and request.GET.get('savename'):
             filter = models.IssueFilter()
+            filter.name = request.GET.get('savename')
             filter.component = request.GET.get('component')
             filter.version = request.GET.get('version')
             filter.milestone = request.GET.get('milestone')
