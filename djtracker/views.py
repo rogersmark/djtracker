@@ -3,6 +3,7 @@ import mimetypes
 
 from djtracker import models, utils, forms
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User, Group
 from django.contrib.comments.models import Comment
@@ -384,5 +385,15 @@ def project_issue_file(request, project_slug, file_id):
             response['Content-Disposition'] = 'attachment; filename="%s"' % \
                 file.file.name
             return response
+    else:
+        return HttpResponseNotFound()
+
+@login_required
+def filter_delete(request, filter_id):
+    filter = get_object_or_404(models.IssueFilter, id=filter_id)
+    if request.user.userprofile == filter.user:
+        filter.delete()
+        return HttpResponseRedirect(reverse(
+            "project_user_dashboard"))
     else:
         return HttpResponseNotFound()

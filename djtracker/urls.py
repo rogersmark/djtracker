@@ -41,6 +41,8 @@ urlpatterns = patterns('djtracker.views',
     (r'^profile/dashboard/$', 'dashboard', None, 'project_user_dashboard'),
     (r'^profile/detail/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
     (r'^profile/list/$', 'view_users', None, 'project_user_list'),
+    (r'^profile/filter/delete/(?P<filter_id>[\d]+)/$', 'filter_delete', None,
+        'project_filter_delete'),
 )
 
 urlpatterns += patterns('',

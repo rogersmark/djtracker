@@ -70,6 +70,7 @@
         <ul>
       {% endif %}
       <li><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a>
+        <a href="{% url project_filter_delete issue_filter.id %}">Delete Filter</a>
       {% if forloop.last %}
         </ul>
       {% endif %}
