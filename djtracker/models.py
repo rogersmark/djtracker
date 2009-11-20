@@ -32,6 +32,14 @@ class Project(models.Model):
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
+    git_repo_path = models.CharField(max_length=1024,
+        blank=True,
+        null=True
+    )
+    git_repo_commit = models.TextField(max_length=512,
+        blank=True,
+        null=True
+    )
 
     ## Project level permissions
     allow_anon_viewing = models.BooleanField(default=False)

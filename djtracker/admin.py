@@ -8,7 +8,8 @@ class ProjectAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Project Information', {
             'fields': ('name', 'slug',
-                'description', 'active')
+                'description', 'active',
+                'git_repo_path', 'git_repo_commit',)
         }),
         ('Project Permissions', {
             'fields': (('allow_anon_viewing', 'allow_anon_editing',

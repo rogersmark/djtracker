@@ -28,7 +28,7 @@ setup(
     keywords = "django issue tracker",
     description = "An issue tracker built with django",
     install_requires=[
-        '',
+        'gitpython',
     ],
     classifiers = [
         "Intended Audience :: Developers",
