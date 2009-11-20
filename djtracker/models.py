@@ -200,7 +200,6 @@ class Issue(models.Model):
     component, and so on.
     """
     name = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True)
     project = models.ForeignKey(Project)
     component = models.ForeignKey(Component,
         blank=True,
@@ -242,7 +241,7 @@ class Issue(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ("project_issue", (), {'project_slug': self.project.slug,
-            'issue_slug': self.slug})
+            'issue_id': self.id})
 
 class FileUpload(models.Model):
     """

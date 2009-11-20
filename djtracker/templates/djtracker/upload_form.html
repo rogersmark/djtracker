@@ -1,6 +1,6 @@
 {% extends "djtracker/base.html" %}
 {% block content %}
-  <form enctype="multipart/form-data" action="{% url project_file_upload project.slug issue.slug %}" method="post"> 
+  <form enctype="multipart/form-data" action="{% url project_file_upload project.slug issue.id %}" method="post"> 
     {% if form.errors %}
       {{ form.errors }}
     {% endif %}

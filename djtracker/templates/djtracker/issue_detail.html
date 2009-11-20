@@ -19,16 +19,16 @@
     <p><li>Issue Type: {{ issue.issue_type }}</li></p>
     <p><li>Description: {{ issue.description }}</li></p>
   {% if can_modify %}
-    <p><a href="{% url project_modify_issue project.slug issue.slug %}">Modify Issue</a></p>
+    <p><a href="{% url project_modify_issue project.slug issue.id %}">Modify Issue</a></p>
   {% endif %}
   {% if can_comment %}
-    <p><a href="{% url project_file_upload project.slug issue.slug %}">Attach File to Issue</a></p>
+    <p><a href="{% url project_file_upload project.slug issue.id %}">Attach File to Issue</a></p>
   {% endif %}
   {% if request.user.is_authenticated %}
     {% if is_watching %}
-      <p><a href="{% url project_issue project.slug issue.slug %}?watch=no">Stop Watching</a></p>
+      <p><a href="{% url project_issue project.slug issue.id %}?watch=no">Stop Watching</a></p>
     {% else %}
-      <p><a href="{% url project_issue project.slug issue.slug %}?watch=yes">Watch Issue</a></p>
+      <p><a href="{% url project_issue project.slug issue.id %}?watch=yes">Watch Issue</a></p>
     {% endif %}
   {% endif %}
   <hr />
@@ -69,7 +69,7 @@
       <tr>
         <td></td>
         <td><input type="submit" name="post" class="submit-post" value="Post"></td>
-        <input type="hidden" name="next" value="{% url project_issue project.slug issue.slug %}" />
+        <input type="hidden" name="next" value="{% url project_issue project.slug issue.id %}" />
       </tr>
     </form>
   {% else %}

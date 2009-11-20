@@ -61,10 +61,9 @@ class IssueAdmin(admin.ModelAdmin):
     list_filter = ('active', 'project', 'component',
         'version', 'milestone', 'status',
         'priority',)
-    prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         ('General Information', {
-            'fields': ('name', 'slug', 'active')
+            'fields': ('name', 'active')
         }),
         ('Issue Information', {
             'fields': ('project', ('component', 'version'),

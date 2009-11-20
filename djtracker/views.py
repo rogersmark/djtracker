@@ -206,9 +206,9 @@ def submit_issue(request, project_slug):
             "djtracker/submit_issue.html", locals(),
             context_instance=RequestContext(request))
 
-def modify_issue(request, project_slug, issue_slug):
+def modify_issue(request, project_slug, issue_id):
     project = get_object_or_404(models.Project, slug=project_slug)
-    issue = get_object_or_404(models.Issue, slug=issue_slug)
+    issue = get_object_or_404(models.Issue, id=issue_id)
     can_view, can_edit, can_comment = utils.check_perms(request, project)    
     if can_edit is False:
         return HttpResponseNotFound()
@@ -225,9 +225,9 @@ def modify_issue(request, project_slug, issue_slug):
             "djtracker/modify_issue.html", locals(),
             context_instance=RequestContext(request))
 
-def view_issue(request, project_slug, issue_slug):
+def view_issue(request, project_slug, issue_id):
     project = get_object_or_404(models.Project, slug=project_slug)
-    issue = get_object_or_404(models.Issue, slug=issue_slug)
+    issue = get_object_or_404(models.Issue, id=issue_id)
     can_view, can_edit, can_comment = utils.check_perms(request, project)
 
     ## Check if we're watching
@@ -251,13 +251,13 @@ def view_issue(request, project_slug, issue_slug):
                 profile.save()
             issue.watched_by.add(profile)
             return HttpResponseRedirect(
-                reverse("project_issue", args=[project.slug, issue.slug])
+                reverse("project_issue", args=[project.slug, issue.id])
             )
         elif request.GET['watch'] == "no":
             profile = models.UserProfile.objects.get(user=request.user)
             issue.watched_by.remove(profile)
             return HttpResponseRedirect(
-                reverse("project_issue", args=[project.slug, issue.slug])
+                reverse("project_issue", args=[project.slug, issue.id])
             )
                 
     ## Check if we can view
@@ -268,9 +268,9 @@ def view_issue(request, project_slug, issue_slug):
             "djtracker/issue_detail.html", locals(),
             context_instance=RequestContext(request))
 
-def issue_attach(request, project_slug, issue_slug):
+def issue_attach(request, project_slug, issue_id):
     project = get_object_or_404(models.Project, slug=project_slug)
-    issue = get_object_or_404(models.Issue, slug=issue_slug)
+    issue = get_object_or_404(models.Issue, id=issue_id)
     can_view, can_edit, can_comment = utils.check_perms(request, project)
 
     if can_view is False or can_comment is False: 

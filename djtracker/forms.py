@@ -64,7 +64,6 @@ class IssueForm(forms.ModelForm):
             issue = models.Issue()
         data = self.cleaned_data
         issue.name = data['name']
-        issue.slug = slugify(data['name'])
         issue.project = data['project']
         issue.component = data['component']
         issue.version = data['version']
