@@ -1,11 +1,6 @@
 import os
 from setuptools import setup, find_packages
 
-media_files = []
-
-for dirpath, dirnames, filenames in os.walk('src/django_yaba/media'):
-        media_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
-
 setup(
     name = "djtracker",
     version = "0.3",
@@ -15,14 +10,14 @@ setup(
 
     packages = find_packages('.'),
     package_dir = {'':'.'},
-    data_files=media_files,
+    data_files=[('.', ['README.rst','MANIFEST.in', 'README']),],
     package_data = {
         'djtracker':
         ['templates/*.html',
          'templates/djtracker/*.html',
          'templates/registration/*',
          'fixtures/*.json',
-        ]
+        ],
     },
     include_package_data=True,
 
