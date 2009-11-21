@@ -74,6 +74,7 @@ border-top: 1px solid gray;
     <a href="{% url project_logout %}">Logout</a><br />
   {% else %}
     <a href="{% url project_login %}">Login</a><br />
+    <a href="{% url registration_register %}">Register</a><br />
   {% endif %}
 {% else %}
   {% if request.user.is_authenticated %}
@@ -81,6 +82,7 @@ border-top: 1px solid gray;
     <a href="{% url project_logout %}">Logout</a><br />
   {% else %}
     <a href="{% url project_login %}">Login</a><br />
+    <a href="{% url registration_register %}">Register</a><br />
   {% endif %}
 {% endif %}
 {% block sidebar %}

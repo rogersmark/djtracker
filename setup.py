@@ -8,7 +8,7 @@ for dirpath, dirnames, filenames in os.walk('src/django_yaba/media'):
 
 setup(
     name = "djtracker",
-    version = "0.2.3",
+    version = "0.3",
     author = "Mark Rogers",
     author_email = "f4nt@f4ntasmic.com",
     url = "http://www.f4ntasmic.com",
@@ -19,6 +19,8 @@ setup(
     package_data = {
         'djtracker':
         ['templates/*.html',
+         'templates/djtracker/*.html',
+         'templates/registration/*',
          'fixtures/*.json',
         ]
     },
@@ -29,6 +31,7 @@ setup(
     description = "An issue tracker built with django",
     install_requires=[
         'gitpython',
+        'django-registration',
     ],
     classifiers = [
         "Intended Audience :: Developers",
