@@ -68,6 +68,15 @@ Project Creation:
             In the end of commit message is found containing "Fixes #ISSUE_NUMBER" (i.e. "Fixes #123") it'll auto-comment on the issue, and
             close it out.
 
+        SVN Repo Polling (complete):
+            SVN polling works pretty similar to Git polling. There's just a few minor difference, such as you can use a
+            URL for the path, so you don't have to have a local checkout. Also, you can specify a username/password as
+            well for these repos.
+
+        Repo Polling Cron Job Examples:
+            */5 * * * * /usr/bin/python /path/to/manage.py svn_poller
+            */5 * * * * /usr/bin/python /path/to/manage.py git_poller
+
 Issue Creation (complete):
 
     Issues are attached to projects via foreign keys. You can comment on issues, change their status, and the like
