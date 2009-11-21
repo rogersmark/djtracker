@@ -34,7 +34,7 @@ Project Creation:
             development. This'll allow you to view all issues still open before you reach the milestone completion
             point.
 
-        Permissions (90% complete):
+        Permissions (95% complete):
             DjTracker supports a permission scheme involving row level permissions. There are 3 levels of permissions:
 
                 View:
@@ -51,7 +51,24 @@ Project Creation:
 
             These permissions break down into three methods so that you can give groups, individual users, or anonymous
 
-Issue Creation (90% complete):
+        Git Repo Polling (complete):
+            DjTracker can polling a git repo's commits, and auto-update issues based on a certain string. This is pretty
+            common in other issue trackers as well. You can set this up by setting the "Git Repo Path" of a project,
+            which correlates to a location on your *filesystem*. gitpython doesn't handle parsing git URLs as far as I
+            can tell yet, so you need to have the repo checked out on the server. This has a couple of drawbacks, such
+            as you'll need to setup a cron to pull down commits to that repo on a semi-regular basis. 
+
+            You'll also need to initialize the project by giving it a starting commit hash as well. This allows the git
+            poller to have a starting location in the git log to parse from. It'll then be able to parse from that
+            commit forward. Again, some drawbacks, it'll brute force the list of commits, meaning that it can find
+            commits in other branches than the master. Again, this appears to me as another limit of the 'gitpython'
+            package. (Note: I don't mean any ill towards gitpython, I love the package, and I'm sure it'll continue its
+            improvement.)
+
+            In the end of commit message is found containing "Fixes #ISSUE_NUMBER" (i.e. "Fixes #123") it'll auto-comment on the issue, and
+            close it out.
+
+Issue Creation (complete):
 
     Issues are attached to projects via foreign keys. You can comment on issues, change their status, and the like
     assuming you have proper permissions. You can also "watch" an issue if you're an authenticated user. This means that
