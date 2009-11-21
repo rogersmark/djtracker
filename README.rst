@@ -61,10 +61,11 @@ SVN Repo Polling (complete):
 
 SVN polling works pretty similar to Git polling. There's just a few minor difference, such as you can use a URL for the path, so you don't have to have a local checkout. Also, you can specify a username/password as well for these repos.
 
-Repo Polling Cron Job Examples:
+Repo Polling Cron Job Examples::
 
-\*/5 \* \* \* \* /usr/bin/python /path/to/manage.py svn_poller
-\*/5 \* \* \* \* /usr/bin/python /path/to/manage.py git_poller
+	*/5 * * * * /usr/bin/python /path/to/manage.py svn_poller
+
+	*/5 * * * * /usr/bin/python /path/to/manage.py git_poller
 
 One final note, if you're using SVN over SSH, you'll want to setup SSH keys in some fashion for your user. Otherwise SSH will prompt the cronjob for a password.
 
