@@ -397,3 +397,36 @@ def filter_delete(request, filter_id):
             "project_user_dashboard"))
     else:
         return HttpResponseNotFound()
+
+def project_search(request):
+    if 'project' in request.GET:
+        project_string = request.GET.get('project')
+
+    if 'search' in request.GET:
+        search_string = request.GET.get('search')
+
+    if project_string == "all":
+        project = models.Project.objects.all()
+        issue_list = []
+        for x in project:
+            for y in project.issue_set.all():
+                issue_list.append(y.id)
+
+        issues = models.Issue.objects.filter(id__in=issue_list)
+        issues = issues.filter(
+            Q(name__icontains=search_string) |
+            Q(description__icontains=search_string)
+        )
+    else:
+        try:
+            project = models.Project.objects.get(slug=project_string)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound()
+
+        issues = project.issue_set.filter(
+             Q(name__icontains=search_string) |
+             Q(description__icontains=search_string)
+        )
+           
+    return render_to_response("djtracker/search_results.html",
+        locals(), context_instance=RequestContext(request))

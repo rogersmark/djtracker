@@ -3,6 +3,7 @@ from django.conf.urls.defaults import patterns
 urlpatterns = patterns('djtracker.views',
     ## Project views
     (r'^$', 'index', None, 'index'),
+    (r'^project/search/$', 'project_search', None, 'project_search'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/$', 'project_index', None, 'project_index'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/status/(?P<status_slug>[a-z0-9-]+)/$',
         'project_status_issues', None, 'project_status'),

@@ -1,0 +1,79 @@
+  {% if project %}
+    <h3>{{ project }}</h3>
+    <p> {{ project.description }}</p>
+    <h4> Filter Issues: </h4>
+    <form name="issue_filter" action="{% url project_all_issues project.slug %}" method="get">
+     <p>Component: <select name="component">
+        {% for x in project.component_set.all %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      </select></p>
+      <p>Version: <select name="version">
+        {% for x in project.version_set.all %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      </select>
+      </p>
+      <p>Milestone: <select name="milestone">
+        {% for x in project.milestone_set.all %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      </select></p>
+      <p>Status: <select name="status">
+        {% for x in status_choices %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      </select>  
+      </p>
+      <p>Issue Type: <select name="type">
+        {% for x in type_choices %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+        </select>
+        </p>
+      </p>Priority: <select name="priority">
+        {% for x in priority_choices %}
+          {% if forloop.first %}
+            <option value="">-----</option>
+          {% endif %}
+          <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      </select>
+      </p>
+      {% if request.user.is_authenticated %}
+        <p>Save this filter for future use: <input type="checkbox" name="save" value="save" /></p>
+        <p>Saved filter name: <input type="text" name="savename" /></p>
+      {% endif %}
+      </select>
+    <p><input type="submit" value="Submit" /></p>
+    </form>
+    <h4> {{ project }}: Issues </h4>
+    {% for issue in issues %}
+      {% if forloop.first %}
+        <ul>
+      {% endif %}
+      <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+    {% if can_comment %}
+      <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>
+    {% endif %}
+  {% endif %}
+

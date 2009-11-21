@@ -86,6 +86,7 @@ border-top: 1px solid gray;
 {% block sidebar %}
 {% endblock %}
 </p>
+<hr />
 <h4>Projects</h4>
 {% load get_objects %}
   {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
@@ -94,6 +95,22 @@ border-top: 1px solid gray;
     <p><li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li></p>
   {% endfor %}
   </ul>
+<hr />
+<h4> Search Issues</h4>
+  <form action="{% url project_search %}" method="get">
+    <select name="project">
+      {% if bar_project_list %}
+        {% for x in bar_project_list %}
+          {% if forloop.first %}
+            <option value="all">All Projects</option>
+          {% endif %}
+            <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      {% endif %}
+    </select>
+    <input type="text" name="search" />
+    <input type="submit" value="submit" />
+  </form>
 </div>
 <div id="content">
 {% block content %}
