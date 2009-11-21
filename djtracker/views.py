@@ -3,6 +3,7 @@ import mimetypes
 
 from djtracker import models, utils, forms
 
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User, Group
@@ -409,7 +410,7 @@ def project_search(request):
         project = models.Project.objects.all()
         issue_list = []
         for x in project:
-            for y in project.issue_set.all():
+            for y in x.issue_set.all():
                 issue_list.append(y.id)
 
         issues = models.Issue.objects.filter(id__in=issue_list)

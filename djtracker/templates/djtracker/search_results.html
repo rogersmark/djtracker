@@ -1,0 +1,20 @@
+{% extends "djtracker/base.html" %}
+  {% block content %}
+    <h3> Search Results </h3>
+    <p>Projects to be searched: {{ project_string }}</p>
+    <p>Search Term: {{ search_string }}</p>
+
+    {% if issues %} 
+      {% for issue in issues %}
+        {% if forloop.first %}
+          <ul>
+        {% endif %}
+        <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
+        {% if forloop.last %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No results found</p>
+    {% endif %}
+  {% endblock %}
