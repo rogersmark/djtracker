@@ -9,7 +9,9 @@ class ProjectAdmin(admin.ModelAdmin):
         ('Project Information', {
             'fields': ('name', 'slug',
                 'description', 'active',
-                'git_repo_path', 'git_repo_commit',)
+                'git_repo_path', 'git_repo_commit',
+                'svn_repo_url', 'svn_repo_commit',
+                'svn_repo_username', 'svn_repo_password')
         }),
         ('Project Permissions', {
             'fields': (('allow_anon_viewing', 'allow_anon_editing',

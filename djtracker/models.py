@@ -40,6 +40,22 @@ class Project(models.Model):
         blank=True,
         null=True
     )
+    svn_repo_url = models.CharField(max_length=1024,
+        blank=True,
+        null=True
+    )
+    svn_repo_commit = models.TextField(max_length=512,
+        blank=True,
+        null=True
+    )
+    svn_repo_username = models.CharField(max_length=256,
+        blank=True,
+        null=True
+    )
+    svn_repo_password = models.TextField(max_length=256,
+        blank=True,
+        null=True
+    )
 
     ## Project level permissions
     allow_anon_viewing = models.BooleanField(default=False)
