@@ -6,6 +6,7 @@ Author - Mark Rogers (f4nt)
 License - BSD License
 
 Demo at http://issues.f4ntasmic.com
+Full documentation at http://issues.f4ntasmic.com/docs
 
 ------------------------
 DjTracker Introduction:

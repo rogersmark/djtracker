@@ -3,3 +3,6 @@
 build
 dist
 djtracker.egg-info
+docs/build
+*.rst~
+*.rst\~
