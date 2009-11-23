@@ -56,3 +56,13 @@ SVN Polling
 
 This works largely the same as Git Polling. The only difference being is that you can point to a URL instead of a local checkout. Also the commit should be a number, not a hash in this case. One thing to watch out for is if you use svn+ssh. In those cases, you need to have an SSH key setup, because SSH handles authentication in those cases, so pysvn can't handle it. However, if you're not using svn+ssh, you can specify a user/pass combination for authentication purposes.
 
+Cron Job Examples
+-----------------------------
+
+A couple of cron job examples::
+
+*/10 * * * * /path/to/script_to_update_git_repos.sh
+*/15 * * * * /path/to/manage.py svn_poller
+*/15 * * * * /path/to/manage.py git_poller
+
+
