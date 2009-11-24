@@ -1,5 +1,4 @@
 recursive-include djtracker/templates *
 recursive-include djtracker/fixtures *
 include README.rst
-include README
 include MANIFEST.in

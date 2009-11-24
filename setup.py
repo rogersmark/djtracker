@@ -10,7 +10,7 @@ setup(
 
     packages = find_packages('.'),
     package_dir = {'':'.'},
-    data_files=[('.', ['README.rst','MANIFEST.in', 'README']),],
+    data_files=[('.', ['README.rst','MANIFEST.in']),],
     package_data = {
         'djtracker':
         ['templates/*.html',
