@@ -61,22 +61,31 @@ def check_perms(request, project):
             can_view = True
         if project.allow_authed_editing:
             can_edit = True
+            can_view = True
+            can_comment = True
         if project.allow_authed_comment:
             can_comment = True
+            can_view = True
         if user in project.users_can_view.all():
             can_view = True
         if user in project.users_can_edit.all():
             can_edit = True
+            can_comment = True
+            can_view = True
         if user in project.users_can_comment.all():
             can_comment = True
+            can_view = True
 
         for x in groups:
             if x in project.groups_can_view.all():
                 can_view = True
             if x in project.groups_can_edit.all():
                 can_edit = True
+                can_comment = True
+                can_view = True
             if x in project.users_can_comment.all():
                 can_comment = True
+                can_view = True
 
     if project.allow_anon_viewing:
         can_view = True

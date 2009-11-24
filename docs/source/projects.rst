@@ -24,6 +24,8 @@ Permissions break down into 3 types:
 * Comment - This allows users to create/comment on issues.
 * Modify - This allows users to modify issues. They'll need this permission in order to close out issues.
 
+Permissions in the latest HEAD now 'cascade'. If you can comment, you can view, if you can edit, you can view and comment. It only makes sense that if I can comment on an issue, that I should be able to actually see it as well.
+
 Project Attributes
 =============================
 
