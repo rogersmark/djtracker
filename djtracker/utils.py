@@ -42,7 +42,7 @@ def check_permissions(permission_type, user, project):
     ## Thus we'll kick back false on the fall through
     return False
 
-def check_perms(request, project):
+def check_perms(request, project, user=None):
     """
     Here we check permission types, and see if a user has proper perms.
     If a user has "edit" permissions on a project, they pretty much have
@@ -53,39 +53,49 @@ def check_perms(request, project):
     can_view = False
     can_edit = False
     can_comment = False
-    user = request.user
-    groups = user.groups.all()
+    if request is not None:
+        user = request.user
+    else:
+        user = user
 
-    if request.user.is_authenticated():
-        if project.allow_authed_viewing:
-            can_view = True
-        if project.allow_authed_editing:
-            can_edit = True
-            can_view = True
-            can_comment = True
-        if project.allow_authed_comment:
-            can_comment = True
-            can_view = True
-        if user in project.users_can_view.all():
-            can_view = True
-        if user in project.users_can_edit.all():
-            can_edit = True
-            can_comment = True
-            can_view = True
-        if user in project.users_can_comment.all():
-            can_comment = True
-            can_view = True
+    try:
+        groups = user.groups.all()
+    except AttributeError:
+        groups = None
 
-        for x in groups:
-            if x in project.groups_can_view.all():
+    try:
+        if user.is_authenticated():
+            if project.allow_authed_viewing:
                 can_view = True
-            if x in project.groups_can_edit.all():
+            if project.allow_authed_editing:
+                can_edit = True
+                can_view = True
+                can_comment = True
+            if project.allow_authed_comment:
+                can_comment = True
+                can_view = True
+            if user in project.users_can_view.all():
+                can_view = True
+            if user in project.users_can_edit.all():
                 can_edit = True
                 can_comment = True
                 can_view = True
-            if x in project.users_can_comment.all():
+            if user in project.users_can_comment.all():
                 can_comment = True
                 can_view = True
+
+            for x in groups:
+                if x in project.groups_can_view.all():
+                    can_view = True
+                if x in project.groups_can_edit.all():
+                    can_edit = True
+                    can_comment = True
+                    can_view = True
+                if x in project.users_can_comment.all():
+                    can_comment = True
+                    can_view = True
+    except AttributeError:
+        pass
 
     if project.allow_anon_viewing:
         can_view = True
