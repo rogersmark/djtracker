@@ -13,6 +13,7 @@ Contents:
 
    projects
    usage
+   email
 
 :ref:`search`
 
