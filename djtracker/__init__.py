@@ -25,8 +25,8 @@ def update_watchers(sender, instance, created, **kwargs):
             email_addresses.append(x.user.email)
         if comment.content_object.assigned_to.user.email not in email_addresses:
             email_address.append(comment.content_object.assigned_to.user.email)
-        email_title = "%s has been updated by %s" % (comment.content_object.name, 
-            comment.name)
+        email_title = "DjTracker: [%s]: Issue #%s has been updated by %s" % (comment.content_object.project.slug, 
+            comment.content_object.id, comment.user_name)
         email_message = """
             Hello,
             This message is to inform you that the issue you are watching has 
