@@ -47,6 +47,7 @@ class Command(NoArgsCommand):
                 file = StringIO.StringIO(data[0][1])
                 message = rfc822.Message(file)
                 self.parse_message(message, data[0][1])
+                self.handler.store(num, '+FLAGS', '\\Seen')
 
     def parse_message(self, message, raw_data):
         ## Get project slug
@@ -69,6 +70,7 @@ class Command(NoArgsCommand):
             issue_num = None
             match = re.search("\[[\w-]+\]", message['subject'])
             issue_title = message['subject'][match.end():]
+            issue_title =  issue_title.lstrip(": ")
 
         ## Get our django objects
         try:
