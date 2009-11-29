@@ -8,7 +8,10 @@ def check_permissions(permission_type, user, project):
     Otherwise we go more fine grained and check their view and comment 
     permissions
     """
-    groups = user.groups.all()
+    try:
+        groups = user.groups.all()
+    except AttributeError:
+        groups = None
     if user in project.users_can_edit.all():
         return True
     

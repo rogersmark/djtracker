@@ -11,15 +11,18 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.contrib.comments.models import Comment
 
 class Command(NoArgsCommand):
     help = "Polls your IMAP account for new issue emails"
 
     def init_imap_client(self):
-        if settings.ISSUE_PARSE_EMAIL is False:
+        if not hasattr(settings, "ISSUE_PARSE_EMAIL"):
+            return
+        if settings.ISSUE_PARSE_EMAIL is not True:
             return
 
-        if settings.ISSUE_MAIL_SSL:
+        if settings.ISSUE_MAIL_SSL is True:
             self.handler = imaplib.IMAP4_SSL(settings.ISSUE_MAIL_HOST)
             self.handler.login(
                 settings.ISSUE_MAIL_USER,
@@ -51,15 +54,17 @@ class Command(NoArgsCommand):
         project_slug = match.group().lstrip('[').rstrip(']')
 
         ## Get email address
-        match = re.search('[a-zA-Z0-9+_\-\.]+@[0-9a-zA-Z][.-0-9a-zA-Z]*.[a-zA-Z]+',
+        print message['from']
+        match = re.search(r'[a-zA-Z0-9+_\-\.]+@[0-9a-zA-Z]*.[a-zA-Z]+',
                                message['from'])
+        print match.group()
         email_addy = match.group()
         ## Get Issue Number (if exists)
         match = re.search("Issue #[\d]+", message['subject'])
         if match:
             issue_string = match.group()
             issue_num = issue_string.lstrip("Issue #")
-            issue_title = subject[match.end():].lstrip(" - ")
+            issue_title = message['subject'][match.end():].lstrip(" - ")
         else:
             issue_num = None
             match = re.search("\[[\w-]+\]", message['subject'])
@@ -73,7 +78,9 @@ class Command(NoArgsCommand):
 
         try:
             user = User.objects.get(email=email_addy)
+            can_comment = utils.check_permissions('comment', user, project)
         except ObjectDoesNotExist:
+            can_comment = project.allow_anon_comment
             user = None
 
         try:
@@ -81,12 +88,10 @@ class Command(NoArgsCommand):
         except ObjectDoesNotExist:
             issue = None
 
-        can_view, can_edit, can_comment = utils.check_perms(
-            None, project, user)
-
         body = raw_data[message.startofbody:]
         content_type = ContentType.objects.get(model='issue')
 
+        print can_comment
         if can_comment:
             if issue is not None:
                 comment = Comment()
