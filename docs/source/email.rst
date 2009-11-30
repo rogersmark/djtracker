@@ -26,3 +26,12 @@ If you're responding on an issue, you'd use the following:
     DjTracker: [project-slug]: Issue #5
     
 That'll add the comment onto the end of the current issue with an ID of 5. 
+
+Email Cron Job
+=============================
+
+You'll want to setup a cron job to have this job run periodically. Something such as::
+
+    */5 * * * * /path/to/manage.py imap_poller
+
+should do the trick.

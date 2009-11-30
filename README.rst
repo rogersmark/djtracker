@@ -1,4 +1,3 @@
-==========
 DjTracker
 ==========
 Application Name - DjTracker
@@ -8,7 +7,6 @@ License - BSD License
 Demo at http://issues.f4ntasmic.com
 Full documentation at http://issues.f4ntasmic.com/docs
 
-------------------------
 DjTracker Introduction:
 ------------------------
 
@@ -17,7 +15,6 @@ DjTracker is meant to be an issue tracker built with Python and Django. I hadn't
 *NOTE*
 Extensive testing at this time has not been completed. In fact, a tests.py doesn't even exist yet. That'll come soon enough though.
 
-------------------------
 Project Creation:
 ------------------------
 
@@ -70,17 +67,53 @@ Repo Polling Cron Job Examples::
 
 One final note, if you're using SVN over SSH, you'll want to setup SSH keys in some fashion for your user. Otherwise SSH will prompt the cronjob for a password.
 
-------------------------------------------------
 Issue Creation (complete):
 ------------------------------------------------
 
 Issues are attached to projects via foreign keys. You can comment on issues, change their status, and the like assuming you have proper permissions. You can also "watch" an issue if you're an authenticated user. This means that you'll receive email updates on any comments to an issue. In the future you'll get notified on status changes, and other modifications of the issue as well.
 
-------------------------------------------------
 User Profiles (80% complete):
 ------------------------------------------------
 
 Currently I don't see an excessively large need for these, but that could change depending on use cases. As a result I went ahead and built a user profile module just in case. It's currently very limited, but you can view your profile (and the profile of others) to see what issues they have assigned to them. 
+
+Email Handling
+------------------------------------------------
+
+DjTracker has the ability to parse email addresses for new comments and new issues. Currently this only supports IMAP, but POP3 support is planned for the future. 
+
+Email Settings
+------------------------------------------------
+
+The following settings are required in your settings.py in order to leverage the usage of email parsing:
+
+* ISSUE_PARSE_EMAIL - This needs to be True in order for email parsing to occur.
+* ISSUE_MAIL_SSL - If you use SSL, this needs to be True. Otherwise non-ssl will be used
+* ISSUE_MAIL_HOST - This will be the name of your IMAP server, i.e. imap.gmail.com
+* ISSUE_MAIL_USER - This will be used for authentication to your mail server
+* ISSUE_MAIL_PASSWORD - This will be used for authentication to your mail server
+
+Expected Email Subjects
+------------------------------------------------
+
+DjTracker needs email subjects to be formed in a certain fashion in order to properly create issues on your behalf. If you're creating a new issue via email, the following subject is expected:
+
+    DjTracker: [project-slug]: Your Title
+    
+If you're responding on an issue, you'd use the following:
+
+    DjTracker: [project-slug]: Issue #5
+    
+That'll add the comment onto the end of the current issue with an ID of 5. 
+
+Email Cron Job
+------------------------------------------------
+
+You'll want to setup a cron job to have this job run periodically. Something such as::
+
+    */5 * * * * /path/to/manage.py imap_poller
+
+should do the trick.
 
 ------------------------------------------------
 Installation:
