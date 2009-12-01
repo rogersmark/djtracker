@@ -1,16 +1,6 @@
 [
     {
         "pk": 1, 
-        "model": "djtracker.userprofile", 
-        "fields": {
-            "modified_date": "2009-11-14 16:40:33", 
-            "user": 1, 
-            "instant_messanger": null, 
-            "created_date": "2009-11-14 16:40:33"
-        }
-    }, 
-    {
-        "pk": 1, 
         "model": "djtracker.project", 
         "fields": {
             "allow_anon_comment": false, 
