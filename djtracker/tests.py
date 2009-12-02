@@ -130,6 +130,18 @@ class IssueViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         issue = models.Issue.objects.get(name="UnitTest Issue")
         self.assertEqual(issue.status, status)
+        
+    def test_issue_search(self):
+        self.client.login(username=self.user.username, password="password")
+        response = self.client.get(
+            '/project/search/?project=default-project&search=test')
+            
+        self.assertEqual(response.status_code, 200)
+        
+        response = self.client.get(
+            '/project/search/?project=all&search=test')
+            
+        self.assertEqual(response.status_code, 200)
       
 class ProjectViewTest(TestCase):
 
@@ -195,3 +207,4 @@ class ProfileViewTest(TestCase):
             '/profile/filter/delete/%s/' % issue_filter.id)
             
         self.assertEqual(response.status_code, 302)
+       
