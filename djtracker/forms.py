@@ -38,7 +38,6 @@ class IssueForm(forms.ModelForm):
     )
     watched_by = forms.ModelMultipleChoiceField(
         queryset=models.UserProfile.objects.all(),
-        widget=forms.HiddenInput,
         required=False
     )
 
