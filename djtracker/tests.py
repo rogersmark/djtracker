@@ -3,6 +3,10 @@ import datetime
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
+from django.contrib.comments.models import Comment
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
+from django.conf import settings
 
 from djtracker import models
 
@@ -207,4 +211,26 @@ class ProfileViewTest(TestCase):
             '/profile/filter/delete/%s/' % issue_filter.id)
             
         self.assertEqual(response.status_code, 302)
-       
+        
+class SignalTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        seconds = datetime.datetime.now().microsecond
+        self.user = User(username="djtracker%s" % seconds, 
+            email="djtracker@djtracker.com")
+        self.user.set_password('password')
+        self.user.save()
+        
+    
+    def test_comment_post_save(self):
+        content_type = ContentType.objects.get(model='issue')
+        comment = Comment()
+        comment.user_name = self.user.username
+        comment.user_email = self.user.email
+        comment.content_type = content_type
+        comment.object_pk = 1
+        comment.comment = "This is a test comment"
+        comment.site = Site.objects.get(id=settings.SITE_ID)
+        comment.save()
+        print comment.comment
