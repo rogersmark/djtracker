@@ -38,6 +38,9 @@ def index(request):
 def project_index(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     open_issues = project.issue_set.filter(status__slug="open")
+    priorities = models.Priority.objects.all()
+    statuses = models.Status.objects.all()
+    types = models.IssueType.objects.all()
     can_view, can_edit, can_comment = utils.check_perms(request, project)
     if can_view is False:
         return HttpResponseNotFound()
@@ -45,7 +48,11 @@ def project_index(request, project_slug):
         return list_detail.object_detail(request,
             queryset=models.Project.objects.all(),
             extra_context={'can_comment': can_comment,
-                'open_issues': open_issues[:5]},
+                'open_issues': open_issues[:5],
+                'statuses': statuses,
+                'priorities': priorities,
+                'types': types
+            },
             slug=project_slug,
             template_name="djtracker/project_index.html",
             template_object_name="project"
