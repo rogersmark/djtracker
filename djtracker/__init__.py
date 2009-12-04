@@ -24,7 +24,7 @@ def update_watchers(sender, instance, created, **kwargs):
         for x in users:
             email_addresses.append(x.user.email)
         if comment.content_object.assigned_to.user.email not in email_addresses:
-            email_address.append(comment.content_object.assigned_to.user.email)
+            email_addresses.append(comment.content_object.assigned_to.user.email)
         email_title = "DjTracker: [%s]: Issue #%s has been updated by %s" % (comment.content_object.project.slug, 
             comment.content_object.id, comment.user_name)
         email_message = """
@@ -49,7 +49,7 @@ def update_modified_time(sender, instance, created, **kwargs):
     comment = instance
     if comment.content_type.name == "issue":
         issue = comment.content_object
-        issue.modified_Date = datetime.datetime.now()
+        issue.modified_date = datetime.datetime.now()
         issue.save()
 
 post_save.connect(create_profile, sender=User)

@@ -8,7 +8,7 @@
       <h4>{{ project }}: Components</h4>
       <ul>
       {% for comp in project.component_set.all %}
-        <p><li><a href="{{ comp.get_absolute_url }}">{{ comp }}</a></li></p>
+        <li><a href="{{ comp.get_absolute_url }}">{{ comp }}</a></li>
       {% endfor %}
       </ul>
     {% endif %}
@@ -16,7 +16,7 @@
       <h4>{{ project }}: Versions</h4>
       <ul>
       {% for version in project.version_set.all %}
-        <p><li><a href="{{ version.get_absolute_url }}">{{ version }}</a></li></p>
+        <li><a href="{{ version.get_absolute_url }}">{{ version }}</a></li>
       {% endfor %}
       </ul>
     {% endif %}
@@ -24,7 +24,7 @@
       <h4>{{ project }}: Milestones</h4>
       <ul>
       {% for milestone in project.milestone_set.all %}
-        <p><li><a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a></li></p>
+        <li><a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a></li>
       {% endfor %}
       </ul>
     {% endif %}
@@ -33,11 +33,41 @@
       {% if forloop.first %}
         <ul>
       {% endif %}
-      <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
+      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
       {% if forloop.last %}
         </ul>
       {% endif %}
     {% endfor %}
+    <h4> Browse by status: </h4>
+    {% for status in statuses %}
+      {% if forloop.first %}
+        <ul>
+      {% endif %}
+      <li><a href="{% url project_status project.slug status.slug %}">{{ status }}</a></li>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+    <h4> Browse by issue type: </h4>
+    {% for type in types %}
+      {% if forloop.first %}
+        <ul>
+      {% endif %}
+      <li><a href="{% url project_issue_type project.slug type.slug %}">{{ type }}</a></li>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+    <h4> Browse by priority: </h4>
+    {% for priority in priorities %}
+      {% if forloop.first %}
+        <ul>
+      {% endif %}
+      <li><a href="{% url project_priority project.slug priority.slug %}">{{ priority }}</a></li>
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}        
       <p><a href="{% url project_all_issues project.slug %}">View all Issues</a></p>
     {% if can_comment %}
       <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>
