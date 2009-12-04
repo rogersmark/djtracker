@@ -1,51 +1,230 @@
-#container
-{
-width: 90%;
-margin: 10px auto;
-background-color: #fff;
-color: #333;
-border: 1px solid gray;
-line-height: 130%;
+/* BASIC */
+body {
+	font-size: 62.5%;
+	font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
 }
 
-#top
-{
-padding: .5em;
-background-color: #ddd;
-border-bottom: 1px solid gray;
+h1, h2, h3, p, ul {
+	padding: 0;
+	margin: 0;
 }
 
-#top h1
-{
-padding: 0;
-margin: 0;
+/* WRAPPER: wraps entire contents of page */
+#wrapper {
+	border: solid 1px black;
 }
 
-#leftnav
-{
-float: left;
-width: 160px;
-margin: 0;
-padding: 1em;
+
+/* BANNER */
+#banner {
+	background: url(images/anniv_banner.png) no-repeat right top;
+}
+#banner ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+#banner li {
+	display: inline;
+	margin-left: 10px;
+}
+#banner li a {
+	color: #666666;
+	text-decoration: none;
+	text-transform: uppercase;
+	font: 1.1em "Trebuchet MS";
+}
+.seperator {
+	border-right: 1px solid #666;
+	padding-right:10px;
 }
 
-#content
-{
-margin-left: 200px;
-border-left: 1px solid gray;
-padding: 1em;
-max-width: 36em;
+/* NAV BAR */
+
+#mainNav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background-color: black;
+	float: left;
+	border-bottom: 1px solid #000;
+	width: 100%;
 }
 
-#footer
-{
-clear: both;
-margin: 0;
-padding: .5em;
-color: #333;
-background-color: #ddd;
-border-top: 1px solid gray;
+#mainNav li {
+	float: left;
+	padding: 0;
+	margin: 0;
 }
 
-#leftnav p { margin: 0 0 1em 0; }
-#content h2 { margin: 0 0 .5em 0; }
+#mainNav li a, #mainNav li a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+	padding: .5em 1em;
+	border-right: 1px solid #000;
+	display: block;
+	font: bold 1em "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+}
+
+#mainNav li a:hover {
+	background: url(images/bg_nav_h.png);
+}
+
+/* IE 6 hack to make entire button clickable */
+* html #mainNav a { width: 1px; }
+
+
+/* MAIN CONTENT */
+
+#main h1 {
+	color: #663900;
+	padding-top: 15px;
+	margin-bottom: 10px;
+	font: bold 2.3em Georgia, "Times New Roman", Times, serif;
+}
+
+#main h2 {
+	font-size: 1.8em;
+	font-weight: normal;
+	border-bottom: 1px solid #106A9B;
+	margin-bottom: 5px;
+	color: #663900;
+}
+
+#main p {
+	font-size: 1.4em;
+	margin-bottom: 10px;
+}
+
+/* SIDEBAR */
+#sidebar {
+	background-color: #D9ECFF;
+}
+
+#sidebar h2 {
+	font-size: 1.3em;
+	color: #FFFFFF;
+	padding: 7px 8px 0 8px;
+	margin-bottom: 5px;
+	border-top: 3px solid #86B500;
+	background-color: #5873CC;
+}
+#sidebar p {
+	margin-right: 5px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+	color: #666666;
+}
+#sidebar h3 {
+	font-size: 1.1em;
+	margin-right: 5px;
+	margin-left: 5px;
+	color: #663900;
+	margin-bottom: 3px;
+}
+#sidebar h3 a {
+	color: #663900;
+}
+
+#sidebar a:hover {
+	color: #CA1D07;
+}
+
+
+
+/* COPYRIGHT INFO */
+#copyright {
+	padding: 5px;
+	border-top: 1px solid #000;
+	background-color: #86B500;
+	font-weight: bold;
+	color: #000000;
+}
+body {                                                                                                                   
+        margin: 20px;                                                                                                    
+}                                                                                                                        
+
+/* uncomment this style to set a fixed width
+#wrapper {                                  
+        width: 760px;                       
+}                                           
+*/                                          
+
+#banner {
+        position: relative;
+}                          
+
+/* fix IE 6: improperly positioning 
+'subscribe' and 'about us' links in banner */
+* html #banner {                             
+        height: 1px;                         
+}                                            
+
+#banner #badge {
+        position: absolute;
+        left: -18px;       
+        top: -18px;        
+}                          
+
+#banner #logo {
+        margin-left: 60px;
+        position: relative; /* jumping logo fix for IE */
+}                                                        
+
+#banner ul {
+        position: absolute;
+        right: 60px;       
+        bottom: 5px;       
+}                          
+
+#main .figure {
+        float: right;
+        width: 200px;
+        margin-bottom: 2px;
+        margin-left: 10px; 
+        position: relative;
+}                          
+
+#main .figure p {
+        position: absolute;
+        left: 10px;        
+        bottom: 10px;      
+        width: 168px;      
+        background-color: #FFF;
+        border: 1px dashed #666666;
+        font-size: 1.1em;          
+        font-weight: bold;         
+        text-align: center;        
+        padding: 5px;              
+        margin: 0;                 
+}                                  
+
+#main .figure img {
+        display: block;
+}                      
+
+#contentWrapper {
+        position: relative;
+        clear: both;       
+        width: 100%;       
+}                          
+
+#sidebar {
+        position: absolute;
+        top: 0px;         
+        left: 0;           
+        width: 200px; 
+}                          
+
+#sidebar ul {
+        list-style-type: none;
+}
+
+#main {
+        margin-left: 200px;
+        margin-bottom: 150px;
+        padding: 0 15px 15px 20px;
+        border: 1px solid #666666;
+        border-top: none;         
+        border-bottom: none;      
+}  

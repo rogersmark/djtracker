@@ -12,21 +12,28 @@
 {% endblock %}
 </head>
 <body>
-<div id="container">
-<div id="top">
-<h1><a href="/">DjTracker Issue Tracker</a></h1>
-</div>
-<div id="leftnav">
-{% include "djtracker/sidebar.html" %}
-{% block sidebar %}
-{% endblock %}
-</div>
-<div id="content">
-{% block content %}
-{% endblock %}
-</div>
-<div id="footer">
-Footer
-</div>
+<div id="wrapper">
+  <div id="banner">
+    <h1><a href="/">DjTracker Issue Tracker</a></h1>
+  </div>
+  <div id="mainNav">
+    <ul>
+      <li><a href="#">Home</a></li>
+    </ul>
+  </div>
+  <div id="contentWrapper">
+    <div id="main">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div id="sidebar">
+      <h2>Navigation</h2>
+      {% include "djtracker/sidebar.html" %}
+      {% block sidebar %}
+      {% endblock %}
+    </div>
+
+        <p id="copyright">Powered by <a href="http://www.djangoproject.com/">Django</a> | Opensourced under the BSD License, available at <a href="http://github.com/f4nt/djtracker">GitHub</a> | Created by <a href="http://www.f4ntasmic.com/">Mark (f4nt) Rogers</a></p>
+  </div>
 </div>
 </body>
