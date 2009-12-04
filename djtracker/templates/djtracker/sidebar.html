@@ -1,0 +1,48 @@
+<p>
+<a href="/">Home</a><br />
+{% if user %}
+  {% if user.id %}
+    <a href="{{ user.userprofile.get_absolute_url }}">Profile</a><br />
+    <a href="{% url project_user_dashboard %}">Dashboard</a><br />
+    <a href="{% url project_logout %}">Logout</a><br />
+  {% else %}
+    <a href="{% url project_login %}">Login</a><br />
+    <a href="{% url registration_register %}">Register</a><br />
+  {% endif %}
+{% else %}
+  {% if request.user.is_authenticated %}
+    <a href="{{ request.user.userprofile.get_absolute_url }}">Profile</a><br />
+    <a href="{% url project_logout %}">Logout</a><br />
+  {% else %}
+    <a href="{% url project_login %}">Login</a><br />
+    <a href="{% url registration_register %}">Register</a><br />
+  {% endif %}
+{% endif %}
+{% block sidebar %}
+{% endblock %}
+</p>
+<hr />
+<h4>Projects</h4>
+{% load get_objects %}
+  {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
+  <ul>
+  {% for bar_project in bar_project_list %}
+    <p><li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li></p>
+  {% endfor %}
+  </ul>
+<hr />
+<h4> Search Issues</h4>
+  <form action="{% url project_search %}" method="get">
+    <select name="project">
+      {% if bar_project_list %}
+        {% for x in bar_project_list %}
+          {% if forloop.first %}
+            <option value="all">All Projects</option>
+          {% endif %}
+            <option value="{{ x.slug }}">{{ x }}</option>
+        {% endfor %}
+      {% endif %}
+    </select>
+    <input type="text" name="search" />
+    <input type="submit" value="submit" />
+  </form>
