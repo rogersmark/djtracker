@@ -1,0 +1,26 @@
+<ul class="dropdown dropdown-horizontal">
+    <li class="dir"><a href="/">Home</a></li>
+    {% if request.user.is_authenticated %}
+      <li class="dir"><a href="{% url project_user_dashboard %}">Dashboard</a>
+        <ul>
+          <li><a href="{% url project_user request.user %}">Profile</a></li>
+          <li><a href="{% url project_logout %}">Logout</a></li>
+        </ul>
+      </li>
+    {% else %}
+      <li class="dir"><a href="{% url project_login %}">Login</a>
+        <ul>
+          <li><a href="{% url project_user_list %}">Users</a><li>
+        </ul>
+      </li>
+    {% endif %}
+    <li class="dir"><a href="{% url index %}">Projects</a>
+      <ul>
+        {% load get_objects %}
+        {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
+        {% for bar_project in bar_project_list %}
+          <li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>  
+</ul>

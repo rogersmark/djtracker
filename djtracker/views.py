@@ -51,6 +51,7 @@ def project_index(request, project_slug):
                 'open_issues': open_issues[:5],
                 'statuses': statuses,
                 'priorities': priorities,
+                'request': request,
                 'types': types
             },
             slug=project_slug,
