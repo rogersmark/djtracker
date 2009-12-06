@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "djtracker",
-    version = "0.3.2",
+    version = "0.3.3",
     author = "Mark Rogers",
     author_email = "f4nt@f4ntasmic.com",
     url = "http://www.f4ntasmic.com",
@@ -14,6 +14,7 @@ setup(
     package_data = {
         'djtracker':
         ['templates/*.html',
+         'templates/*.css',
          'templates/djtracker/*.html',
          'templates/registration/*',
          'fixtures/*.json',
