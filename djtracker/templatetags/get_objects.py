@@ -38,6 +38,13 @@ class ModelObjectNode(template.Node):
                 if can_view:
                     project_ids.append(x.id)
                     object_list = model.objects.filter(id__in=project_ids)
+        issue_ids = []
+        for x in object_list:
+            if hasattr(x, "assigned_to") and request:
+                can_view, can_edit, can_comment = utils.check_perms(request, x.project)
+                if can_view:
+                    issue_ids.append(x.id)
+                    object_list = model.objects.filter(id__in=issue_ids)
         context.update({self.var_name: object_list})
         return ''
 
