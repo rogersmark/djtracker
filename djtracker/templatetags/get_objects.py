@@ -27,24 +27,15 @@ class ModelObjectNode(template.Node):
         except:
             raise TemplateSyntaxError, "Failed to retrieve model"
 
-        object_list = model.objects.all()
+        if request and hasattr(model.objects, 'filter_allowed'):
+            object_list = model.objects.filter_allowed(request)
+        else:
+            object_list = model.objects.all()
+        
         object_list = object_list.order_by(self.sort)
         if object_list.count() > self.count:
             object_list = object_list[:self.count]
-        project_ids = []
-        for x in object_list:
-            if hasattr(x, "allow_anon_viewing") and request:
-                can_view, can_edit, can_comment = utils.check_perms(request, x)
-                if can_view:
-                    project_ids.append(x.id)
-                    object_list = model.objects.filter(id__in=project_ids)
-        issue_ids = []
-        for x in object_list:
-            if hasattr(x, "assigned_to") and request:
-                can_view, can_edit, can_comment = utils.check_perms(request, x.project)
-                if can_view:
-                    issue_ids.append(x.id)
-                    object_list = model.objects.filter(id__in=issue_ids)
+                        
         context.update({self.var_name: object_list})
         return ''
 

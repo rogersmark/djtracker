@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 
+from djtracker.utils import check_perms
+
 class UserProfile(models.Model):
     """
     Extension of User to allow for more detailed information about a
@@ -21,6 +23,40 @@ class UserProfile(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ("project_user", (), {'username': self.user.username})
+
+def get_allowed_project_ids(request, user=None, permission='view'):
+    """
+    returns a list of project ids which request.user is allowed to see 
+    """    
+    project_ids = []
+    perm_index = ['view', 'edit', 'comment'].index(permission)    
+    # need to reference Project indirectly to avoid circular import reference
+    for project in models.get_model('djtracker','project').objects.all():
+        perms = check_perms(request, project, user)
+        if perms[perm_index]:
+            project_ids.append(project.id)
+    return project_ids
+
+class PermissionFilterManager(models.Manager):
+    """
+    a manager which adds a special permission filter. usage:
+    
+    in queries, replace
+        model_class.objects.all()
+    with
+        model_class.objects.filter_allowed(request)
+    """
+    def __init__(self, by='project__id__in', *args, **kwargs):
+        """
+        ``by`` determines on which attribute to filter (default: project)  
+        """
+        self._by = by
+        super(PermissionFilterManager, self).__init__(*args, **kwargs)
+        
+    def filter_allowed(self, request, permission='view'):
+        project_ids = get_allowed_project_ids(request, permission)
+        if self._by:
+            return self.filter(**{self._by: project_ids})
 
 class Project(models.Model):
     """
@@ -109,6 +145,8 @@ class Project(models.Model):
     def get_absolute_url(self):
         return ("project_index", (), {'project_slug': self.slug})
 
+    objects = PermissionFilterManager(by='id__in')
+
 class Milestone(models.Model):
     """
     Goal to be reached
@@ -130,6 +168,8 @@ class Milestone(models.Model):
         return ("project_milestone", (), {'project_slug': self.project.slug,
             'modi_slug': self.slug})
 
+    objects = PermissionFilterManager()
+
 class Component(models.Model):
     """
     Components are items that are part of a project. For instance I have a
@@ -150,6 +190,8 @@ class Component(models.Model):
         return ("project_component", (), {'project_slug': self.project.slug, 
             'modi_slug': self.slug})
 
+    objects = PermissionFilterManager()
+
 class Version(models.Model):
     """
     This will be FKed to projects. This will allow creation of issues
@@ -169,6 +211,8 @@ class Version(models.Model):
     def get_absolute_url(self):
         return ("project_version", (), {'project_slug': self.project.slug,
             'modi_slug': self.slug})
+
+    objects = PermissionFilterManager()
 
 class Status(models.Model):
     """
@@ -267,6 +311,8 @@ class Issue(models.Model):
         return ("project_issue", (), {'project_slug': self.project.slug,
             'issue_id': self.id})
 
+    objects = PermissionFilterManager()
+
 class FileUpload(models.Model):
     """
     File uploads will be FKed to specific issues. This will allow for 
@@ -285,6 +331,8 @@ class FileUpload(models.Model):
     def get_absolute_url(self):
             return ("project_issue_file", (), {'project_slug': self.issue.project.slug,
                                                'file_id': self.id})
+
+    objects = PermissionFilterManager(by='issue__project__id__in')
 
 class IssueFilter(models.Model):
     """
