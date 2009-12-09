@@ -2,78 +2,50 @@
 {% load comments %}
 {% block title %} - {{ issue }} {% endblock %}
 {% block content %}
-  <h3> {{ issue }}</h3>
-  <ul>
-    <p><li>Project: <a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a></li></p>
-    {% if issue.component %}
-      <p><li>Component: <a href="{{ issue.component.get_absolute_url }}">{{ issue.component }}</a></li></p>
-    {% endif %}
-    {% if issue.version %}
-      <p><li>Version: <a href="{{ issue.version.get_absolute_url }}">{{ issue.version }}</a></li></p>
-    {% endif %}
-    {% if issue.milestone %}
-      <p><li>Milestone: <a href="{{ issue.milestone.get_absolute_url }}">{{ issue.milestone }}</a></li></p>
-    {% endif %}
-    <p><li>Status: {{ issue.status }}</li></p>
-    <p><li>Priority: {{ issue.priority }}</li></p>
-    <p><li>Issue Type: {{ issue.issue_type }}</li></p>
-    <p><li>Description: {{ issue.description }}</li></p>
-  {% if can_modify %}
-    <p><a href="{% url project_modify_issue project.slug issue.id %}">Modify Issue</a></p>
-  {% endif %}
-  {% if can_comment %}
-    <p><a href="{% url project_file_upload project.slug issue.id %}">Attach File to Issue</a></p>
-  {% endif %}
-  {% if request.user.is_authenticated %}
-    {% if is_watching %}
-      <p><a href="{% url project_issue project.slug issue.id %}?watch=no">Stop Watching</a></p>
-    {% else %}
-      <p><a href="{% url project_issue project.slug issue.id %}?watch=yes">Watch Issue</a></p>
-    {% endif %}
-  {% endif %}
-  <hr />
+  <table style="width: 100%"><tr><td class="col" style="width: 100%; padding-right: 10px;">  
+  <h3>{% if request.user.is_authenticated %}<small class="inlineaction">{% if can_edit %}<a href="{% url project_modify_issue project.slug issue.id %}">edit</a> |{% endif %} {% if is_watching %}<a href="{% url project_issue project.slug issue.id %}?watch=no">unwatch</a>{% else %}<a href="{% url project_issue project.slug issue.id %}?watch=yes">watch</a>{% endif %}</small>{% endif %}<a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a> : {{ issue }}</h3>  
+  <div class="description">{{ issue.description }}</div>
+  <h4>{% if can_comment %}<small class="inlineaction"><a href="{% url project_file_upload project.slug issue.id %}">Add an Attachment</a></small>{% endif %}Attachments</h4>
+  {% if issue.fileupload_set.all %}
+  <ul>    
   {% for file in issue.fileupload_set.all %}
-    {% if file %}
-      {% if forloop.first %}
-        <h4>Attachments:</h4>
-      {% endif %}
-        <p><a href="{{ file.get_absolute_url }}">{{ file }}</a><p>
-    {% endif %}
-      {% if forloop.last %}
-        <hr />
-      {% endif %}
+      <li><a href="{{ file.get_absolute_url }}">{{ file }}</a></li>
   {% endfor %}
+  </ul>
+  {% else %}
+  <em>no attachments yet</em>
+  {% endif %}
   {% get_comment_list for issue as comments %}
   {% if comments %}
-    <h4>Comments:</h4>
+    <h4>Comments</h4>
     {% for comment in comments %}
-      {% if comment.user %}
-        <p><a href="{{ comment.user.userprofile.get_absolute_url }}">{{ comment.user}}</a>: {{ comment.comment }}</p>
+      <a name="comment{{comment.pk}}"/>(<a class="headerlink" title="permalink to this comment" href="#comment{{comment.pk}}">#</a>){% if comment.user %}
+        <em style="color: #888888;"><a href="{{ comment.user.userprofile.get_absolute_url }}">{{ comment.user}}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>{{ comment.comment }}{% if not forloop.last %}<br/><br/>
       {% else %}
         <p>{{ comment }}</p>
       {% endif %}
     {% endfor %}
-    <hr />
-  {% endif %}
+  {% endif %}  
   {% if can_comment %}
-  <h4>Update Issue</h4>
+  <h4>New Comment</h4>
   {% if request.user.is_authenticated %}
-    {% get_comment_form for issue as form %}
-    <form action="{% comment_form_target %}" method="POST">
-         {{ form.content_type }}
+    {% get_comment_form for issue as form %}	
+    <form action="{% comment_form_target %}" method="post">
+		 {{ form.content_type }}
          {{ form.object_pk }}
          {{ form.timestamp }}
          {{ form.security_hash }}
-      <p>{{ form.comment }}</p>
-      <p style="display:none">{{ form.honeypot }}</p>
-      <tr>
-        <td></td>
-        <td><input type="submit" name="post" class="submit-post" value="Post"></td>
-        <input type="hidden" name="next" value="{% url project_issue project.slug issue.id %}" />
-      </tr>
-    </form>
+	<table class="commentform"><tr><td>
+		 <input type="hidden" name="next" value="{% url project_issue project.slug issue.id %}" />
+	     <span style="display: none;">{{ form.honeypot }}</span>
+	  {{ form.comment }}</td></tr>
+	 <tr><td><input type="submit" name="post" class="submit-post" value="Post"/></td></tr></table>
+    </form>			
   {% else %}
     {% render_comment_form for issue %}
   {% endif %}
   {% endif %}
+  </td><td class="col">
+  	{% include 'djtracker/blocks/issue_proptab.html' %}
+  </td></tr></table>    
 {% endblock %}

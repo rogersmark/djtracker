@@ -4,17 +4,13 @@
     <p>Projects to be searched: {{ project_string }}</p>
     <p>Search Term: {{ search_string }}</p>
 
-    {% if issues %} 
-      {% for issue in issues %}
-        {% if forloop.first %}
-          <ul>
-        {% endif %}
-        <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-        {% if forloop.last %}
-          </ul>
-        {% endif %}
-      {% endfor %}
+    {% if issues %}
+		{% with 1 as issues_with_project %}
+		{% with issues as issue_list %}
+		{% include 'djtracker/blocks/issue_list.html' %}
+		{% endwith %}
+		{% endwith %}
     {% else %}
-      <p>No results found</p>
+      <p><em>No results found</em></p>
     {% endif %}
   {% endblock %}

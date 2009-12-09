@@ -12,25 +12,31 @@
 {% endblock %}
 </head>
 <body>
-<div id="wrapper">
+{% include "djtracker/usermenu.html" %}
+<div id="wrapper">  
   <div id="banner">
-    <h1><a href="/">DjTracker Issue Tracker</a></h1>
+    <h1><a href="/">DjTracker Issue Tracker</a>{% if project %} &raquo; {{project}}{% endif %}</h1>
   </div>
-  <div id="mainNav" >
+  <!-- yes, tables are bad. but this one saves us a lot of ugly css hacks... -->
+  <table cellpadding="0" cellspacing="0" id="contentwrap">
+  	<tr>
+  	<td id="main" class="col">
+  	<div id="mainNav">
     {% include "djtracker/topnav.html" %}
-  </div>
-  <div id="contentWrapper">
-    <div id="main">
-      {% block content %}
-      {% endblock %}
+  	</div>
+	<div id="mainwrap">
+	{% block content %}
+	{% endblock %}	
     </div>
-    <div id="sidebar">
-      {% include "djtracker/sidebar.html" %}
-      {% block sidebar %}
-      {% endblock %}
-    </div>
-
-        <p id="copyright">Powered by <a href="http://www.djangoproject.com/">Django</a> | Opensourced under the BSD License, available at <a href="http://github.com/f4nt/djtracker">GitHub</a> | Created by <a href="http://www.f4ntasmic.com/">Mark (f4nt) Rogers</a> | <a href="http://issues.f4ntasmic.com/docs/">DjTracker Documentation</a></p>
-  </div>
+	</td>	
+	<td id="sidebar" class="col"><div id="sidebarwrap">
+  	{% include "djtracker/sidebar.html" %}
+    {% block sidebar %}
+    {% endblock %}
+	</div>
+  	</td>
+	</tr>
+  </table>
+<div id="copyright">Powered by <a href="http://www.djangoproject.com/">Django</a> | Opensourced under the BSD License, available at <a href="http://github.com/f4nt/djtracker">GitHub</a> | Created by <a href="http://www.f4ntasmic.com/">Mark (f4nt) Rogers</a> | <a href="http://issues.f4ntasmic.com/docs/">DjTracker Documentation</a></div>
 </div>
 </body>

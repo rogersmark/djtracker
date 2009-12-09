@@ -1,7 +1,9 @@
+@charset "UTF-8";
 /* BASIC */
 body {
-	font-size: 62.5%;
-	font-family: "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+	font-family:arial,sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 h1, h2, h3, p, ul {
@@ -9,44 +11,47 @@ h1, h2, h3, p, ul {
 	margin: 0;
 }
 
-/* WRAPPER: wraps entire contents of page */
-#wrapper {
-	border: solid 1px black;
+a:hover {
+    color: #CA1D07;
 }
 
+/* USERMENU */
+#usermenu {
+	text-align:right;
+	border-bottom: 1px solid #C3D9FF;
+	padding: 5px 10px;	
+}
 
 /* BANNER */
-#banner {
-	background: url(images/anniv_banner.png) no-repeat right top;
+#banner h1 {
+	background-color: #C3D9FF;
+	color: black;
+	font-size: 16px;
+	padding: 5px 10px;
 }
+
+#banner h1 a, #banner h1 a:visited {
+	color: black;
+	text-decoration: none;	
+}
+
 #banner ul {
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
 }
-#banner li {
-	display: inline;
-	margin-left: 10px;
-}
-#banner li a {
-	color: #666666;
-	text-decoration: none;
-	text-transform: uppercase;
-	font: 1.1em "Trebuchet MS";
-}
-.seperator {
-	border-right: 1px solid #666;
-	padding-right:10px;
-}
 
 /* mainNav BAR */
+div#mainNav {
+	height: 22px;
+}
 
 #mainNav ul {
 	margin: 0;
-	padding: 0;
-	background-color: black;
-	border-bottom: 1px solid #000;
+	padding: 0;	
+	border-bottom: 1px solid #E5ECF9;
 	width: 100%;
+	font-size: 14px;
 }
 
 #mainNav li {
@@ -55,15 +60,18 @@ h1, h2, h3, p, ul {
 }
 
 #mainNav li a, #mainNav li a:link {
-	color: #FFFFFF;
+	color: black;
 	text-decoration: none;
-	padding: .5em 1em;
-	display: block;
-	font: bold 1em "Lucida Grande", Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+	padding: 2px 10px;
+	display: block;	
 }
 
 #mainNav li a:hover {
-	background-color: black;
+	background-color: #E5ECF9;
+}
+
+#mainNav ul ul {
+	background-color: white;
 }
 
 /* IE 6 hack to make entire button clickable */
@@ -71,47 +79,75 @@ h1, h2, h3, p, ul {
 
 
 /* MAIN CONTENT */
+#contentwrap {
+	width: 100%;
+}
+
+td.col {
+	vertical-align: top;
+}
+
+#mainwrap {
+	padding: 10px;
+}
 
 #main h1 {
 	color: #663900;
 	padding-top: 15px;
-	margin-bottom: 10px;
-	font: bold 2.3em Georgia, "Times New Roman", Times, serif;
+	margin-bottom: 10px;	
 }
 
 #main h2 {
-	font-size: 1.8em;
 	font-weight: normal;
-	border-bottom: 1px solid #106A9B;
-	margin-bottom: 5px;
+	border-bottom: 1px solid #E5ECF9;
 	color: #663900;
 }
 
+#main h3 a, #main h3 a:visited {
+	text-decoration: none;
+	color: blue;
+}
+
+#main h3 a:hover {
+	color: #CA1D07;
+}
+
+#main h2, #main h3, #main h4 {
+	margin-bottom: 5px;	
+	border-bottom: 1px solid #E5ECF9;
+}
+
 #main p {
-	font-size: 1.4em;
 	margin-bottom: 10px;
 }
 
-#main ul {
-    margin-left: 10px;
+#mainwrap ul, #main ol {
+	margin: 5px;
+	margin-left: 20px;
 }
 
 /* SIDEBAR */
 #sidebar {
-	background-color: #FFFFFF;
+	width: 190px;
+	background-color: #E5ECF9;
+	padding: 0 10px;
+	vertical-align: top;
+	font-size: 80%;
+}
+
+#sidebar #sidebarwrap {
+	min-height: 600px;
 }
 
 #sidebar h2 {
-	font-size: 1.3em;
-	padding: 7px 8px 0 8px;
-	margin-bottom: 5px;
-	background-color: #FFFFFF;
+	font-size: 14px;
+	padding: 7px 0;
+	margin: 5px 0;
 }
 #sidebar p {
 	margin-right: 5px;
 	margin-bottom: 10px;
 	margin-left: 5px;
-	color: #FFFFFF;
 }
 #sidebar h3 {
 	font-size: 1.1em;
@@ -127,64 +163,58 @@ h1, h2, h3, p, ul {
 	color: #CA1D07;
 }
 
+#sidebar ul {
+    margin-bottom: 5px;
+	margin-left: 20px;
+}
 
+.issuelist {
+	width: 100%;	
+}
+
+.issuelist th {	
+	background-color:#E5ECF9;	
+}
+
+.issuelist td:hover {
+	cursor: hand;
+}
+.issuelist th, .issuelist td {
+	vertical-align: top;
+	text-align: left;
+	padding:2px;
+}
+
+.issuelist tr:hover{
+	background:#E5ECF9 none repeat scroll 0 0;
+}
+
+.prio1, .prio2, .prio3 {
+	background-color:#FFDEDE;
+}
+
+/* form styling */
+.errorlist {
+	color: red;
+}
+
+ul.errorlist {
+	list-style: none;
+	margin: 2px !important;
+	display: inline;
+}
 
 /* COPYRIGHT INFO */
 #copyright {
+	clear: both;
 	padding: 5px;
-	border-top: 1px solid #000;
-	background-color: black;
-	font-weight: bold;
-	color: #FFFFFF;
+	border-top: 1px solid #E5ECF9;
+	border-bottom: 1px solid #E5ECF9;			
+	color: #888888;
+	text-align: center;
+	font-size: 80%;
+	margin-bottom: 10px;
 }
-
-#copyright a:link {
-    color: #FFFFFF;
-}
-
-#copyright a:hover {
-    color: #CA1D07;
-}
-
-#copyright a:visited {
-    color: #FFFFFF;
-}
-body {                                                                                                                   
-        margin: 20px;                                                                                                    
-}                                                                                                                        
-
-/* uncomment this style to set a fixed width
-#wrapper {                                  
-        width: 760px;                       
-}                                           
-*/                                          
-
-#banner {
-        position: relative;
-}                          
-
-/* fix IE 6: improperly positioning 
-'subscribe' and 'about us' links in banner */
-* html #banner {                             
-        height: 1px;                         
-}                                            
-
-#banner #badge {
-        position: absolute;
-        left: -18px;       
-        top: -18px;        
-}                          
-
-#banner #logo {
-        margin-left: 60px;
-        position: relative; /* jumping logo fix for IE */
-}                                                        
-
-#banner ul {
-        position: absolute;
-        right: 60px;       
-        bottom: 5px;       
-}                          
 
 #main .figure {
         float: right;
@@ -209,33 +239,41 @@ body {
 }                                  
 
 #main .figure img {
-        display: block;
+   	display: block;
 }                      
 
-#contentWrapper {
-        position: relative;
-        clear: both;       
-        width: 100%;       
-}                          
-
-#sidebar {
-        position: absolute;
-        top: 0px;         
-        left: 0;           
-        width: 200px; 
-}                          
-
-#sidebar ul {
-    margin-left: 20px;
+/* prop tables */
+.proptab {
+	font-size: 80%;
+	border: 1px solid #E5ECF9;
+	width: 250px;
 }
 
-#main {
-        margin-left: 200px;
-        margin-bottom: 150px;
-        padding: 0 15px 15px 20px;
-}  
+.proptab td {
+	background-color:#E5ECF9;
+}
 
-@charset "UTF-8";
+.proptab th {
+	text-align: left;
+	background-color: #C3D9FF;
+	padding: 2px;
+	padding-right: 5px;
+}
+
+small.inlineaction {
+	font-size: 13px;
+	font-weight: normal;
+	float: right;
+}
+
+small.inlineaction a, small.inlineaction a:visited {
+	color: blue !important;
+	text-decoration: underline !important;
+}
+
+.commentform, .commentform textarea {
+	width: 85%;
+}
 
 /**
  * Horizontal CSS Drop-Down Menu Module
@@ -303,7 +341,6 @@ ul.dropdown li:hover > ul {
  visibility: visible;
 }
 
-@charset "UTF-8";
 
 /** 
  * Default CSS Drop-Down Menu Theme
@@ -335,18 +372,15 @@ ul.dropdown li:hover > ul {
 
 
 ul.dropdown {
- font-weight: bold;
-   background-color: #FFFFFF;
+	background-color: #FFFFFF;
 }
 
-	ul.dropdown li {
+ul.dropdown li {
 	 padding: 7px 10px;
-
-	}
+}
 
 	ul.dropdown li.hover,
-	ul.dropdown li:hover {
-	 background-color: #000000;
+	ul.dropdown li:hover {	 
 	 color: #FFFFFF;
 	}
 
@@ -362,12 +396,6 @@ ul.dropdown {
 	 width: 150px;
 	 margin-top: 1px;
 	}
-
-		ul.dropdown ul li {
-		 font-weight: normal;
-		}
-
-
 
 /*-------------------------------------------------/
  * @section		Support Class `dir`

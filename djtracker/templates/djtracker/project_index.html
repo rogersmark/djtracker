@@ -1,76 +1,41 @@
 {% extends "djtracker/base.html" %}
 {% block title %} - {{ project }}{% endblock %}
+{% block head %}
+<script type="text/javascript">
+{% include 'djtracker/sorttable.js' %}
+</script>
+{% endblock %}
 {% block content %}
   {% if project %}
-    <h3>{{ project }}</h3>
-    <p> {{ project.description }}</p>
-    {% if project.component_set.all %}
-      <h4>{{ project }}: Components</h4>
-      <ul>
-      {% for comp in project.component_set.all %}
-        <li><a href="{{ comp.get_absolute_url }}">{{ comp }}</a></li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-    {% if project.version_set.all %}
-      <h4>{{ project }}: Versions</h4>
-      <ul>
-      {% for version in project.version_set.all %}
-        <li><a href="{{ version.get_absolute_url }}">{{ version }}</a></li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-    {% if project.milestone_set.all %}
-      <h4>{{ project }}: Milestones</h4>
-      <ul>
-      {% for milestone in project.milestone_set.all %}
-        <li><a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a></li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-    <h4> {{ project }}: Open  Issues </h4>
-    {% for issue in open_issues %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-    <h4> Browse by status: </h4>
-    {% for status in statuses %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{% url project_status project.slug status.slug %}">{{ status }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-    <h4> Browse by issue type: </h4>
-    {% for type in types %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{% url project_issue_type project.slug type.slug %}">{{ type }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-    <h4> Browse by priority: </h4>
-    {% for priority in priorities %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{% url project_priority project.slug priority.slug %}">{{ priority }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}        
-      <p><a href="{% url project_all_issues project.slug %}">View all Issues</a></p>
-    {% if can_comment %}
-      <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>
-    {% endif %}
+    <h3>{% if request.user.is_superuser %}<small class="inlineaction"><a href="/admin/djtracker/project/{{project.pk}}">Edit Project</a>{% endif %}</small>{{ project }}</h3>
+    <p> {{ project.description }}</p>	
+
+	<h4><small class="inlineaction"><a href="{% url project_all_issues project.slug %}">View all Issues</a>{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>{% endif %}</small>{{ project }}: Open  Issues</h4>
+    
+	{% with open_issues as issue_list %}
+	{% include 'djtracker/blocks/issue_list.html' %}
+	{% endwith %}
+	    
+    <table style="width: 100%;"><tr><td class="col" style="width: 50%; padding-right: 20px;">
+	<h4>Browse Issues by</h4>
+	<table >
+		<tr><td>Status:</td><td>{% for status in statuses %}<a href="{% url project_status project.slug status.slug %}">{{ status }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>Issue Type:</td><td>{% for type in types %}<a href="{% url project_issue_type project.slug type.slug %}">{{ type }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>Priority:</td><td>{% for priority in priorities %}<a href="{% url project_priority project.slug priority.slug %}">{{ priority }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr> 
+	</table>
+	</td><td class="col" style="width: 50%;padding-right: 20px;">
+	<h4>Project Information</h4>
+	<table>
+		{% if project.component_set.all %}
+		<tr><td>Components:</td><td>{% for comp in project.component_set.all %}<a href="{{ comp.get_absolute_url }}">{{ comp }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		{% endif %}
+		{% if project.version_set.all %}
+		<tr><td>Versions:</td><td>{% for version in project.version_set.all %}<a href="{{ version.get_absolute_url }}">{{ version }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		{% endif %}
+		{% if project.milestone_set.all %}
+		<tr><td>Milestones:</td><td>{% for milestone in project.milestone_set.all %}<a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		{% endif %}
+	</table>
+	</td></tr></table>
   {% endif %}
 {% endblock %}
