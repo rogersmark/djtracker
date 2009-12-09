@@ -1,5 +1,3 @@
-from djtracker import models
-
 def check_permissions(permission_type, user, project):
     """
     Here we check permission types, and see if a user has proper perms.

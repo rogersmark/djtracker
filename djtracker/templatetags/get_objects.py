@@ -26,8 +26,8 @@ class ModelObjectNode(template.Node):
             model = get_model(self.app_name, self.model_name)
         except:
             raise TemplateSyntaxError, "Failed to retrieve model"
-
-        if request and hasattr(model.objects, 'filter_allowed'):
+        
+        if hasattr(model.objects, 'filter_allowed'):
             object_list = model.objects.filter_allowed(request)
         else:
             object_list = model.objects.all()
