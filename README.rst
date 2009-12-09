@@ -148,4 +148,10 @@ You'll need the following URL pattern:
 (r'', include('djtracker.urls')),
 
 Feel free to change the path to suit your needs. Keep in mind it's only been tested at a root path thus far. It should work fine at other paths though.
-                
+
+------------------------------------------------
+Authors:
+------------------------------------------------
+
+Mark Rogers (f4nt) - Creator
+chrisv2 - Contributor
