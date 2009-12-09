@@ -23,7 +23,7 @@ def update_watchers(sender, instance, created, **kwargs):
         email_addresses = []
         for x in users:
             email_addresses.append(x.user.email)
-        if comment.content_object.assigned_to.user.email not in email_addresses:
+        if comment.content_object.assigned_to and comment.content_object.assigned_to.user.email not in email_addresses:
             email_addresses.append(comment.content_object.assigned_to.user.email)
         email_title = "DjTracker: [%s]: Issue #%s has been updated by %s" % (comment.content_object.project.slug, 
             comment.content_object.id, comment.user_name)
