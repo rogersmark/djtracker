@@ -1,24 +1,28 @@
-<h2>Recently Active Issues</h2>
 {% load get_objects %}
-  {% get_object_models "djtracker" "issue" "-modified_date" "15" "bar_issue_list" %}
-  <ul>
-  {% for bar_issue in bar_issue_list %}
-    <li><a href="{{ bar_issue.get_absolute_url }}">{{ bar_issue }}</a></li>
-  {% endfor %}
-  </ul>
-<hr />
+{% get_object_models "djtracker" "issue" "-modified_date" "15" "bar_issue_list" %}
+{# recent issues #}
+{% if bar_issue_list %}
+<h2>Recently Active Issues</h2>
+<ul>
+{% for bar_issue in bar_issue_list %}
+  <li><a href="{{ bar_issue.get_absolute_url }}">{{ bar_issue }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+{# search issues #}
+{% if bar_project_list %}
 <h2> Search Issues</h2>
-  <form action="{% url project_search %}" method="get">
+<form action="{% url project_search %}" method="get">
     <select name="project">
-      {% if bar_project_list %}
         {% for x in bar_project_list %}
           {% if forloop.first %}
             <option value="all">All Projects</option>
           {% endif %}
             <option value="{{ x.slug }}">{{ x }}</option>
         {% endfor %}
-      {% endif %}
     </select>
     <input type="text" name="search" />
     <input type="submit" value="submit" />
-  </form>
+</form>
+{% endif %}
+

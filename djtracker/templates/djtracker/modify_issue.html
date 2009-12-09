@@ -2,10 +2,7 @@
 {% block title %} - Modify {{ issue }}{% endblock %}
 {% block content %}
   <form action="{% url project_modify_issue project.slug issue.id %}" method="post"> 
-    {% if form.errors %}
-      {{ form.errors }}
-    {% endif %}
-    {{ form.as_p }}
+	<table>{{ form.as_table }}</table>	
     <input type="submit" value="Submit Issue" />
   </form>
 {% endblock %}

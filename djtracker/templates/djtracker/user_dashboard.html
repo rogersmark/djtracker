@@ -1,79 +1,64 @@
 {% extends "djtracker/base.html" %}
-  {% block content %}
-  <h4>Recently Updated Issues: </h4>
-  {% for issue in recently_updated %}
-    {% if forloop.first %}
-      <ul>
-    {% endif %}
-    <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-    {% if forloop.last %}
-      </ul>
-    {% endif %}
-  {% endfor %}
+{% block head %}
+<script type="text/javascript">
+{% include 'djtracker/sorttable.js' %}
+</script>
+{% endblock %}
 
+  
+{% block content %}
+  {% with 1 as issues_with_project %}
   {% if assigned_issues %}
-    <h4>Assigned Issues: </h4>
-    {% for issue in assigned_issues %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-      {% if forloop.last %}
-       </ul>
-      {% endif %}
-    {% endfor %}
+  <div class="hideable">
+  <h4>Issues assigned to me</h4>
+  {% with assigned_issues as issue_list %}
+  {% include 'djtracker/blocks/issue_list.html' %}
+  {% endwith %}
+  </div>
   {% endif %}
 
+  {# if profile.issuefilter_set.all #}
+  <h4>Saved Filters</h4>
+  {% for issue_filter in profile.issuefilter_set.all %}
+  <span><small class="inlineaction">(<a href="{% url project_filter_delete issue_filter.id %}">delete</a>)</small><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a></span>        
+   {% if not forloop.last %} | {% endif %}
+  {% endfor %}
+  {# endif #}
+  
+
+  <div class="hideable hidden">
+  <h4>Recently Updated Issues</h4>
+  {% with recently_updated as issue_list %}
+  {% include 'djtracker/blocks/issue_list.html' %}
+  {% endwith %}
+  </div>
+    
   {% if created_issues %}
-    <h4>Created Issues: </h4>
-    {% for issue in created_issues %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
+  <div class="hideable hidden">
+  <h4>Issues created by me</h4>
+  {% with created_issues as issue_list %}
+  {% include 'djtracker/blocks/issue_list.html' %}
+  {% endwith %}
   {% endif %}
-
+  </div>
+  
   {% if watched_issues %}
-    <h4>Watched Issues: </h4>
-    {% for issue in watched_issues %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
+  <div class="hideable hidden">
+  <h4>Issues I am watching</h4>
+  {% with watched_issues as issue_list %}
+  {% include 'djtracker/blocks/issue_list.html' %}
+  {% endwith %}
+  </div>
   {% endif %}
 
   {% if commented_issues %}
-    <h4>Commented Issues: </h4>
-    {% for issue in commented_issues %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
+  <div class="hideable hidden">
+  <h4>Issues I commented on</h4>
+  {% with commented_issues as issue_list %}
+  {% include 'djtracker/blocks/issue_list.html' %}
+  {% endwith %}
+  </div>
   {% endif %}
 
-  {% if profile.issuefilter_set.all %}
-    <h4>Saved Filters: </h4>
-    {% for issue_filter in profile.issuefilter_set.all %}
-      {% if forloop.first %}
-        <ul>
-      {% endif %}
-      <li><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a>
-        <a href="{% url project_filter_delete issue_filter.id %}">Delete Filter</a>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  {% endwith %}
 {% endblock %}
