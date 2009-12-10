@@ -12,7 +12,7 @@
 		{% endif %}
 	</tr>
 	{% for issue in issue_list %}
-      <tr class="prio{{issue.priority.pk}}">
+      <tr class="prio-{{issue.priority.slug}}">
       	{% if issues_with_project %}
 		<td><a href="{{ issue.project.get_absolute_url }}">{{issue.project}}</a></td>
 		{% endif %}

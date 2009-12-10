@@ -189,20 +189,29 @@ td.col {
 	background:#E5ECF9 none repeat scroll 0 0;
 }
 
-.prio1, .prio2, .prio3 {
+.prio-critical, .prio-urgent {
 	background-color:#FFDEDE;
 }
 
 /* form styling */
-.errorlist {
-	color: red;
+form th {
+	text-align: left;
+	vertical-align: top;
 }
 
-ul.errorlist {
+ul.errorlist, #mainwrap ul.errorlist {
+    margin: 0;
+    padding: 0;
 	list-style: none;
-	margin: 2px !important;
-	display: inline;
 }
+
+.errorlist li {
+	color: red;
+    display: block;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+}
+
 
 /* COPYRIGHT INFO */
 #copyright {
