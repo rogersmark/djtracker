@@ -1,14 +1,14 @@
 @charset "UTF-8";
 /* BASIC */
 body {
-	font-family:arial,sans-serif;
-	margin: 0;
-	padding: 0;
+    font-family:arial,sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3, p, ul {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 a:hover {
@@ -17,61 +17,61 @@ a:hover {
 
 /* USERMENU */
 #usermenu {
-	text-align:right;
-	border-bottom: 1px solid #C3D9FF;
-	padding: 5px 10px;	
+    text-align:right;
+    border-bottom: 1px solid #C3D9FF;
+    padding: 5px 10px;  
 }
 
 /* BANNER */
 #banner h1 {
-	background-color: #C3D9FF;
-	color: black;
-	font-size: 16px;
-	padding: 5px 10px;
+    background-color: #C3D9FF;
+    color: black;
+    font-size: 16px;
+    padding: 5px 10px;
 }
 
 #banner h1 a, #banner h1 a:visited {
-	color: black;
-	text-decoration: none;	
+    color: black;
+    text-decoration: none;  
 }
 
 #banner ul {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
 }
 
 /* mainNav BAR */
 div#mainNav {
-	height: 22px;
+    height: 22px;
 }
 
 #mainNav ul {
-	margin: 0;
-	padding: 0;	
-	border-bottom: 1px solid #E5ECF9;
-	width: 100%;
-	font-size: 14px;
+    margin: 0;
+    padding: 0; 
+    border-bottom: 1px solid #E5ECF9;
+    width: 100%;
+    font-size: 14px;
 }
 
 #mainNav li {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #mainNav li a, #mainNav li a:link {
-	color: black;
-	text-decoration: none;
-	padding: 2px 10px;
-	display: block;	
+    color: black;
+    text-decoration: none;
+    padding: 2px 10px;
+    display: block; 
 }
 
 #mainNav li a:hover {
-	background-color: #E5ECF9;
+    background-color: #E5ECF9;
 }
 
 #mainNav ul ul {
-	background-color: white;
+    background-color: white;
 }
 
 /* IE 6 hack to make entire button clickable */
@@ -80,140 +80,149 @@ div#mainNav {
 
 /* MAIN CONTENT */
 #contentwrap {
-	width: 100%;
+    width: 100%;
 }
 
 td.col {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 #mainwrap {
-	padding: 10px;
+    padding: 10px;
 }
 
 #main h1 {
-	color: #663900;
-	padding-top: 15px;
-	margin-bottom: 10px;	
+    color: #663900;
+    padding-top: 15px;
+    margin-bottom: 10px;    
 }
 
 #main h2 {
-	font-weight: normal;
-	border-bottom: 1px solid #E5ECF9;
-	color: #663900;
+    font-weight: normal;
+    border-bottom: 1px solid #E5ECF9;
+    color: #663900;
 }
 
 #main h3 a, #main h3 a:visited {
-	text-decoration: none;
-	color: blue;
+    text-decoration: none;
+    color: blue;
 }
 
 #main h3 a:hover {
-	color: #CA1D07;
+    color: #CA1D07;
 }
 
 #main h2, #main h3, #main h4 {
-	margin-bottom: 5px;	
-	border-bottom: 1px solid #E5ECF9;
+    margin-bottom: 5px; 
+    border-bottom: 1px solid #E5ECF9;
 }
 
 #main p {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #mainwrap ul, #main ol {
-	margin: 5px;
-	margin-left: 20px;
+    margin: 5px;
+    margin-left: 20px;
 }
 
 /* SIDEBAR */
 #sidebar {
-	width: 190px;
-	background-color: #E5ECF9;
-	padding: 0 10px;
-	vertical-align: top;
-	font-size: 80%;
+    width: 190px;
+    background-color: #E5ECF9;
+    padding: 0 10px;
+    vertical-align: top;
+    font-size: 80%;
 }
 
 #sidebar #sidebarwrap {
-	min-height: 600px;
+    min-height: 600px;
 }
 
 #sidebar h2 {
-	font-size: 14px;
-	padding: 7px 0;
-	margin: 5px 0;
+    font-size: 14px;
+    padding: 7px 0;
+    margin: 5px 0;
 }
 #sidebar p {
-	margin-right: 5px;
-	margin-bottom: 10px;
-	margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    margin-left: 5px;
 }
 #sidebar h3 {
-	font-size: 1.1em;
-	margin-right: 5px;
-	margin-left: 5px;
-	margin-bottom: 3px;
+    font-size: 1.1em;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 3px;
 }
 #sidebar h3 a {
-	color: #000000;
+    color: #000000;
 }
 
 #sidebar a:hover {
-	color: #CA1D07;
+    color: #CA1D07;
 }
 
 #sidebar ul {
     margin-bottom: 5px;
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 .issuelist {
-	width: 100%;	
+    width: 100%;    
 }
 
-.issuelist th {	
-	background-color:#E5ECF9;	
+.issuelist th { 
+    background-color:#E5ECF9;   
 }
 
 .issuelist td:hover {
-	cursor: hand;
+    cursor: hand;
 }
 .issuelist th, .issuelist td {
-	vertical-align: top;
-	text-align: left;
-	padding:2px;
+    vertical-align: top;
+    text-align: left;
+    padding:2px;
 }
 
 .issuelist tr:hover{
-	background:#E5ECF9 none repeat scroll 0 0;
+    background:#E5ECF9 none repeat scroll 0 0;
 }
 
-.prio1, .prio2, .prio3 {
-	background-color:#FFDEDE;
+.prio-critical, .prio-urgent {
+    background-color:#FFDEDE;
 }
 
 /* form styling */
-.errorlist {
-	color: red;
+form th {
+    text-align: left;
+    vertical-align: top;
 }
 
-ul.errorlist {
-	list-style: none;
-	margin: 2px !important;
-	display: inline;
+ul.errorlist, #mainwrap ul.errorlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
+
+.errorlist li {
+    color: red;
+    display: block;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+}
+
 
 /* COPYRIGHT INFO */
 #copyright {
-	clear: both;
-	padding: 5px;
-	border-top: 1px solid #E5ECF9;
-	border-bottom: 1px solid #E5ECF9;			
-	color: #888888;
-	text-align: center;
-	font-size: 80%;
-	margin-bottom: 10px;
+    clear: both;
+    padding: 5px;
+    border-top: 1px solid #E5ECF9;
+    border-bottom: 1px solid #E5ECF9;           
+    color: #888888;
+    text-align: center;
+    font-size: 80%;
+    margin-bottom: 10px;
 }
 
 #main .figure {
@@ -239,55 +248,55 @@ ul.errorlist {
 }                                  
 
 #main .figure img {
-   	display: block;
+    display: block;
 }                      
 
 /* prop tables */
 .proptab {
-	font-size: 80%;
-	border: 1px solid #E5ECF9;
-	width: 250px;
+    font-size: 80%;
+    border: 1px solid #E5ECF9;
+    width: 250px;
 }
 
 .proptab td {
-	background-color:#E5ECF9;
+    background-color:#E5ECF9;
 }
 
 .proptab th {
-	text-align: left;
-	background-color: #C3D9FF;
-	padding: 2px;
-	padding-right: 5px;
+    text-align: left;
+    background-color: #C3D9FF;
+    padding: 2px;
+    padding-right: 5px;
 }
 
 small.inlineaction {
-	font-size: 13px;
-	font-weight: normal;
-	float: right;
+    font-size: 13px;
+    font-weight: normal;
+    float: right;
 }
 
 small.inlineaction a, small.inlineaction a:visited {
-	color: blue !important;
-	text-decoration: underline !important;
+    color: blue !important;
+    text-decoration: underline !important;
 }
 
 .commentform, .commentform textarea {
-	width: 85%;
+    width: 85%;
 }
 
 /**
  * Horizontal CSS Drop-Down Menu Module
  *
- * @file		dropdown.css
- * @package		Dropdown
- * @version		0.7.1
- * @type		Transitional
- * @stacks		597-599
- * @browsers	Windows: IE6+, Opera7+, Firefox1+
- *				Mac OS: Safari2+, Firefox2+
+ * @file        dropdown.css
+ * @package     Dropdown
+ * @version     0.7.1
+ * @type        Transitional
+ * @stacks      597-599
+ * @browsers    Windows: IE6+, Opera7+, Firefox1+
+ *              Mac OS: Safari2+, Firefox2+
  *
- * @link		http://www.lwis.net/
- * @copyright	2006-2008 Live Web Institute. All Rights Reserved.
+ * @link        http://www.lwis.net/
+ * @copyright   2006-2008 Live Web Institute. All Rights Reserved.
  *
  */
 
@@ -345,15 +354,15 @@ ul.dropdown li:hover > ul {
 /** 
  * Default CSS Drop-Down Menu Theme
  *
- * @file		default.css
- * @name		Default
- * @version		0.1
- * @type		transitional
- * @browsers	Windows: IE5+, Opera7+, Firefox1+
- *				Mac OS: Safari2+, Firefox2+
+ * @file        default.css
+ * @name        Default
+ * @version     0.1
+ * @type        transitional
+ * @browsers    Windows: IE5+, Opera7+, Firefox1+
+ *              Mac OS: Safari2+, Firefox2+
  *
- * @link		http://www.lwis.net/
- * @copyright	2008 Live Web Institute. All Rights Reserved.
+ * @link        http://www.lwis.net/
+ * @copyright   2008 Live Web Institute. All Rights Reserved.
  *
  * Module Classes: *.dir {} *.on {} *.open {} li.hover {} li.first {} li.last {}
  * Expected directory tag - li
@@ -362,44 +371,44 @@ ul.dropdown li:hover > ul {
 
 
 /*-------------------------------------------------/
- * @section		Base Drop-Down Styling
- * @structure	ul (unordered list)
- *				ul li (list item)
- *				ul li a (links)
- *				/.class|(li|a):hover/
- * @level sep	ul
+ * @section     Base Drop-Down Styling
+ * @structure   ul (unordered list)
+ *              ul li (list item)
+ *              ul li a (links)
+ *              /.class|(li|a):hover/
+ * @level sep   ul
  */
 
 
 ul.dropdown {
-	background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 ul.dropdown li {
-	 padding: 7px 10px;
+     padding: 7px 10px;
 }
 
-	ul.dropdown li.hover,
-	ul.dropdown li:hover {	 
-	 color: #FFFFFF;
-	}
+    ul.dropdown li.hover,
+    ul.dropdown li:hover {   
+     color: #FFFFFF;
+    }
 
-	ul.dropdown a:link,
-	ul.dropdown a:visited	{ color: #000000; text-decoration: none; }
-	ul.dropdown a:hover		{ color: #000000; }
-	ul.dropdown a:active	{ color: #000000; }
+    ul.dropdown a:link,
+    ul.dropdown a:visited   { color: #000000; text-decoration: none; }
+    ul.dropdown a:hover     { color: #000000; }
+    ul.dropdown a:active    { color: #000000; }
 
 
-	/* -- level mark -- */
+    /* -- level mark -- */
 
-	ul.dropdown ul {
-	 width: 150px;
-	 margin-top: 1px;
-	}
+    ul.dropdown ul {
+     width: 150px;
+     margin-top: 1px;
+    }
 
 /*-------------------------------------------------/
- * @section		Support Class `dir`
- * @level sep	ul, .class
+ * @section     Support Class `dir`
+ * @level sep   ul, .class
  */
 
 

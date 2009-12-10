@@ -1,36 +1,36 @@
 {% extends "djtracker/base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+{% include 'djtracker/sorttable.js' %}
+</script>
+{% endblock %}
+
 {% block content %}
   {% if user %}
-    <h3>User: {{ user.username }}</h3>
+    <h3><small class="inlineaction"><a href="{% url django.contrib.auth.views.password_change %}">change password</a></small>User: {{ user.username }}</h3>
     <p>IM Information: {{ profile.instant_messanger }}</p>
     {% if request.user.is_authenticated %}
       <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
-    {% endif %}
-    <hr />
-    {% if assigned %}
-      {% for issue in assigned %}
-        {% if forloop.first %}
-          <h4>Assigned Issues:</h4>
-          <ul>
-        {% endif %}
-          <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
-        {% if forloop.last %}
-          </ul>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
+    {% endif %}    
+	{% with 1 as issues_with_project %}	   
+	{% if assigned %}
+	  <div class="hideable">
+	  <h4>Issues assigned to me</h4>	     
+	  {% with assigned as issue_list %}
+	  {% include 'djtracker/blocks/issue_list.html' %}
+	  {% endwith %}
+	  </div>
+    {% endif %}	
     {% if created %}
-       {% for issue in created %}
-        {% if forloop.first %}
-          <h4>Created Issues:</h4>
-          <ul>
-        {% endif %}
-          <p><li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></li></p>
-        {% if forloop.last %}
-          </ul>
-        {% endif %}
-      {% endfor %}
+	  <div class="hideable">
+	  <h4>Issues created by me</h4>	  
+	  {% with created as issue_list %}
+	  {% include 'djtracker/blocks/issue_list.html' %}
+	  {% endwith %}
+	  </div>
     {% endif %}
+	{% endwith %}
   {% endif %}
 {% endblock %}
 

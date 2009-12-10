@@ -55,10 +55,10 @@ class Command(NoArgsCommand):
         project_slug = match.group().lstrip('[').rstrip(']')
 
         ## Get email address
-        print message['from']
+        #print message['from']
         match = re.search(r'[a-zA-Z0-9+_\-\.]+@[0-9a-zA-Z]*.[a-zA-Z]+',
                                message['from'])
-        print match.group()
+        #print match.group()
         email_addy = match.group()
         ## Get Issue Number (if exists)
         match = re.search("Issue #[\d]+", message['subject'])
@@ -93,7 +93,7 @@ class Command(NoArgsCommand):
         body = raw_data[message.startofbody:]
         content_type = ContentType.objects.get(model='issue')
 
-        print can_comment
+        #print can_comment
         if can_comment:
             if issue is not None:
                 comment = Comment()

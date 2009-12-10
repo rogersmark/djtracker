@@ -339,7 +339,7 @@ def dashboard(request):
     for x in Comment.objects.all():
         if x.content_type.name == "issue":
             if x.user == user:
-                print x.id
+                #print x.id
                 comments.append(x.content_object.id)
 
     commented_issues = models.Issue.objects.filter(id__in=comments)

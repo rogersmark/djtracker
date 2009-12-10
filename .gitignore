@@ -6,3 +6,4 @@ djtracker.egg-info
 docs/build
 *.rst~
 *.rst\~
+.tmp_*~
