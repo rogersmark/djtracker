@@ -5,15 +5,15 @@ Author - Mark Rogers (f4nt)
 License - BSD License
 
 Demo at http://issues.f4ntasmic.com
+
 Full documentation at http://issues.f4ntasmic.com/docs
+
+Submit Issues at http://issues.f4ntasmic.com
 
 DjTracker Introduction:
 ------------------------
 
 DjTracker is meant to be an issue tracker built with Python and Django. I hadn't personally seen an active one that suited my needs, so I set out to build this. Trac is great and all, but it's a jack of all trades and not a master of issue tracking. Below is the proposed feature list of DjTracker with their completion status. Everything marked as complete is 'done' at this time. This doesn't mean it won't change in the feature as new needs arise, but they're functional at this point.
-
-*NOTE*
-Extensive testing at this time has not been completed. In fact, a tests.py doesn't even exist yet. That'll come soon enough though.
 
 Project Creation:
 ------------------------
