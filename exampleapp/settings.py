@@ -80,11 +80,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.comments',
-    'django_extensions',
-    'test_extensions',
     'registration',
     'djtracker',
 )
 
 ACCOUNT_ACTIVIATION_DAYS = 7
 ISSUE_ADDRESS = "user@example.com"
+WEB_SERVER = "apache"
