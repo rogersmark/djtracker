@@ -124,6 +124,7 @@ Currently you can clone the github repository for your installation needs. Just 
 Dependencies:
 
 django-registration
+
 gitpython
 
 Settings:
