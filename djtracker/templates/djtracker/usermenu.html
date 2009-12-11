@@ -3,7 +3,7 @@
 	{% if request.user.is_authenticated %}
 		Logged in as: {{request.user.username}} {% if request.user.is_superuser %}| <a href="/admin">Admin</a> {% endif %}| <a href="{% url project_user request.user.username %}">Profile</a> | <a href="{% url project_logout %}">Log Out</a>
 	{% else %}
-		<a href="{% url project_login %}">Log In</a>
+    <a href="{% url project_login %}">Log In</a> | <a href="{% url registration_register %}">Register</a>
 	{% endif %}	
 	</span>
 </div>
