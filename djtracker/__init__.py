@@ -43,7 +43,7 @@ def update_watchers(sender, instance, created, **kwargs):
             """ % (comment.comment, site, 
                 comment.content_object.get_absolute_url())
         send_mail(email_title, email_message, settings.ISSUE_ADDRESS,
-            email_addresses, fail_silently=False)
+            email_addresses, fail_silently=True)
 
 def update_modified_time(sender, instance, created, **kwargs):
     comment = instance

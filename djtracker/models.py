@@ -283,7 +283,10 @@ class Issue(models.Model):
     )
     status = models.ForeignKey(Status)
     priority = models.ForeignKey(Priority)
-    issue_type = models.ForeignKey(IssueType)
+    issue_type = models.ForeignKey(IssueType,
+        blank=True,
+        null=True
+    )
     description = models.TextField()
     created_by = models.ForeignKey(UserProfile,
         blank=True,

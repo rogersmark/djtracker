@@ -7,3 +7,4 @@ docs/build
 *.rst~
 *.rst\~
 .tmp_*~
+djtracker/management/commands/roundupscraper.py
