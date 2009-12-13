@@ -51,7 +51,8 @@ class IssueForm(forms.ModelForm):
         self.fields['milestone'].queryset = \
             models.Milestone.objects.filter(project=project_instance)
         if can_edit is False:
-            self.fields['assigned_to'].widget = forms.HiddenInput
+            self.fields['assigned_to'].widget = forms.HiddenInput()
+            self.fields['watched_by'].widget = forms.HiddenInput()
     
     def save(self):
         if self.instance:

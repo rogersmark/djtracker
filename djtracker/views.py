@@ -205,7 +205,7 @@ def submit_issue(request, project_slug):
                 issue = form.save()
                 return HttpResponseRedirect(issue.get_absolute_url())
         else:
-            if request.user:
+            if request.user.is_authenticated():
                 form = forms.IssueForm(project.id, can_edit, 
                     initial={ 'project': project.id, 'created_by': profile_id})
             else:
