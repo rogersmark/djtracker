@@ -1,0 +1,67 @@
+[ { "fields" : 
+      { "date_joined" : "2009-12-08 03:56:19",
+        "email" : "admin@djtracker.corp",
+        "first_name" : "",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : true,
+        "is_superuser" : true,
+        "last_login" : "2009-12-13 20:11:44",
+        "last_name" : "",
+        "password" : "",
+        "user_permissions" : [  ],
+        "username" : "admin"
+      },
+    "model" : "auth.user",
+    "pk" : 1
+  },
+  { "fields" : 
+  	  { "date_joined" : "2009-12-13 20:26:17",
+        "email" : "creator@djtracker.corp",
+        "first_name" : "",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : false,
+        "is_superuser" : false,
+        "last_login" : "2009-12-13 20:26:17",
+        "last_name" : "",
+        "password" : "",
+        "user_permissions" : [  ],
+        "username" : "creator"
+      },
+    "model" : "auth.user",
+    "pk" : 2
+  },
+  { "fields" : { "date_joined" : "2009-12-13 20:26:36",
+        "email" : "processor@djtracker.corp",
+        "first_name" : "",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : false,
+        "is_superuser" : false,
+        "last_login" : "2009-12-13 20:26:36",
+        "last_name" : "",
+        "password" : "",
+        "user_permissions" : [  ],
+        "username" : "processor"
+      },
+    "model" : "auth.user",
+    "pk" : 3
+  },
+  { "fields" : { "date_joined" : "2009-12-13 20:26:36",
+        "email" : "watcher@djtracker.corp",
+        "first_name" : "",
+        "groups" : [  ],
+        "is_active" : true,
+        "is_staff" : false,
+        "is_superuser" : false,
+        "last_login" : "2009-12-13 20:26:36",
+        "last_name" : "",
+        "password" : "",
+        "user_permissions" : [  ],
+        "username" : "watcher"
+      },
+    "model" : "auth.user",
+    "pk" : 4
+  }
+]
