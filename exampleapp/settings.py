@@ -84,6 +84,6 @@ INSTALLED_APPS = (
     'djtracker',
 )
 
-ACCOUNT_ACTIVIATION_DAYS = 7
+ACCOUNT_ACTIVATION_DAYS = 7
 ISSUE_ADDRESS = "user@example.com"
 WEB_SERVER = "apache"
