@@ -8,6 +8,8 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.template.loader import get_template
+from django.template import Context
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
@@ -19,31 +21,22 @@ def update_watchers(sender, instance, created, **kwargs):
     comment = instance
     site = Site.objects.get(id=settings.SITE_ID)
     if comment.content_type.name == "issue":
-        users = comment.content_object.watched_by.all()
-        email_addresses = []
-        for x in users:
-            email_addresses.append(x.user.email)
-        if comment.content_object.assigned_to and comment.content_object.assigned_to.user.email not in email_addresses:
-            email_addresses.append(comment.content_object.assigned_to.user.email)
+        issue = comment.content_object
+        # we send email to: all watchers, the creator and the current processor...
+        email_addresses = list(issue.watched_by.all().values_list('user__email', flat=True))
+        if issue.created_by:
+            email_addresses.append(issue.created_by.user.email)
+        if issue.assigned_to: 
+            email_addresses.append(issue.assigned_to.user.email)
+        # make list unique
+        email_addresses = {}.fromkeys(email_addresses).keys()
         email_title = "DjTracker: [%s]: Issue #%s has been updated by %s" % (comment.content_object.project.slug, 
             comment.content_object.id, comment.user_name)
-        email_message = """
-            Hello,
-            This message is to inform you that the issue you are watching has 
-            been updated. The update is as follows:
-
-            -------------------------------
-            %s
-            -------------------------------
-
-            You can view this issue as http://%s%s
-
-            Thanks,
-            DjTracker Administration
-            """ % (comment.comment, site, 
-                comment.content_object.get_absolute_url())
-        send_mail(email_title, email_message, settings.ISSUE_ADDRESS,
-            email_addresses, fail_silently=False)
+        t = get_template('djtracker/mail/issue_updated.txt')
+        email_body = t.render(Context({'comment': comment, 'site': site}))
+        # send mails seperately to protect privacy
+        for recipient in email_addresses:
+            send_mail(email_title, email_body, settings.ISSUE_ADDRESS, [recipient], fail_silently=False)
 
 def update_modified_time(sender, instance, created, **kwargs):
     comment = instance

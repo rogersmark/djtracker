@@ -1,0 +1,12 @@
+Hello,
+This message is to inform you that the issue you are watching has 
+been updated. The update is as follows:
+
+------------------------------------------------------------------
+{{comment.comment}}
+------------------------------------------------------------------
+
+You can view this issue as http://{{site}}{{comment.content_object.get_absolute_url}}
+
+Thanks,
+  DjTracker Administration
