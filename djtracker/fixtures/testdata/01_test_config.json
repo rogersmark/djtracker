@@ -19,7 +19,7 @@
             "created_date": "2009-11-14 16:50:17", 
             "active": true, 
             "allow_anon_viewing": true, 
-            "slug": "default-project", 
+            "slug": "unittest-project", 
             "allow_anon_editing": false
         }
     }, 
@@ -33,7 +33,7 @@
             "created_date": "2009-11-14 16:52:10", 
             "active": true, 
             "goal_date": "2009-11-24 16:52:08", 
-            "slug": "default-milestone", 
+            "slug": "unittest-milestone", 
             "name": "Default Milestone"
         }
     }, 
@@ -46,7 +46,7 @@
             "project": 1, 
             "created_date": "2009-11-14 16:52:19", 
             "active": true, 
-            "slug": "default-component"
+            "slug": "unittest-component"
         }
     }, 
     {
@@ -58,7 +58,7 @@
             "project": 1, 
             "created_date": "2009-11-14 16:52:41", 
             "active": true, 
-            "slug": "default-version"
+            "slug": "unittest-version"
         }
     }, 
     {
@@ -66,7 +66,7 @@
         "model": "djtracker.status", 
         "fields": {
             "name": "Open", 
-            "slug": "open"
+            "slug": "test-open"
         }
     }, 
     {
@@ -74,7 +74,7 @@
         "model": "djtracker.status", 
         "fields": {
             "name": "Closed", 
-            "slug": "closed"
+            "slug": "test-closed"
         }
     }, 
     {
@@ -82,7 +82,7 @@
         "model": "djtracker.status", 
         "fields": {
             "name": "Deferred", 
-            "slug": "deferred"
+            "slug": "test-deferred"
         }
     }, 
     {
@@ -90,7 +90,7 @@
         "model": "djtracker.status", 
         "fields": {
             "name": "Denied", 
-            "slug": "denied"
+            "slug": "test-denied"
         }
     }, 
     {
@@ -98,7 +98,7 @@
         "model": "djtracker.priority", 
         "fields": {
             "name": "High", 
-            "slug": "high"
+            "slug": "test-high"
         }
     }, 
     {
@@ -106,7 +106,7 @@
         "model": "djtracker.priority", 
         "fields": {
             "name": "Normal", 
-            "slug": "normal"
+            "slug": "test-normal"
         }
     }, 
     {
@@ -114,7 +114,7 @@
         "model": "djtracker.priority", 
         "fields": {
             "name": "Low", 
-            "slug": "low"
+            "slug": "test-low"
         }
     }, 
     {

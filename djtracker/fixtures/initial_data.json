@@ -174,14 +174,9 @@
             "name": "Test Issue", 
             "created_date": "2009-11-14 16:52:57", 
             "modified_date": "2009-11-14 16:52:57", 
-            "assigned_to": 1, 
             "component": 1, 
-            "created_by": 1, 
             "project": 1, 
             "version": 1, 
-            "watched_by": [
-                1
-            ], 
             "issue_type": 1, 
             "milestone": 1, 
             "active": true, 
