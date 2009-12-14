@@ -234,3 +234,60 @@ class SignalTest(TestCase):
         comment.site = Site.objects.get(id=settings.SITE_ID)
         comment.save()
         print comment.comment
+
+from django.core import mail
+
+class NotificationTest(TestCase):
+    fixtures = ['testdata/00_test_users.json', 'testdata/01_test_config.json']
+    recipient_list = ['processor@djtracker.corp', 'watcher@djtracker.corp', 'creator@djtracker.corp']    
+        
+    def testNotifyOnCreateIssue(self):
+        # create some issue
+        issue = models.Issue()
+        issue.name = "new issue"
+        issue.project = models.Project.objects.get(pk=1)
+        issue.status = models.Status.objects.get(slug='open')
+        issue.issue_type = models.IssueType.objects.get(slug='bug')
+        issue.priority = models.Priority.objects.get(slug='normal')
+        issue.description = "a new issue"
+        issue.assigned_to = models.UserProfile.objects.get(pk=3)
+        issue.created_by = models.UserProfile.objects.get(pk=2)
+        issue.save()
+        
+        self.assertEquals(len(mail.outbox), 2)
+        self.checkOutbox(['processor@djtracker.corp', 'creator@djtracker.corp'], "DjTracker: [default-project]: New Issue #2 submitted", "Status:   Open")                
+    
+    def testNotifyOnChangeIssue(self):
+        # change some issue
+        issue = models.Issue.objects.get(pk=1)
+        issue.status = models.Status.objects.get(slug='closed')
+        issue.save()
+        
+        self.assertEquals(len(mail.outbox), 3)
+        self.checkOutbox(self.recipient_list, "DjTracker: [default-project]: Issue #1 updated", "Status:   Closed")                
+    
+    def testNotifyOnComment(self):
+        # post some comment
+        comment = Comment()
+        content_type = ContentType.objects.get(model='issue')
+        comment = Comment()
+        comment.user_name = 'somebody'
+        comment.user_email = 'somebody@some.site'
+        comment.content_type = content_type
+        comment.object_pk = 1
+        comment.comment = "This is a test comment"
+        comment.site = Site.objects.get(id=settings.SITE_ID)
+        comment.save()
+        
+        self.assertEquals(len(mail.outbox), 3)        
+        self.checkOutbox(self.recipient_list, "DjTracker: [default-project]: New Comment on Issue #1 by somebody", comment.comment)        
+    
+    def checkOutbox(self, recipient_list, subject, body_part):
+        """test outbox for notifications"""
+        actual_recipients = []
+        for msg in mail.outbox:
+            self.assertEquals(msg.subject, subject)
+            self.assertTrue(body_part in msg.body)
+            actual_recipients.append(msg.to[0])
+        for r in recipient_list:
+            self.assertTrue(r in actual_recipients)

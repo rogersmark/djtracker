@@ -1,0 +1,19 @@
+{% block subject%}DjTracker: [{{project.slug}}]: Issue #{{issue.id}} updated{% endblock %}
+
+{% block body %}
+Hello,
+This message is to inform you that issue #{{issue.id}} has been updated:
+
+------------------------------------------------------------------------
+Title:    {{issue.name}}
+Priority: {{issue.priority}}
+Status:   {{issue.status}}
+Description:
+{{issue.description}}
+------------------------------------------------------------------------
+
+You can view this issue as http://{{site}}{{issue.get_absolute_url}}
+
+Thanks,
+  DjTracker Administration
+{% endblock %}

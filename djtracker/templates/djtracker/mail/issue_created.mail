@@ -1,0 +1,20 @@
+{% block subject%}DjTracker: [{{project.slug}}]: New Issue #{{issue.id}} submitted{% endblock %}
+
+{% block body %}
+Hello,
+This message is to inform you that a new issue has been posted on a
+project you are watching:
+
+--------------------------------------------------------------------
+Title:    {{issue.name}}
+Priority: {{issue.priority}}
+Status:   {{issue.status}}
+Description:
+{{issue.description}}
+--------------------------------------------------------------------
+
+You can view this issue as http://{{site}}{{issue.get_absolute_url}}
+
+Thanks,
+  DjTracker Administration
+{% endblock %}

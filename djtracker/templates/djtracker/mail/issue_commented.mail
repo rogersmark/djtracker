@@ -1,0 +1,16 @@
+{% block subject%}DjTracker: [{{project.slug}}]: New Comment on Issue #{{issue.id}} by {{user_name}}{% endblock %}
+
+{% block body %}
+Hello,
+This message is to inform you that there's a new comment on an issue
+you are watching:
+
+--------------------------------------------------------------------
+{{comment.comment}}
+--------------------------------------------------------------------
+
+You can view this issue as http://{{site}}{{issue.get_absolute_url}}
+
+Thanks,
+  DjTracker Administration
+{% endblock %}

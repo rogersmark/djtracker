@@ -107,3 +107,56 @@ def check_perms(request, project, user=None):
 
     return can_view, can_edit, can_comment
 
+# ported snipped from another project
+from django.core.mail import EmailMessage, EmailMultiAlternatives #, SMTPConnection
+from django.template.loader import get_template
+from django.template.loader_tags import BlockNode
+
+class MailTemplate:
+    """
+    extended mail template processor which uses top-level blocks to
+    describe the various parts of a mail:
+    
+    {% block subject %}Hello World{% endblock %}
+    
+    {% block body %}
+    this is the mail body
+    {% endblock %}
+    
+    {% block html_body %}
+    <html><body><h1>this is the mail body</body></html>
+    {% endblock %}
+    
+    It is recommended, but not required that mail templates are saved with extension ".mail"
+    
+    supported block names are
+    subject       (required)    Subject of the mail
+    body          (required)    Mail body
+    body_html     (optional)    HTML Body. If present, mail will be multipart/html
+    
+    """
+    def __init__(self, template_name):
+        self.template = get_template(template_name)
+        self.mailparts = dict((node.name, node) for node in self.template.nodelist.get_nodes_by_type(BlockNode))
+    
+    def render(self, part, context):
+        """
+        render a mail part
+        """
+        try:
+            return self.mailparts[part].nodelist.render(context)
+        except KeyError:
+            return None
+        
+    def render_to_mail(self, context):
+        """
+        render template content to ``EmailMessage`` object 
+        """ 
+        if 'body_html' in self.mailparts:
+            msg = EmailMultiAlternatives(subject=self.render('subject', context), 
+                                         body=self.render('body', context))
+            msg.attach_alternative(self.render('body_html', context), "text/html")
+        else:
+            msg = EmailMessage(subject=self.render('subject', context), 
+                               body=self.render('body', context))
+        return msg 
