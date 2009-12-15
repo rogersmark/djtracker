@@ -252,8 +252,8 @@ class NotificationTest(TestCase):
         issue.assigned_to = models.UserProfile.objects.get(pk=3)
         issue.created_by = models.UserProfile.objects.get(pk=2)
         issue.save()
-        
-        self.assertEquals(len(mail.outbox), 2)
+
+        self.assertEquals(len(mail.outbox), 3)
         self.check_outbox(['processor@djtracker.corp', 'creator@djtracker.corp'], "DjTracker: [unittest-project]: New Issue #2 submitted", "Status:   Open")                
     
     def test_notify_on_change_issue(self):

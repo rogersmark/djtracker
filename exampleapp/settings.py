@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.comments',
+    'django.contrib.markup',
     'registration',
     'djtracker',
 )

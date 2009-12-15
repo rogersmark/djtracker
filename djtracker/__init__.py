@@ -39,6 +39,9 @@ def update_watchers(issue, created, comment=None):
         
     # we send email to: all watchers, the creator and the current processor...
     email_addresses = list(issue.watched_by.all().values_list('user__email', flat=True))
+    for addy in issue.project.watched_by.all().values_list('user__email', flat=True):
+        if addy not in email_addresses:
+            email_addresses.append(addy)
     if issue.created_by:
         email_addresses.append(issue.created_by.user.email)
     if issue.assigned_to: 

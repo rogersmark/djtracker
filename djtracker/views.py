@@ -42,6 +42,32 @@ def project_index(request, project_slug):
     statuses = models.Status.objects.all()
     types = models.IssueType.objects.all()
     can_view, can_edit, can_comment = utils.check_perms(request, project)
+    
+    ## Check if we're watching this project
+    is_watching = False
+    if request.user.is_authenticated():
+        try:
+            profile = models.UserProfile.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            is_watching = False
+            profile = None
+        if profile in project.watched_by.all():
+            is_watching = True
+    
+    if "watch" in request.GET and can_view:
+        if request.GET['watch'] == "yes":
+            try:
+                profile = models.UserProfile.objects.get(user=request.user)
+            except ObjectDoesNotExist:
+                profile = models.UserProfile.create(user=request.user)
+                profile.save()
+            project.watched_by.add(profile)
+            return HttpResponseRedirect(project.get_absolute_url())
+        elif request.GET['watch'] == "no":
+            profile = models.UserProfile.objects.get(user=request.user)
+            project.watched_by.remove(profile)
+            return HttpResponseRedirect(project.get_absolute_url())
+        
     if can_view is False:
         return HttpResponseNotFound()
     else:
@@ -52,7 +78,8 @@ def project_index(request, project_slug):
                 'statuses': statuses,
                 'priorities': priorities,
                 'request': request,
-                'types': types
+                'types': types,
+                'is_watching': is_watching
             },
             slug=project_slug,
             template_name="djtracker/project_index.html",

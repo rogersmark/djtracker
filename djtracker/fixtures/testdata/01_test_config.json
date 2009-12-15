@@ -15,7 +15,10 @@
             "name": "Default Project", 
             "users_can_edit": [], 
             "allow_authed_comment": true, 
-            "users_can_view": [], 
+            "users_can_view": [],
+            "watched_by": [
+                4
+            ],
             "created_date": "2009-11-14 16:50:17", 
             "active": true, 
             "allow_anon_viewing": true, 

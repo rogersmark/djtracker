@@ -133,6 +133,10 @@ class Project(models.Model):
         null=True,
         related_name='comment_user_set'
     )
+    watched_by = models.ManyToManyField(UserProfile,
+        blank=True,
+        null=True
+    )
 
     active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
