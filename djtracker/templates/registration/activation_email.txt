@@ -1,6 +1,7 @@
-Hello,
+{% load i18n %}{% blocktrans %}Hello,
 
 Please click here to activate your account: {{ site }}/accounts/activate/{{ activation_key }}/
 
 Thanks,
 DjTracker
+{% endblocktrans %}

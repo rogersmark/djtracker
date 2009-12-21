@@ -1,4 +1,6 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
+
 {% block title %} - {{ project }}{% endblock %}
 {% block head %}
 <script type="text/javascript">
@@ -7,33 +9,33 @@
 {% endblock %}
 {% block content %}
   {% if project %}
-    <h3>{% if request.user.is_superuser %}<small class="inlineaction"><a href="/admin/djtracker/project/{{project.pk}}">Edit Project</a> | {% endif %}{% if is_watching %}<a href="{{ project.get_absolute_url }}?watch=no">unwatch</a>{% else %}<a href="{{ project.get_absolute_url }}?watch=yes">watch</a>{% endif %}</small>{{ project }}</h3>
+    <h3>{% if request.user.is_superuser %}<small class="inlineaction"><a href="/admin/djtracker/project/{{project.pk}}">{% trans "Edit Project" %}</a> | {% endif %}{% if is_watching %}<a href="{{ project.get_absolute_url }}?watch=no">{% trans "unwatch" %}</a>{% else %}<a href="{{ project.get_absolute_url }}?watch=yes">{% trans "watch" %}</a>{% endif %}</small>{{ project }}</h3>
     <p> {{ project.description }}</p>	
 
-	<h4><small class="inlineaction"><a href="{% url project_all_issues project.slug %}">View all Issues</a>{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">Submit Issue</a>{% endif %}</small>{{ project }}: Open  Issues</h4>
+	<h4><small class="inlineaction"><a href="{% url project_all_issues project.slug %}">{% trans "View all Issues" %}</a>{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">{% trans "Submit Issue" %}</a>{% endif %}</small>{{ project }}: {% trans "Open  Issues" %}</h4>
     
 	{% with open_issues as issue_list %}
 	{% include 'djtracker/blocks/issue_list.html' %}
 	{% endwith %}
 	    
     <table style="width: 100%;"><tr><td class="col" style="width: 50%; padding-right: 20px;">
-	<h4>Browse Issues by</h4>
+	<h4>{% trans "Browse Issues by" %}</h4>
 	<table >
-		<tr><td>Status:</td><td>{% for status in statuses %}<a href="{% url project_status project.slug status.slug %}">{{ status }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
-		<tr><td>Issue Type:</td><td>{% for type in types %}<a href="{% url project_issue_type project.slug type.slug %}">{{ type }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
-		<tr><td>Priority:</td><td>{% for priority in priorities %}<a href="{% url project_priority project.slug priority.slug %}">{{ priority }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr> 
+		<tr><td>{% trans "Status" %}:</td><td>{% for status in statuses %}<a href="{% url project_status project.slug status.slug %}">{{ status }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>{% trans "Issue Type" %}:</td><td>{% for type in types %}<a href="{% url project_issue_type project.slug type.slug %}">{{ type }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>{% trans "Priority" %}:</td><td>{% for priority in priorities %}<a href="{% url project_priority project.slug priority.slug %}">{{ priority }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr> 
 	</table>
 	</td><td class="col" style="width: 50%;padding-right: 20px;">
-	<h4>Project Information</h4>
+	<h4>{% trans "Project Information" %}</h4>
 	<table>
 		{% if project.component_set.all %}
-		<tr><td>Components:</td><td>{% for comp in project.component_set.all %}<a href="{{ comp.get_absolute_url }}">{{ comp }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>{% trans "Components" %}:</td><td>{% for comp in project.component_set.all %}<a href="{{ comp.get_absolute_url }}">{{ comp }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
 		{% endif %}
 		{% if project.version_set.all %}
-		<tr><td>Versions:</td><td>{% for version in project.version_set.all %}<a href="{{ version.get_absolute_url }}">{{ version }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>{% trans "Versions" %}:</td><td>{% for version in project.version_set.all %}<a href="{{ version.get_absolute_url }}">{{ version }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
 		{% endif %}
 		{% if project.milestone_set.all %}
-		<tr><td>Milestones:</td><td>{% for milestone in project.milestone_set.all %}<a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
+		<tr><td>{% trans "Milestones" %}:</td><td>{% for milestone in project.milestone_set.all %}<a href="{{ milestone.get_absolute_url }}">{{ milestone }}</a>{% if not forloop.last %} | {% endif %}{% endfor %}</td></tr>
 		{% endif %}
 	</table>
 	</td></tr></table>

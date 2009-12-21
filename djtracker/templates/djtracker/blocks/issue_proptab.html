@@ -1,16 +1,17 @@
+{% load i18n %}
 <table class="proptab">			
-	<tr><th>Status</th><td>{{ issue.issue_type }}</td></tr>
-	<tr><th>Type</th><td>{{ issue.status }}</td></tr>
-	<tr><th>Priority</th><td>{{ issue.priority }}</td></tr>
+	<tr><th>{% trans "Status" %}</th><td>{{ issue.issue_type }}</td></tr>
+	<tr><th>{% trans "Type" %}</th><td>{{ issue.status }}</td></tr>
+	<tr><th>{% trans "Priority" %}</th><td>{{ issue.priority }}</td></tr>
 	{% if issue.component %}
-	<tr><th>Component</th><td><a href="{{ issue.component.get_absolute_url }}">{{ issue.component }}</a></td></tr>
+	<tr><th>{% trans "Component" %}</th><td><a href="{{ issue.component.get_absolute_url }}">{{ issue.component }}</a></td></tr>
 	{% endif %}
 	{% if issue.version %}    
-	<tr><th>Version</th><td><a href="{{ issue.version.get_absolute_url }}">{{ issue.version }}</a></td></tr>
+	<tr><th>{% trans "Version" %}</th><td><a href="{{ issue.version.get_absolute_url }}">{{ issue.version }}</a></td></tr>
 	{% endif %}
 	{% if issue.milestone %}
-	<tr><th>Milestone</th><td><a href="{{ issue.milestone.get_absolute_url }}">{{ issue.milestone }}</a></td></tr>
+	<tr><th>{% trans "Milestone" %}</th><td><a href="{{ issue.milestone.get_absolute_url }}">{{ issue.milestone }}</a></td></tr>
 	{% endif %}
-	<tr><th>Created by</th><td>{% if issue.created_by %}<a href="{% url project_user issue.created_by %}">{{ issue.created_by }}</a>{% else %}-{% endif %}</td></tr>
-	<tr><th>Assigned to</th><td>{% if issue.assigned_to %}<a href="{% url project_user issue.assigned_to %}">{{ issue.assigned_to }}</a>{% else %}-{% endif %}</td></tr>
+	<tr><th>{% trans "Created by" %}</th><td>{% if issue.created_by %}<a href="{% url project_user issue.created_by %}">{{ issue.created_by }}</a>{% else %}-{% endif %}</td></tr>
+	<tr><th>{% trans "Assigned to" %}</th><td>{% if issue.assigned_to %}<a href="{% url project_user issue.assigned_to %}">{{ issue.assigned_to }}</a>{% else %}-{% endif %}</td></tr>
 </table>

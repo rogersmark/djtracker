@@ -1,12 +1,13 @@
 {% load get_objects %}
+{% load i18n %}
 {% get_object_models "djtracker" "project" "name" "20" "bar_project_list" %}
 <ul class="dropdown dropdown-horizontal">
-    <li class="dir"><a href="/">Home</a></li>
+    <li class="dir"><a href="/">{% trans "Home" %}</a></li>
     {% if request.user.is_authenticated %}
-    <li class="dir"><a href="{% url project_user_dashboard %}">Dashboard</a></li>
+    <li class="dir"><a href="{% url project_user_dashboard %}">{% trans "Dashboard" %}</a></li>
 	{% endif %}
     {% if bar_project_list %}
-	<li class="dir"><a href="{% url index %}">Projects</a>
+	<li class="dir"><a href="{% url index %}">{% trans "Projects" %}</a>
       <ul>                
         {% for bar_project in bar_project_list %}
           <li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li>

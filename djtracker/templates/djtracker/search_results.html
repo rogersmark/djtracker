@@ -1,8 +1,10 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
+
   {% block content %}
-    <h3> Search Results </h3>
-    <p>Projects to be searched: {{ project_string }}</p>
-    <p>Search Term: {{ search_string }}</p>
+    <h3> {% trans "Search Results" %} </h3>
+    <p>{% trans "Projects to be searched" %}: {{ project_string }}</p>
+    <p>{% trans "Search Term" %}: {{ search_string }}</p>
 
     {% if issues %}
 		{% with 1 as issues_with_project %}
@@ -11,6 +13,6 @@
 		{% endwith %}
 		{% endwith %}
     {% else %}
-      <p><em>No results found</em></p>
+      <p><em>{% trans "No results found" %}</em></p>
     {% endif %}
   {% endblock %}

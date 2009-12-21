@@ -1,20 +1,22 @@
+{% load i18n %}
+
 {% extends "djtracker/base.html" %}
 {% block content %}
   {% if project_list %}
     {% for project in project_list %}
       <h3><small class="inlineaction">
-      	{% if request.user.is_superuser %}<a href="/admin/djtracker/project/{{project.pk}}">Edit Project</a> | {% endif %}
-		<a href="{% url project_all_issues project.slug %}">View all Issues</a> |
-		<a href="{% url project_submit_issue project.slug %}">Submit Issue</a></small>
+      	{% if request.user.is_superuser %}<a href="/admin/djtracker/project/{{project.pk}}">{% trans "Edit Project" %}</a> | {% endif %}
+		<a href="{% url project_all_issues project.slug %}">{% trans "View all Issues" %}</a> |
+		<a href="{% url project_submit_issue project.slug %}">{% trans "Submit Issue" %}</a></small>
 		<a href="{{ project.get_absolute_url }}">{{ project }}</a></h3>
       <p> {{ project.description }}</p>     
     {% endfor %}
   {% else %}
     {% if request.user.is_authenticated %}
-	<p>There are no projects yet. Please create at least one project in the <a href="/admin/">admin</a>.</p>
+	<p>{% trans "There are no projects yet. Please create at least one project in the <a href="/admin/">admin</a>." %}</p>
 	{% else %}
-	<h3>Authentication Required</h3>
-	<p>Please <a href="{% url project_login %}">log in</a> to use this bugtracker.</p>
+	<h3>{% trans "Authentication Required" %}</h3>
+	<p>{% trans "Please <a href="{% url project_login %}">log in</a> to use this bugtracker." %}</p>
 	{% endif %}	
   {% endif %}
 {% endblock %}

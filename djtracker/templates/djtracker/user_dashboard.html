@@ -1,4 +1,5 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 {% block head %}
 <script type="text/javascript">
 {% include 'djtracker/sorttable.js' %}
@@ -10,7 +11,7 @@
   {% with 1 as issues_with_project %}
   {% if assigned_issues %}
   <div class="hideable">
-  <h4>Issues assigned to me</h4>
+  <h4>{% trans "Issues assigned to me" %}</h4>
   {% with assigned_issues as issue_list %}
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}
@@ -18,16 +19,16 @@
   {% endif %}
 
   {# if profile.issuefilter_set.all #}
-  <h4>Saved Filters</h4>
+  <h4>{% trans "Saved Filters" %}</h4>
   {% for issue_filter in profile.issuefilter_set.all %}
-  <span><small class="inlineaction">(<a href="{% url project_filter_delete issue_filter.id %}">delete</a>)</small><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a></span>        
+  <span><small class="inlineaction">(<a href="{% url project_filter_delete issue_filter.id %}">{% trans "delete" %}</a>)</small><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a></span>        
    {% if not forloop.last %} | {% endif %}
   {% endfor %}
   {# endif #}
   
 
   <div class="hideable hidden">
-  <h4>Recently Updated Issues</h4>
+  <h4>{% trans "Recently Updated Issues" %}</h4>
   {% with recently_updated as issue_list %}
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}
@@ -35,7 +36,7 @@
     
   {% if created_issues %}
   <div class="hideable hidden">
-  <h4>Issues created by me</h4>
+  <h4>{% trans "Issues created by me" %}</h4>
   {% with created_issues as issue_list %}
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}
@@ -44,7 +45,7 @@
   
   {% if watched_issues %}
   <div class="hideable hidden">
-  <h4>Issues I am watching</h4>
+  <h4>{% trans "Issues I am watching" %}</h4>
   {% with watched_issues as issue_list %}
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}
@@ -53,7 +54,7 @@
 
   {% if commented_issues %}
   <div class="hideable hidden">
-  <h4>Issues I commented on</h4>
+  <h4>{% trans "Issues I commented on" %}</h4>
   {% with commented_issues as issue_list %}
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}

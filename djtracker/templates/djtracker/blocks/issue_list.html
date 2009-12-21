@@ -1,14 +1,15 @@
+{% load i18n %}
 <table class="issuelist sortable">
 	<tr>
 		{% if issues_with_project %}
-		<th>Project</th>
+		<th>{% trans "Project" %}</th>
 		{% endif %}
-		<th>Priority</th>
-		<th>Title</th>
-		<th>Type</th>
-		<th>Status</th>
+		<th>{% trans "Priority" %}</th>
+		<th>{% trans "Title" %}</th>
+		<th>{% trans "Type" %}</th>
+		<th>{% trans "Status" %}</th>
 		{% if project.milestone_set.all %}
-			<th>Milestone</th>
+			<th>{% trans "Milestone" %}</th>
 		{% endif %}
 	</tr>
 	{% for issue in issue_list %}

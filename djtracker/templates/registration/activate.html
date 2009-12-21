@@ -1,6 +1,7 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 {% block content %}
-<h3>Registration Complete!</h3>
-<p>You may now browse the site. You may need to ask your administrator to assign you to necessary groups to browse
-certain projects however.</p>
+<h3>{% trans "Registration Complete!" %}</h3>
+<p>{% blocktrans %}You may now browse the site. You may need to ask your administrator to assign you to necessary groups to browse
+certain projects however.{% endblocktrans %}</p>
 {% endblock %}

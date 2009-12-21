@@ -1,6 +1,7 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
   {% block content %}
-    <h3>Logged Out</h3>
-    <p>Thanks for visiting! Feel free to <a href="{% url project_login %}">login again</a></p>
+    <h3>{% trans "Logged Out" %}</h3>
+    <p>{% trans "Thanks for visiting! Feel free to <a href="{% url project_login %}">login again" %}</a></p>
   {% endblock %}
 
