@@ -1,16 +1,18 @@
-{% block subject%}DjTracker: [{{project.slug}}]: New Comment on Issue #{{issue.id}} by {{user_name}}{% endblock %}
+{% load i18n %}
+{% block subject%}{% blocktrans with project.slug as slug and issue.id as id %}DjTracker: [{{slug}}]: New Comment on Issue #{{id}} by {{user_name}}{% endblocktrans %}{% endblock %}
 
-{% block body %}
+{% block body %}{% blocktrans with comment.comment as comment_body and issue.get_absolute_url as issue_url %}
 Hello,
 This message is to inform you that there's a new comment on an issue
 you are watching:
 
 --------------------------------------------------------------------
-{{comment.comment}}
+{{comment_body}}
 --------------------------------------------------------------------
 
-You can view this issue as http://{{site}}{{issue.get_absolute_url}}
+You can view this issue as http://{{site}}{{issue_url}}
 
 Thanks,
   DjTracker Administration
+{% endblocktrans %}
 {% endblock %}

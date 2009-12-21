@@ -1,6 +1,7 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
   {% block content %}
-    <h3>Users:</h3>
+    <h3>{% trans "Users" %}:</h3>
     <ul>
     {% for user in user_list %}
       <p><li><a href="{{ user.get_absolute_url }}">{{ user }}</a></li></p>

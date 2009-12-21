@@ -1,10 +1,11 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 {% block content %}
   <form enctype="multipart/form-data" action="{% url project_file_upload project.slug issue.id %}" method="post"> 
     {% if form.errors %}
       {{ form.errors }}
     {% endif %}
     {{ form.as_p }}
-    <input type="submit" value="Attach File" />
+    <input type="submit" value="{% trans "Attach File" %}" />
   </form>
 {% endblock %}

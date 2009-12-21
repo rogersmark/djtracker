@@ -1,9 +1,10 @@
+{% load i18n %}
 <div id="usermenu">
 	<span>
 	{% if request.user.is_authenticated %}
-		Logged in as: {{request.user.username}} {% if request.user.is_superuser %}| <a href="/admin">Admin</a> {% endif %}| <a href="{% url project_user request.user.username %}">Profile</a> | <a href="{% url project_logout %}">Log Out</a>
+		{% trans "Logged in as" %}: {{request.user.username}} {% if request.user.is_superuser %}| <a href="/admin">{% trans "Admin" %}</a> {% endif %}| <a href="{% url project_user request.user.username %}">{% trans "Profile" %}</a> | <a href="{% url project_logout %}">{% trans "Log Out" %}</a>
 	{% else %}
-    <a href="{% url project_login %}">Log In</a> | <a href="{% url registration_register %}">Register</a>
+    <a href="{% url project_login %}">{% trans "Log In" %}</a> | <a href="{% url registration_register %}">{% trans "Register" %}</a>
 	{% endif %}	
 	</span>
 </div>

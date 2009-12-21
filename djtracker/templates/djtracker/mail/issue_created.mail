@@ -1,20 +1,22 @@
-{% block subject%}DjTracker: [{{project.slug}}]: New Issue #{{issue.id}} submitted{% endblock %}
+{% load i18n %}
+{% block subject%}{% blocktrans with project.slug as slug and issue.id as id %}DjTracker: [{{slug}}]: New Issue #{{id}} submitted{% endblocktrans %}{% endblock %}
 
-{% block body %}
+{% block body %}{% blocktrans %}
 Hello,
 This message is to inform you that a new issue has been posted on a
 project you are watching:
-
+{% endblocktrans %}
 --------------------------------------------------------------------
-Title:    {{issue.name}}
-Priority: {{issue.priority}}
-Status:   {{issue.status}}
-Description:
+{% trans "Title" %}:    {{issue.name}}
+{% trans "Priority" %}: {{issue.priority}}
+{% trans "Status" %}:   {{issue.status}}
+{% trans "Description" %}:
 {{issue.description}}
 --------------------------------------------------------------------
-
-You can view this issue as http://{{site}}{{issue.get_absolute_url}}
+{% blocktrans with issue.get_absolute_url as issue_url %}
+You can view this issue as http://{{site}}{{issue_url}}
 
 Thanks,
   DjTracker Administration
+{% endblocktrans %}
 {% endblock %}

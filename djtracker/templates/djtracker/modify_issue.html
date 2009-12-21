@@ -1,8 +1,10 @@
 {% extends "djtracker/base.html" %}
-{% block title %} - Modify {{ issue }}{% endblock %}
+{% load i18n %}
+
+{% block title %} - {% blocktrans %}Modify {{ issue }}{% endblocktrans %}{% endblock %}
 {% block content %}
   <form action="{% url project_modify_issue project.slug issue.id %}" method="post"> 
 	<table>{{ form.as_table }}</table>	
-    <input type="submit" value="Submit Issue" />
+    <input type="submit" value="{% trans "Submit Issue" %}" />
   </form>
 {% endblock %}

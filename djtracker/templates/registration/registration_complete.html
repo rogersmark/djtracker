@@ -1,6 +1,7 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 {% block content %}
-Hello {{ account }}!<br />
-Please proceed to check your email to finish registering. There are {{ expiration_days }} days left to complete
-registration.
+{% blocktrans %}Hello {{ account }}!{% endblocktrans %}<br />
+{% blocktrans %}Please proceed to check your email to finish registering. There are {{ expiration_days }} days left to complete
+registration.{% endblocktrans %}
 {% endblock %}

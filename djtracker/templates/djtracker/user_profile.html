@@ -1,4 +1,5 @@
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 
 {% block head %}
 <script type="text/javascript">
@@ -8,15 +9,15 @@
 
 {% block content %}
   {% if user %}
-    <h3><small class="inlineaction"><a href="{% url django.contrib.auth.views.password_change %}">change password</a></small>User: {{ user.username }}</h3>
-    <p>IM Information: {{ profile.instant_messanger }}</p>
+    <h3><small class="inlineaction"><a href="{% url django.contrib.auth.views.password_change %}">{% trans "change password" %}</a></small>{% trans "User" %}: {{ user.username }}</h3>
+    <p>{% trans "IM Information" %}: {{ profile.instant_messanger }}</p>
     {% if request.user.is_authenticated %}
-      <p>Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+      <p>{% trans "Email" %}: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
     {% endif %}    
 	{% with 1 as issues_with_project %}	   
 	{% if assigned %}
 	  <div class="hideable">
-	  <h4>Issues assigned to me</h4>	     
+	  <h4>{% trans "Issues assigned to me" %}</h4>	     
 	  {% with assigned as issue_list %}
 	  {% include 'djtracker/blocks/issue_list.html' %}
 	  {% endwith %}
@@ -24,7 +25,7 @@
     {% endif %}	
     {% if created %}
 	  <div class="hideable">
-	  <h4>Issues created by me</h4>	  
+	  <h4>{% trans "Issues created by me" %}</h4>	  
 	  {% with created as issue_list %}
 	  {% include 'djtracker/blocks/issue_list.html' %}
 	  {% endwith %}
