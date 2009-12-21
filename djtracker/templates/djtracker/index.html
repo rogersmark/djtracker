@@ -1,6 +1,5 @@
-{% load i18n %}
-
 {% extends "djtracker/base.html" %}
+{% load i18n %}
 {% block content %}
   {% if project_list %}
     {% for project in project_list %}
@@ -13,10 +12,10 @@
     {% endfor %}
   {% else %}
     {% if request.user.is_authenticated %}
-	<p>{% trans "There are no projects yet. Please create at least one project in the <a href="/admin/">admin</a>." %}</p>
+	<p>{% trans "There are no projects yet. Please create at least one project in the <a href='/admin/'>admin</a>." %}</p>
 	{% else %}
 	<h3>{% trans "Authentication Required" %}</h3>
-	<p>{% trans "Please <a href="{% url project_login %}">log in</a> to use this bugtracker." %}</p>
+	<p>{% trans "Please" %}<a href='{% url project_login %}'>{% trans " log in</a> to use this bugtracker." %}</p>
 	{% endif %}	
   {% endif %}
 {% endblock %}
