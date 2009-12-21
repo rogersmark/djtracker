@@ -215,6 +215,8 @@ def project_version(request, project_slug, modi_slug):
 def submit_issue(request, project_slug):
     project = get_object_or_404(models.Project, slug=project_slug)
     can_view, can_edit, can_comment = utils.check_perms(request, project)
+    status_open = models.Status.objects.get(slug="open")
+    priority_normal = models.Priority.objects.get(slug="normal")
     if request.user.id:
         try:
             profile = request.user.userprofile
@@ -234,10 +236,18 @@ def submit_issue(request, project_slug):
         else:
             if request.user.is_authenticated():
                 form = forms.IssueForm(project.id, can_edit, 
-                    initial={ 'project': project.id, 'created_by': profile_id})
+                    initial={ 'project': project.id, 'created_by': profile_id,
+                              'status': status_open.id, 
+                              'priority': priority_normal.id
+                            }
+                )
             else:
                 form = forms.IssueForm(project.id, can_edit,
-                    initial={ 'project': project.id })
+                    initial={ 'project': project.id,
+                              'status': status_open.id, 
+                              'priority': priority_normal.id 
+                    }
+                )
         return render_to_response(
             "djtracker/submit_issue.html", locals(),
             context_instance=RequestContext(request))
