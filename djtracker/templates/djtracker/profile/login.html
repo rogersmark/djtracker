@@ -1,6 +1,5 @@
-{% load i18n %}
-
 {% extends "djtracker/base.html" %}
+{% load i18n %}
   {% block content %}
     {% if form.errors %}
       <p>{% trans "Your username and password didn't match. Please try again." %}</p>
@@ -19,6 +18,6 @@
     <input type="submit" value="{% trans "Login" %}" />
     <input type="hidden" name="next" value="{% url project_user_dashboard %}" />		
     </form>
-	<p><small>{% trans "Forgot your password? Click <a href="{% url django.contrib.auth.views.password_reset %}">here</a> to get a fresh one." %}</small></p>
+	<p><small>{% trans "Forgot your password? Click " %}<a href="{% url django.contrib.auth.views.password_reset %}">{% trans "here" %}</a> {% trans "to get a fresh one." %}</small></p>
   {% endblock %}
  
