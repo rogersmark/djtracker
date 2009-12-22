@@ -33,7 +33,8 @@ def update_watchers(issue, created, comment=None):
         context['user_name'] = comment.user_name
         template = utils.MailTemplate('djtracker/mail/issue_commented.mail')
     elif created:
-        template = utils.MailTemplate('djtracker/mail/issue_created.mail')        
+        template = utils.MailTemplate('djtracker/mail/issue_created.mail')
+        issue.watched_by.add(issue.created_by)
     else:
         template = utils.MailTemplate('djtracker/mail/issue_updated.mail')
         
@@ -54,7 +55,7 @@ def update_watchers(issue, created, comment=None):
         msg = template.render_to_mail(context)
         msg.from_address = settings.ISSUE_ADDRESS
         msg.to = [recipient,]
-        msg.send()
+        msg.send(fail_silently=True)
 
 def update_modified_time(sender, instance, created, **kwargs):
     comment = instance
