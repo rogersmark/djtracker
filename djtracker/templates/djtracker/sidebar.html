@@ -18,9 +18,15 @@
     <select name="project">
         {% for x in bar_project_list %}
           {% if forloop.first %}
-            <option value="all">{% trans "All Projects" %}</option>
+            {% ifequal bar_project_list.count 1 %}
+              <option value="{{ x.slug }}">{{ x }}</option>
+            {% else %}
+              <option value="all">{% trans "All Projects" %}</option>
+            {% endifequal %}
           {% endif %}
+          {% ifnotequal bar_project_list.count 1 %}
             <option value="{{ x.slug }}">{{ x }}</option>
+          {% endifnotequal %}
         {% endfor %}
     </select>
     <input type="text" name="search" />
