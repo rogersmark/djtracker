@@ -20,7 +20,7 @@
     <h4>{% trans "Comments" %}</h4>
     {% for comment in comments %}
       <a name="comment{{comment.pk}}"/>(<a class="headerlink" title="permalink to this comment" href="#comment{{comment.pk}}">#</a>){% if comment.user %}
-        <em style="color: #888888;"><a href="{{ comment.user.userprofile.get_absolute_url }}">{{ comment.user}}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>{{ comment.comment|restructuredtext }}<br/><br/>
+        <em style="color: #888888;"><a href="{{ comment.user.userprofile.get_absolute_url }}">{{ comment.user_name }}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>{{ comment.comment|restructuredtext }}<br/><br/>
     {% endfor %}
   {% endif %}  
   {% if can_comment %}
