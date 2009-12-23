@@ -59,7 +59,7 @@
       {% endif %}      
     <p><input type="submit" value="Submit" /></p>
     </form>
-    <h4> {{ project }}: {% trans "Issues" %}</h4>
+    <h4> {{ project }}: {% trans "Issues" %} <small class="inlineaction">{% if can_comment %}<a href="{% url project_submit_issue project.slug %}">{% trans "Submit Issue" %}</a>{% endif %}</small></h4>
     {% with issues as issue_list %}	
 	{% include 'djtracker/blocks/issue_list.html' %}
 	{% endwith %}

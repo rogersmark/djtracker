@@ -3,7 +3,7 @@
 {% block title %} - {{ issue }} {% endblock %}
 {% block content %}
   <table style="width: 100%"><tr><td class="col" style="width: 100%; padding-right: 10px;">  
-  <h3>{% if request.user.is_authenticated %}<small class="inlineaction">{% if can_edit %}<a href="{% url project_modify_issue project.slug issue.id %}">{% trans "edit" %}</a> |{% endif %} {% if is_watching %}<a href="{% url project_issue project.slug issue.id %}?watch=no">{% trans "unwatch" %}</a>{% else %}<a href="{% url project_issue project.slug issue.id %}?watch=yes">{% trans "watch" %}</a>{% endif %}</small>{% endif %}<a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a> : {{ issue }}</h3>  
+  <h3>{% if request.user.is_authenticated %}<small class="inlineaction">{% if can_edit %}<a href="{% url project_modify_issue project.slug issue.id %}">{% trans "edit" %}</a> |{% endif %} {% if is_watching %}<a href="{% url project_issue project.slug issue.id %}?watch=no">{% trans "unwatch" %}</a>{% else %}<a href="{% url project_issue project.slug issue.id %}?watch=yes">{% trans "watch" %}</a>{% endif %}{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">{% trans "submit issue" %}</a>{% endif %}</small>{% endif %}<a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a> : {{ issue }}</h3>  
   <div class="description">{{ issue.description|restructuredtext }}</div>
   <h4>{% if can_comment %}<small class="inlineaction"><a href="{% url project_file_upload project.slug issue.id %}">{% trans "Add an Attachment" %}</a></small>{% endif %}{% trans "Attachments" %}</h4>
   {% if issue.fileupload_set.all %}
