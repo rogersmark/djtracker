@@ -83,8 +83,10 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'registration',
     'djtracker',
+    'djtracker_comments',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
 ISSUE_ADDRESS = "user@example.com"
 WEB_SERVER = "apache"
+COMMENTS_APP = 'djtracker_comments'
