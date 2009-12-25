@@ -32,7 +32,17 @@
          {{ form.object_pk }}
          {{ form.timestamp }}
          {{ form.security_hash }}
-	<table class="commentform"><tr><td>
+	<table class="commentform">
+    <tr><td>Issue Status: {% for status_id, status_name in form.fields.status.choices %}
+    {% if forloop.first %}<select name="status" id="id_status">{% endif %}
+        {% ifequal issue.status.id status_id %}
+          <option value="{{ status_id }}" selected="selected">{{ status_name }}</option>
+        {% else %}
+          <option value="{{ status_id }}">{{ status_name }}</option>
+        {% endifequal %}
+    {% endfor %}
+    </select>
+	<tr><td>
 		 <input type="hidden" name="next" value="{% url project_issue project.slug issue.id %}" />
 	     <span style="display: none;">{{ form.honeypot }}</span>
 	  {{ form.comment }}</td></tr>
