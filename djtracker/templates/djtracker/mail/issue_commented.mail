@@ -7,6 +7,10 @@ This message is to inform you that there's a new comment on an issue
 you are watching:
 
 --------------------------------------------------------------------
+{% trans "Title" %}:    {{issue.name}}
+{% trans "Priority" %}: {{issue.priority}}
+{% trans "Status" %}:   {{issue.status}}
+{% trans "Comment" %}:
 {{comment_body}}
 --------------------------------------------------------------------
 
