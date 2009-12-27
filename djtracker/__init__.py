@@ -47,6 +47,10 @@ def update_watchers(issue, created, comment=None):
         email_addresses.append(issue.created_by.user.email)
     if issue.assigned_to: 
         email_addresses.append(issue.assigned_to.user.email)
+    # remove commenter from the list. Issue 13
+    if email_addresses.index(comment.user_email):
+        email_index = email_addresses.index(comment.user_email)
+        email_addresses.pop(email_index)
     # make list unique
     email_addresses = {}.fromkeys(email_addresses).keys()
     
