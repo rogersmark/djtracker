@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.template import Context
+from django.core.exceptions import ObjectDoesNotExist
 
 def create_profile(sender, instance, created, **kwargs):    
     if created:
@@ -34,7 +35,6 @@ def update_watchers(issue, created, comment=None):
         template = utils.MailTemplate('djtracker/mail/issue_commented.mail')
     elif created:
         template = utils.MailTemplate('djtracker/mail/issue_created.mail')
-        issue.watched_by.add(issue.created_by)
     else:
         template = utils.MailTemplate('djtracker/mail/issue_updated.mail')
         
@@ -44,13 +44,23 @@ def update_watchers(issue, created, comment=None):
         if addy not in email_addresses:
             email_addresses.append(addy)
     if issue.created_by:
-        email_addresses.append(issue.created_by.user.email)
-    if issue.assigned_to: 
-        email_addresses.append(issue.assigned_to.user.email)
+        try:
+            email_addresses.append(issue.created_by.user.email)
+        except ObjectDoesNotExist:
+            pass
+    if issue.assigned_to:
+        try: 
+            email_addresses.append(issue.assigned_to.user.email)
+        except ObjectDoesNotExist:
+            pass
     # remove commenter from the list. Issue 13
-    if email_addresses.index(comment.user_email):
-        email_index = email_addresses.index(comment.user_email)
-        email_addresses.pop(email_index)
+    try:
+        if email_addresses.index(comment.user_email):
+            email_index = email_addresses.index(comment.user_email)
+            email_addresses.pop(email_index)
+    except:
+        # user email doesn't exist, so we're not removing it.
+        pass
     # make list unique
     email_addresses = {}.fromkeys(email_addresses).keys()
     

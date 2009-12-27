@@ -1,16 +1,16 @@
 {% load i18n %}
 {% block subject%}{% blocktrans with project.slug as slug and issue.id as id %}DjTracker: [{{slug}}]: New Comment on Issue #{{id}} by {{user_name}}{% endblocktrans %}{% endblock %}
 
-{% block body %}{% blocktrans with comment.comment as comment_body and issue.get_absolute_url as issue_url %}
+{% block body %}{% blocktrans with comment.comment as comment_body and issue.get_absolute_url as issue_url and issue.name as name and issue.priority as priority and issue.status as status %}
 Hello,
 This message is to inform you that there's a new comment on an issue
 you are watching:
 
 --------------------------------------------------------------------
-{% trans "Title" %}:    {{issue.name}}
-{% trans "Priority" %}: {{issue.priority}}
-{% trans "Status" %}:   {{issue.status}}
-{% trans "Comment" %}:
+Title:    {{name}}
+Priority: {{priority}}
+Status:   {{status}}
+Comment:
 {{comment_body}}
 --------------------------------------------------------------------
 
