@@ -1,4 +1,10 @@
 from django.conf.urls.defaults import patterns
+from djtracker.feeds import LatestIssues, PersonalFeed
+
+feeds = {
+    'latest': LatestIssues,
+    'personal': PersonalFeed,
+}
 
 urlpatterns = patterns('djtracker.views',
     ## Project views
@@ -71,4 +77,11 @@ urlpatterns += patterns('',
     (r'^profile/reset/done/$', 'django.contrib.auth.views.password_reset_complete',
          {'template_name': 'djtracker/profile/password_reset_complete.html'}, 
         'password_reset_complete'),     
+)
+
+## feeds
+urlpatterns += patterns('',
+
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+  {'feed_dict': feeds}),
 )
