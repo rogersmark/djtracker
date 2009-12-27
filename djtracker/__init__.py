@@ -35,6 +35,11 @@ def update_watchers(issue, created, comment=None):
         template = utils.MailTemplate('djtracker/mail/issue_commented.mail')
     elif created:
         template = utils.MailTemplate('djtracker/mail/issue_created.mail')
+        try:
+            issue.watched_by.add(issue.created)
+        except:
+            ## Anon user
+            pass
     else:
         template = utils.MailTemplate('djtracker/mail/issue_updated.mail')
         
