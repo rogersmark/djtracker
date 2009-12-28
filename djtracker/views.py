@@ -367,8 +367,11 @@ def view_users(request):
     )
 
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return HttpResponseNotFound()
     user = request.user
     profile = user.userprofile
+    rss_feed = "personal/1/%s" % profile.uuid
     assigned_issues = models.Issue.objects.filter(assigned_to=profile)
     created_issues = models.Issue.objects.filter(created_by=profile)
     watched_issues = models.Issue.objects.filter(watched_by=profile)

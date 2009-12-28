@@ -8,6 +8,8 @@
 
   
 {% block content %}
+
+  <p><a href="{% url feeds rss_feed %}">Subscribe to Your RSS Feed</a></p>
   {% with 1 as issues_with_project %}
   {% if assigned_issues %}
   <div class="hideable">
