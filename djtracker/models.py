@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
@@ -17,6 +19,7 @@ class UserProfile(models.Model):
         null=True
     )
     user = models.OneToOneField(User, unique=True, verbose_name=_("user"))
+    uuid = models.CharField(max_length=36)
     created_date = models.DateTimeField(_("created date"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modified date"), auto_now=True)
 
@@ -26,6 +29,13 @@ class UserProfile(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ("project_user", (), {'username': self.user.username})
+        
+    def save(self):
+        if not self.uuid:
+            temp_uuid = str(uuid.uuid1())
+            temp_uuid = temp_uuid.replace('-', '')
+            self.uuid = temp_uuid
+            super(UserProfile, self).save()
 
 def get_allowed_project_ids(request, user=None, permission='view'):
     """

@@ -12,14 +12,41 @@ class LatestIssues(Feed):
     def items(self):
         return models.Issue.objects.filter_allowed(self.request)
         
+class ProjectIssue(Feed):
+    title_template = "djtracker/feeds/personal_feed_titel.html"
+    description_template = "djtracker/feeds/personal_feed_description.html"
+    def get_object(self, bits):
+        if len(bits) != 1:
+            raise ObjectDoesNotExist
+        return models.Project.objects.get(id=bits[0])
+        
+    def title(self, obj):
+        return "%s Feed" % obj
+        
+    def link(self, obj):
+        if not obj:
+            raise FeedDoesNotExist
+        else:
+            return obj.get_absolute_url()
+            
+    def description(self, obj):
+        return "Recent issues for Project: %s" % obj
+        
+    def items(self, obj):
+        return models.Issue.objects.filter_allowed(self.request)
+        
 class PersonalFeed(Feed):
     title_template = "djtracker/feeds/personal_feed_title.html"
     description_template = "djtracker/feeds/personal_feed_description.html"
     def get_object(self, bits):
         print bits
-        if len(bits) != 1:
+        if len(bits) != 2:
             raise ObjectDoesNotExist
-        return models.UserProfile.objects.get(id=bits[0])
+        profile = models.UserProfile.objects.get(id=bits[0])
+        if profile.uuid != bits[1]:
+            raise ObjectDoesNotExist
+        else:
+            return models.UserProfile.objects.get(id=bits[0])
 
             
     def title(self, obj):
