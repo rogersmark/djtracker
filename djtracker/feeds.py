@@ -3,14 +3,6 @@ from djtracker import models
 from django.contrib.syndication.feeds import Feed
 from django.contrib.syndication.feeds import FeedDoesNotExist
 from django.core.exceptions import ObjectDoesNotExist
-
-class LatestIssues(Feed):
-    title = "Recently Updated Issues"
-    description = "All issues recently commented on, or updated in your DjTracker instance"
-    link = ""
-    
-    def items(self):
-        return models.Issue.objects.filter_allowed(self.request)
         
 class ProjectIssue(Feed):
     title_template = "djtracker/feeds/personal_feed_titel.html"
@@ -41,7 +33,6 @@ class PersonalFeed(Feed):
     title_template = "djtracker/feeds/personal_feed_title.html"
     description_template = "djtracker/feeds/personal_feed_description.html"
     def get_object(self, bits):
-        print bits
         if len(bits) != 2:
             raise ObjectDoesNotExist
         profile = models.UserProfile.objects.get(id=bits[0])

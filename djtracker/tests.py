@@ -9,7 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.conf import settings
 
-from djtracker import models
+from djtracker import models, utils
 
 class IssueViewTest(TestCase):
 
@@ -213,6 +213,38 @@ class ProfileViewTest(TestCase):
             
         self.assertEqual(response.status_code, 302)
         
+class FeedTest(TestCase):
+    
+    def setUp(self):
+        self.client = Client()
+        seconds = datetime.datetime.now().microsecond
+        self.user = User(username="djtracker_feed%s" % seconds,
+            email="djtracker@djtracker_feed.com")
+        self.user.set_password('password')
+        self.user.save()
+        
+    def test_personal_feed(self):
+        response = self.client.get('/feeds/personal/%s/%s/' % (self.user.id,
+         self.user.userprofile.uuid))
+        
+        self.assertEqual(response.status_code, 200)
+        
+    def test_project_feed(self):
+        response = self.client.get('/feeds/project/1/')
+        
+        self.assertEqual(response.status_code, 200)
+        
+    def test_failed_personal_feed(self):
+        response = self.client.get('/feeds/personal/%s/%s/' % (self.user.id, 
+            self.user.userprofile.uuid[0:-2]))
+            
+        self.assertEqual(response.status_code, 404)
+        
+    def test_failed_project_feed(self):
+        response = self.client.get('/feeds/project/123414/')
+        
+        self.assertEqual(response.status_code, 404)
+        
 class SignalTest(TestCase):
 
     def setUp(self):
@@ -234,7 +266,6 @@ class SignalTest(TestCase):
         comment.comment = "This is a test comment"
         comment.site = Site.objects.get(id=settings.SITE_ID)
         comment.save()
-        print comment.comment
 
 class NotificationTest(TestCase):
     fixtures = ['testdata/00_test_users.json', 'testdata/01_test_config.json']
@@ -290,3 +321,39 @@ class NotificationTest(TestCase):
             actual_recipients.append(msg.to[0])
         for r in recipient_list:
             self.assertTrue(r in actual_recipients)
+
+class CheckUtils(TestCase):
+    
+    def setUp(self):
+        seconds = datetime.datetime.now().microsecond
+        self.user = User(username="djtracker_utils%s" % seconds,
+            email="djtracker_utils@djtracker.com")
+        self.user.save()
+        self.project = models.Project.objects.get(id=1)
+        self.project.allow_anon_comment = False
+        self.project.allow_anon_viewing = False
+        self.project.allow_anon_editing = False
+        self.project.save()
+        
+    def test_check_permissions_false(self):
+        can_comment = utils.check_permissions('comment', self.user, self.project)
+        can_view = utils.check_permissions('view', self.user, self.project)
+        can_edit = utils.check_permissions('edit', self.user, self.project)
+        
+        self.assertEqual(can_comment, False)
+        self.assertEqual(can_view, False)
+        self.assertEqual(can_edit, False)
+        
+    def test_check_permissions_true(self):
+        self.project.allow_anon_comment = True
+        self.project.allow_anon_viewing = True
+        self.project.allow_anon_editing = True
+        self.project.save()
+        
+        can_comment = utils.check_permissions('comment', self.user, self.project)
+        can_view = utils.check_permissions('view', self.user, self.project)
+        can_edit = utils.check_permissions('edit', self.user, self.project)
+        
+        self.assertEqual(can_comment, True)
+        self.assertEqual(can_view, True)
+        self.assertEqual(can_edit, True)       

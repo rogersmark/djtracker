@@ -16,6 +16,10 @@ def check_permissions(permission_type, user, project):
     for x in groups:
         if x in project.groups_can_edit.all():
             return True
+            
+    if permission_type == "edit":
+        if project.allow_anon_editing:
+            return True
 
     if permission_type == "view":
         if user in project.users_can_view.all():

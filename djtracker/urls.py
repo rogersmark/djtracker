@@ -1,8 +1,7 @@
 from django.conf.urls.defaults import patterns
-from djtracker.feeds import LatestIssues, PersonalFeed, ProjectIssue
+from djtracker.feeds import PersonalFeed, ProjectIssue
 
 feeds = {
-    'latest': LatestIssues,
     'project': ProjectIssue,
     'personal': PersonalFeed,
 }
