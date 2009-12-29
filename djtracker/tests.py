@@ -136,6 +136,12 @@ class IssueViewTest(TestCase):
         issue = models.Issue.objects.get(name="UnitTest Issue")
         self.assertEqual(issue.status, status)
         
+    def test_view_submit_issue(self):
+        self.client.login(username=self.user.username, password='password')
+        
+        response = self.client.get('/project/default-project/submit_issue/')
+        self.assertEqual(response.status_code, 200)
+        
     def test_issue_search(self):
         self.client.login(username=self.user.username, password="password")
         response = self.client.get(
