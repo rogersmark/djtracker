@@ -33,7 +33,9 @@ class ProjectIssue(Feed):
         return "Recent issues for Project: %s" % obj
         
     def items(self, obj):
-        return models.Issue.objects.filter_allowed(self.request)
+        return models.Issue.objects.filter_allowed(self.request).order_by(
+            '-modified_date'
+        )
         
 class PersonalFeed(Feed):
     title_template = "djtracker/feeds/personal_feed_title.html"
@@ -47,7 +49,6 @@ class PersonalFeed(Feed):
             raise ObjectDoesNotExist
         else:
             return models.UserProfile.objects.get(id=bits[0])
-
             
     def title(self, obj):
         return "Feed for %s" % obj
