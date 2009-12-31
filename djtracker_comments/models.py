@@ -12,7 +12,11 @@ class CommentWithIssueStatus(Comment):
     
     def save(self):
         issue = Issue.objects.get(id=self.object_pk)
-        status = Status.objects.get(id=self.status_id)
-        issue.status = status
-        issue.save()
+        if self.status_id:
+            status = Status.objects.get(id=self.status_id)
+            if issue.status is not status:
+                issue.status = status
+                issue.save()
+        else:
+            self.status = issue.status
         super(CommentWithIssueStatus, self).save()

@@ -4,12 +4,12 @@ from django.test import TestCase
 from django.core import mail
 from django.test.client import Client
 from django.contrib.auth.models import User
-from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.conf import settings
 
 from djtracker import models, utils
+from djtracker_comments.models import CommentWithIssueStatus as Comment
 
 class IssueViewTest(TestCase):
 

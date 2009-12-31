@@ -1,6 +1,7 @@
 import datetime
 
 from djtracker import models, utils
+from djtracker_comments.models import CommentWithIssueStatus
 
 from django.contrib.auth.models import User
 from django.contrib.comments.models import Comment
@@ -86,9 +87,9 @@ def update_modified_time(sender, instance, created, **kwargs):
         issue.save()
 
 post_save.connect(create_profile, sender=User)
-post_save.connect(on_postsave_comment, sender=Comment)
+post_save.connect(on_postsave_comment, sender=CommentWithIssueStatus)
 post_save.connect(on_postsave_issue, sender=models.Issue)
-post_save.connect(update_modified_time, sender=Comment)
+post_save.connect(update_modified_time, sender=CommentWithIssueStatus)
 
 if not hasattr(settings, "WEB_SERVER"):
     settings.WEB_SERVER = 'apache'
