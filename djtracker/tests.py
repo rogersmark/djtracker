@@ -12,7 +12,7 @@ from djtracker import models, utils
 from djtracker_comments.models import CommentWithIssueStatus as Comment
 
 class IssueViewTest(TestCase):
-
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
@@ -155,7 +155,7 @@ class IssueViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
       
 class ProjectViewTest(TestCase):
-
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
@@ -176,7 +176,7 @@ class ProjectViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         
 class ProfileViewTest(TestCase):
-
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
@@ -220,7 +220,7 @@ class ProfileViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         
 class FeedTest(TestCase):
-    
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
@@ -252,7 +252,7 @@ class FeedTest(TestCase):
         self.assertEqual(response.status_code, 404)
         
 class SignalTest(TestCase):
-
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
@@ -329,7 +329,7 @@ class NotificationTest(TestCase):
             self.assertTrue(r in actual_recipients)
 
 class CheckUtils(TestCase):
-    
+    fixtures = ['00_initial_data.json']
     def setUp(self):
         seconds = datetime.datetime.now().microsecond
         self.user = User(username="djtracker_utils%s" % seconds,
