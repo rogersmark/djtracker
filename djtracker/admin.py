@@ -36,7 +36,7 @@ class MilestoneAdmin(admin.ModelAdmin):
     )
 
 class ComponentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'project',)
+    list_display = ('name', 'project', 'ordering')
     list_filter = ('active', 'project',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
@@ -47,7 +47,7 @@ class ComponentAdmin(admin.ModelAdmin):
     )
 
 class VersionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'project',)
+    list_display = ('name', 'project', 'ordering')
     list_filter = ('active', 'project',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
@@ -78,12 +78,18 @@ class IssueAdmin(admin.ModelAdmin):
     )
 
 class StatusAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ordering')
+    list_editable = ('ordering',)
     prepopulated_fields = {'slug': ('name',)}
 
 class PriorityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ordering')
+    list_editable = ('ordering',)
     prepopulated_fields = {'slug': ('name',)}
 
 class IssueTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ordering')
+    list_editable = ('ordering',)
     prepopulated_fields = {'slug': ('name',)}
 
 class FileUploadAdmin(admin.ModelAdmin):
