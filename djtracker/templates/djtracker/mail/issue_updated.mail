@@ -3,7 +3,7 @@
 
 {% block body %}{% blocktrans with issue.id as id %}
 Hello,
-This message is to inform you that issue #{{id}} has been updated:
+This message is to inform you that issue #{{id}} has been updated by {{user}}:
 {% endblocktrans %}
 ------------------------------------------------------------------------
 {% trans "Title" %}:    {{issue.name}}
@@ -12,6 +12,10 @@ This message is to inform you that issue #{{id}} has been updated:
 {% trans "Description" %}:
 {{issue.description}}
 ------------------------------------------------------------------------
+{% trans "The following changes have been made" %}
+{% for fieldset in updated_fields.items %}
+{{fieldset.0}}: {{fieldset.1.0}} => {{fieldset.1.1}}
+{% endfor %}
 {% blocktrans with issue.get_absolute_url as issue_url %}
 You can view this issue as http://{{site}}{{issue_url}}
 

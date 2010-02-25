@@ -1,19 +1,20 @@
-{% load i18n %}
-{% block subject%}{% blocktrans with project.slug as slug and issue.id as id %}DjTracker: [{{slug}}]: New Comment on Issue #{{id}} by {{user_name}}{% endblocktrans %}{% endblock %}
+{% load i18n tracker %}
+{% block subject%}{% blocktrans with project.slug as slug and issue.id as id %}DjTracker: [{{slug}}]: New Comment on Issue #{{id}} by {{comment_user_name}}{% endblocktrans %}{% endblock %}
 
-{% block body %}{% blocktrans with comment.comment as comment_body and issue.get_absolute_url as issue_url and issue.name as name and issue.priority as priority and issue.status as status %}
+{% block body %}{% blocktrans %}
 Hello,
 This message is to inform you that there's a new comment on an issue
 you are watching:
-
+{% endblocktrans %}
 --------------------------------------------------------------------
-Title:    {{name}}
-Priority: {{priority}}
-Status:   {{status}}
-Comment:
-{{comment_body}}
+{{'name'|transattr}}:    {{issue.name}}
+{{'priority'|transattr}}:	{{issue.priority}}
+{% if comment.old_status %}{{'status'|transattr}}:   {{comment.old_status}} ⇒ {{issue.status}}{% else %}{{'status'|transattr}}:   {{issue.status}}
+{% endif %}
+{% trans "Comment" %}:
+{{comment.comment}}
 --------------------------------------------------------------------
-
+{% blocktrans with issue.get_absolute_url as issue_url %}
 You can view this issue as http://{{site}}{{issue_url}}
 
 Thanks,

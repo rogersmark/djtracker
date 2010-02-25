@@ -1,0 +1,10 @@
+{% load i18n tracker %}
+{% if logentry.updated_fields %}
+<a name="action{{logentry.pk}}"/>(<a class="headerlink" title="permalink to this log entry" href="#action{{logentry.pk}}">#</a>){% if logentry.user %}
+<em style="color: #888888;">{% if logentry.user %}<a href="{{ logentry.user.get_absolute_url }}">{% endif %}{{ logentry.user.user.get_full_name }}</a>{% else %}anon{% endif %}, {{ logentry.timestamp|date:'r'}}:</em><br/>
+<div class="logentry"><p>
+{% for change in logentry.updated_fields.items %}
+<strong>{{change.0|transattr}}</strong>: {% ifequal change.0 "description" %}{% trans "updated" %}{%else%}{{change.1.0}} ⇒ {{change.1.1}}{% endifequal %}<br/>
+{% endfor %}
+</p></div>
+{% endif %}

@@ -3,9 +3,12 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 
-from djtracker.utils import check_perms
+from djtracker.utils import check_perms, PickledObjectField
+from djtracker.middleware import get_current_request
+from djtracker.signals import issue_created, issue_updated
 
 class UserProfile(models.Model):
     """
@@ -172,8 +175,9 @@ class Project(models.Model):
     )
 
     active = models.BooleanField(_("active"), default=True)
+    ordering = models.IntegerField(_("ordering"), default=0)
     created_date = models.DateTimeField(_("created date"), auto_now_add=True)
-    modified_date = models.DateTimeField(_("modified date"), auto_now=True)
+    modified_date = models.DateTimeField(_("modified date"), auto_now=True)    
 
     def __unicode__(self):
         return self.name
@@ -194,6 +198,7 @@ class Milestone(models.Model):
     description = models.TextField(_("description"), blank=True, null=True)
     goal_date = models.DateTimeField(_("goal date"), blank=True, null=True)
     active = models.BooleanField(_("active"), default=True)
+    ordering = models.IntegerField(_("ordering"), default=0)
     created_date = models.DateTimeField(_("created date"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modified date"), auto_now=True)
 
@@ -216,6 +221,7 @@ class Component(models.Model):
     slug = models.SlugField(_("slug"), unique=True)
     project = models.ForeignKey(Project, verbose_name=_("project"))
     active = models.BooleanField(_("active"), default=True)
+    ordering = models.IntegerField(_("ordering"), default=0)
     created_date = models.DateTimeField(_("created date"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modified date"), auto_now=True)
 
@@ -238,6 +244,7 @@ class Version(models.Model):
     slug = models.SlugField(_("slug"), unique=True)
     project = models.ForeignKey(Project, verbose_name=_("project"))
     active = models.BooleanField(_("active"), default=True)
+    ordering = models.IntegerField(_("ordering"), default=0)
     created_date = models.DateTimeField(_("created date"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modified_date"), auto_now=True)
 
@@ -257,7 +264,8 @@ class Status(models.Model):
     """
     name = models.CharField(_("name"), max_length=256)
     slug = models.SlugField(_("slug"), unique=True)
-
+    ordering = models.IntegerField(_("ordering"), default=0)
+    
     def __unicode__(self):
         return self.name
 
@@ -272,7 +280,8 @@ class Priority(models.Model):
     """
     name = models.CharField(_("name"), max_length=256)
     slug = models.SlugField(_("slug"), unique=True)
-
+    ordering = models.IntegerField(_("ordering"), default=0)
+    
     def __unicode__(self):
         return self.name
 
@@ -290,7 +299,8 @@ class IssueType(models.Model):
     """
     name = models.CharField(_("name"), max_length=256)
     slug = models.SlugField(_("slug"), unique=True)
-
+    ordering = models.IntegerField(_("ordering"), default=0)
+    
     def __unicode__(self):
         return self.name
 
@@ -298,6 +308,11 @@ class IssueType(models.Model):
     def get_absolute_url(self):
         return ("project_issue_type", (), {'project_slug': self.project.slug,
             'type_slug': self.slug})
+
+ISSUE_ATTRIBUTES = {'name': _('Name'), 'project': _('Project'), 'component': _('Component'), 
+                    'version': _('Version'), 'milestone': _('milestone'), 'status': _('Status'),
+                    'priority': _('Priority'), 'issue_type': _('Issue Type'), 'description': _('Description'),
+                    'assigned_to': _('Assigned To')}                                   
 
 class Issue(models.Model):
     """
@@ -357,12 +372,52 @@ class Issue(models.Model):
     def __unicode__(self):
         return self.name
 
+    def _determine_updated_fields(self):
+        """ return a diff of attributes between this instance and the database """
+        updated_fields = {}
+        old = Issue.objects.get(pk=self.pk)
+        for fieldname in ISSUE_ATTRIBUTES.keys():
+            if getattr(old, fieldname) != getattr(self, fieldname):
+                updated_fields[fieldname] = (getattr(old, fieldname), getattr(self, fieldname))
+        return updated_fields
+
+    def save(self, suppress_signal=False, *args, **kwargs):
+        if not suppress_signal:
+            created = True
+            if self.pk:
+                created = False
+                updated_fields = self._determine_updated_fields()
+        
+        super(Issue, self).save(*args, **kwargs)
+        
+        if suppress_signal:
+            return
+        else:
+            request = get_current_request(True)
+            if created:
+                issue_created.send(sender=self.__class__, issue=self, request=request)               
+            else:                
+                issue_updated.send(sender=self.__class__, issue=self, 
+                                   request=request, 
+                                   updated_fields=updated_fields )
+                if request and request.user and request.user.is_authenticated():            
+                    profile, created=UserProfile.objects.get_or_create(user=request.user)
+                else:
+                    profile=None
+                IssueLog(issue=self, user=profile, updated_fields=updated_fields).save()
+
     @models.permalink
     def get_absolute_url(self):
         return ("project_issue", (), {'project_slug': self.project.slug,
             'issue_id': self.id})
 
     objects = PermissionFilterManager()
+
+class IssueLog(models.Model):
+    issue = models.ForeignKey(Issue)
+    user = models.ForeignKey(UserProfile, default=None, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    updated_fields = PickledObjectField()    
 
 class FileUpload(models.Model):
     """

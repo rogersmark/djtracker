@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from djtracker import models, utils
 from djtracker_comments.models import CommentWithIssueStatus as Comment
@@ -250,19 +251,79 @@ class FeedTest(TestCase):
         response = self.client.get('/feeds/project/123414/')
         
         self.assertEqual(response.status_code, 404)
-        
+
+from djtracker.signals import issue_created, issue_updated, issue_commented
+_global_signal_recorder = [] # used to record sent signals globally
+
 class SignalTest(TestCase):
     fixtures = ['00_initial_data.json']
     def setUp(self):
+        global _global_signal_recorder 
         self.client = Client()
         seconds = datetime.datetime.now().microsecond
         self.user = User(username="djtracker%s" % seconds, 
-            email="djtracker@djtracker.com")
+                         email="djtracker@djtracker.com",
+                         is_active=True)
         self.user.set_password('password')
-        self.user.save()
+        self.user.save()        
+        self.client.login(username=self.user.username, password='password')
         
+        issue_created.connect(self.onIssueCreated, dispatch_uid='djtracker.SignalTest.issue_created')
+        issue_updated.connect(self.onIssueUpdated, dispatch_uid='djtracker.SignalTest.issue_updated')
+        issue_commented.connect(self.onIssueCommented, dispatch_uid='djtracker.SignalTest.issue_commented')
+        _global_signal_recorder = [] 
+        
+    def onIssueCreated(self, sender, issue, request, **kwargs):
+        global _global_signal_recorder
+        _global_signal_recorder.append(('created', issue, request))
+        
+    def onIssueUpdated(self, sender, issue, updated_fields, request, **kwargs):
+        global _global_signal_recorder
+        _global_signal_recorder.append(('updated', issue, updated_fields, request))
+    
+    def onIssueCommented(self, sender, comment, issue, status_change, request, **kwargs):
+        _global_signal_recorder.append(('commented', comment, issue, status_change, request))
+    
+    def test_create_issue(self):
+        global _global_signal_recorder
+        response = self.client.post(reverse('project_submit_issue', kwargs={'project_slug': 'default-project'}),
+                                    {'project': '1',
+                                     'name': 'signal test issue',
+                                     'component' : '',
+                                     'version' : '',
+                                     'milestone' : '',
+                                     'status' : '1',
+                                     'priority': '1',
+                                     'issue_type': '',
+                                     'description': 'a test issue',
+                                     'assigned_to': ''})
+        self.assertEquals(len(_global_signal_recorder), 1)
+        action, issue, request = _global_signal_recorder[0]
+        self.assertEquals(action, 'created')
+        self.assertEquals(issue.name, 'signal test issue')
+        self.assertEquals(request.user.username, self.user.username)
+        
+    def test_update_issue(self):
+        global _global_signal_recorder
+        self.test_create_issue() # just to create an issue
+        action, issue, request = _global_signal_recorder[0]
+        issue.assigned_to = models.UserProfile.objects.get(user=self.user)
+        issue.status = models.Status.objects.get(id=2)
+        issue.save()
+        self.assertEquals(len(_global_signal_recorder), 2)
+        action, issue2, updated_fields, request = _global_signal_recorder[1]
+        self.assertEquals(action, 'updated')
+        self.assertEquals(issue, issue2)
+        #request is None here, as we did not go through middleware
+        self.assertEquals(request, None)
+        self.assertEquals(len(updated_fields),2)
+        self.assertEquals(updated_fields['status'][0].id,1)
+        self.assertEquals(updated_fields['status'][1].id,2)
+        self.assertEquals(updated_fields['assigned_to'][0],None)
+        self.assertEquals(updated_fields['assigned_to'][1].user,self.user)                
     
     def test_comment_post_save(self):
+        global _global_signal_recorder        
         content_type = ContentType.objects.get(model='issue')
         comment = Comment()
         comment.user_name = self.user.username
@@ -272,6 +333,33 @@ class SignalTest(TestCase):
         comment.comment = "This is a test comment"
         comment.site = Site.objects.get(id=settings.SITE_ID)
         comment.save()
+        self.assertEquals(len(_global_signal_recorder), 1)
+        action, comment, issue, status_change, request = _global_signal_recorder[0]
+        self.assertEquals(action, 'commented')
+        self.assertEquals(comment.comment, "This is a test comment")
+        self.assertEquals(issue.pk, 1)
+        self.assertEquals(status_change, None)
+        self.assertEquals(request, None)
+        
+    def test_comment_with_status_change(self):
+        global _global_signal_recorder
+        self.test_create_issue() # just to create an issue
+        content_type = ContentType.objects.get(model='issue')
+        comment = Comment()
+        comment.user_name = self.user.username
+        comment.user_email = self.user.email
+        comment.content_type = content_type
+        comment.object_pk = 2
+        comment.comment = "This is a test comment with status change"
+        comment.status = models.Status.objects.get(pk=2)
+        comment.site = Site.objects.get(id=settings.SITE_ID)
+        comment.save()
+        
+        self.assertEquals(len(_global_signal_recorder), 2)
+        action, comment, issue, status_change, request = _global_signal_recorder[1]
+        self.assertEquals(status_change[0].pk,1)
+        self.assertEquals(status_change[1].pk,2)
+           
 
 class NotificationTest(TestCase):
     fixtures = ['testdata/00_test_users.json', 'testdata/01_test_config.json']

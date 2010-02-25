@@ -193,6 +193,16 @@ td.col {
     background-color:#FFDEDE;
 }
 
+.comment, .logentry {
+	font-family: monospace;
+	font-size: 110%;
+	margin: 5px;
+}
+
+.logentry {
+	background-color: #ffffcf;
+}
+
 /* form styling */
 form th {
     text-align: left;

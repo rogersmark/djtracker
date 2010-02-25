@@ -1,0 +1,5 @@
+{% load i18n markup %}
+<a name="comment{{comment.pk}}"/>(<a class="headerlink" title="permalink to this comment" href="#comment{{comment.pk}}">#</a>){% if comment.user_name %}
+<em style="color: #888888;">{% if comment.user %}<a href="{{ comment.user.userprofile.get_absolute_url }}">{% endif %}{{ comment.user_name }}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>
+{% if comment.old_status %}<div class="logentry"><strong>{% trans "Status" %}</strong>: {{comment.old_status}} ⇒ {{comment.status}}</div>{% endif %}
+<div class="comment">{{ comment.comment|restructuredtext }}</div>

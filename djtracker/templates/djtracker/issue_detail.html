@@ -1,5 +1,5 @@
 {% extends "djtracker/base.html" %}
-{% load comments i18n  markup %}
+{% load comments i18n markup %}
 {% block title %} - {{ issue }} {% endblock %}
 {% block content %}
   <table style="width: 100%"><tr><td class="col" style="width: 100%; padding-right: 10px;">  
@@ -15,14 +15,20 @@
   {% else %}
   <em>{% trans "no attachments yet" %}</em>
   {% endif %}
-  {% get_comment_list for issue as comments %}
-  {% if comments %}
-    <h4>{% trans "Comments" %}</h4>
-    {% for comment in comments %}
-      <a name="comment{{comment.pk}}"/>(<a class="headerlink" title="permalink to this comment" href="#comment{{comment.pk}}">#</a>){% if comment.user_name %}
-        <em style="color: #888888;">{% if comment.user %}<a href="{{ comment.user.userprofile.get_absolute_url }}">{% endif %}{{ comment.user_name }}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>{{ comment.comment|restructuredtext }}<br/><br/>
-    {% endfor %}
-  {% endif %}  
+  {% if action_log %}
+  <h4>{% trans "Actions" %}</h4>
+  {% for action in action_log %}
+  {% ifequal action.0 "issue_log" %}
+  {% with action.1 as logentry %}
+  {% include 'djtracker/blocks/issue_logentry.html' %}
+  {% endwith %}  
+  {% else %}
+  {% with action.1 as comment %}
+  {% include 'djtracker/blocks/issue_comment.html' %}
+  {% endwith %}
+  {% endifequal %}  
+  {% endfor %}
+  {% endif %}
   {% if can_comment %}
   <h4>{% trans "New Comment" %}</h4>
   {% if request.user.is_authenticated %}

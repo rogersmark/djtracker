@@ -2,6 +2,7 @@ import os
 import mimetypes
 
 from djtracker import models, utils, forms
+from djtracker_comments.models import CommentWithIssueStatus
 
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -275,7 +276,24 @@ def view_issue(request, project_slug, issue_id):
     project = get_object_or_404(models.Project, slug=project_slug)
     issue = get_object_or_404(models.Issue, id=issue_id)
     can_view, can_edit, can_comment = utils.check_perms(request, project)
-
+    
+    # get action log
+    action_log = []
+    issue_log = list(models.IssueLog.objects.filter(issue=issue).order_by('timestamp'))
+    comments = list(CommentWithIssueStatus.objects.filter(object_pk=issue.pk).order_by('submit_date'))
+    # mix comments and issue log
+    while True:
+        if len(issue_log)>0 and len(comments)>0:
+            if issue_log[0].timestamp<=comments[0].submit_date:
+                action_log.append(('issue_log', issue_log.pop(0)))
+            else:
+                action_log.append(('comment', comments.pop(0)))
+        elif len(issue_log)>0:
+            action_log.append(('issue_log', issue_log.pop(0)))
+        elif len(comments)>0:
+            action_log.append(('comment', comments.pop(0)))
+        else:
+            break                 
     ## Check if we're watching
     is_watching = False
     if request.user.is_authenticated():
