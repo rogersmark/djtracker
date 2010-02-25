@@ -44,12 +44,23 @@ class IssueForm(forms.ModelForm):
     def __init__(self, project_id, can_edit, *args, **kwargs):
         super(IssueForm, self).__init__(*args, **kwargs)
         project_instance = models.Project.objects.get(id=project_id)
-        self.fields['component'].queryset = \
-            models.Component.objects.filter(project=project_instance)
-        self.fields['version'].queryset = \
-            models.Version.objects.filter(project=project_instance)
-        self.fields['milestone'].queryset = \
-            models.Milestone.objects.filter(project=project_instance)
+        if models.Component.objects.filter(project=project_instance).count() > 0:
+            self.fields['component'].queryset = \
+                models.Component.objects.filter(project=project_instance)
+        else:
+            del self.fields['component']
+        
+        if models.Version.objects.filter(project=project_instance).count() > 0:
+            self.fields['version'].queryset = \
+                models.Version.objects.filter(project=project_instance)
+        else:
+            del self.fields['version']
+        if models.Milestone.objects.filter(project=project_instance).count() > 0:            
+            self.fields['milestone'].queryset = \
+                models.Milestone.objects.filter(project=project_instance)
+        else:
+            del self.fields['milestone']
+            
         if can_edit is False:
             self.fields['assigned_to'].widget = forms.HiddenInput()
             self.fields['watched_by'].widget = forms.HiddenInput()
@@ -65,9 +76,12 @@ class IssueForm(forms.ModelForm):
         data = self.cleaned_data
         issue.name = data['name']
         issue.project = data['project']
-        issue.component = data['component']
-        issue.version = data['version']
-        issue.milestone = data['milestone']
+        if 'component' in data:
+            issue.component = data['component']
+        if 'version' in data:
+            issue.version = data['version']
+        if 'milestone' in data:            
+            issue.milestone = data['milestone']
         issue.status = data['status']
         issue.priority = data['priority']
         issue.issue_type = data['issue_type']
