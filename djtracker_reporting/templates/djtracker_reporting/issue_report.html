@@ -1,0 +1,28 @@
+{% load i18n %}
+<table class="issuelist sortable">
+	<tr>
+		{% if issues_with_project %}
+		<th>{% trans "Project" %}</th>
+		{% endif %}
+		<th>{% trans "Priority" %}</th>
+		<th>{% trans "Title" %}</th>
+		<th>{% trans "Type" %}</th>
+		<th>{% trans "Status" %}</th>
+		{% if project.milestone_set.all %}
+			<th>{% trans "Milestone" %}</th>
+		{% endif %}
+	</tr>
+	{% for issue in report.rows %}
+      <tr class="prio-{{issue.priority.slug}}">
+      	{% if issues_with_project %}
+		<td><a href="{{ issue.project.get_absolute_url }}">{{issue.project}}</a></td>
+		{% endif %}
+		<td>{{issue.priority}}</td>
+		<td><a href="{{ issue.get_absolute_url }}">{{ issue }}</a></td>
+		<td>{{issue.issue_type}}</td><td>{{issue.status}}</td>
+		{% if project.milestone_set.all %}
+			<td>{{issue.milestone}}</td>
+		{% endif %}
+	</tr>
+    {% endfor %}
+</table>

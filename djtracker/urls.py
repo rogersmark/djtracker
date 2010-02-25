@@ -1,6 +1,8 @@
 from django.conf.urls.defaults import patterns
 from djtracker.feeds import PersonalFeed, ProjectIssue
 
+from djtracker_reporting.views import dashboard as dashboard_new, project_index as project_index_new
+
 feeds = {
     'project': ProjectIssue,
     'personal': PersonalFeed,
@@ -10,7 +12,8 @@ urlpatterns = patterns('djtracker.views',
     ## Project views
     (r'^$', 'index', None, 'index'),
     (r'^project/search/$', 'project_search', None, 'project_search'),
-    (r'^project/(?P<project_slug>[a-z0-9-]+)/$', 'project_index', None, 'project_index'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/oldindex/$', 'project_index', None, 'project_index_old'),
+    (r'^project/(?P<project_slug>[a-z0-9-]+)/$', project_index_new, None, 'project_index'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/status/(?P<status_slug>[a-z0-9-]+)/$',
         'project_status_issues', None, 'project_status'),
     (r'^project/(?P<project_slug>[a-z0-9-]+)/priority/(?P<priority_slug>[a-z0-9-]+)/$',
@@ -45,7 +48,8 @@ urlpatterns = patterns('djtracker.views',
         None, 'project_file_upload'),
 
     ## Profile views
-    (r'^profile/dashboard/$', 'dashboard', None, 'project_user_dashboard'),
+    (r'^profile/dashboard_old/$', 'dashboard', None, 'project_user_dashboard_old'),
+    (r'^profile/dashboard/$', dashboard_new, None, 'project_user_dashboard'),
     (r'^profile/detail/(?P<username>\w+)/$', 'view_profile', None, 'project_user'),
     (r'^profile/list/$', 'view_users', None, 'project_user_list'),
     (r'^profile/filter/delete/(?P<filter_id>[\d]+)/$', 'filter_delete', None,

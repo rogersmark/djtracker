@@ -1,0 +1,52 @@
+TODO reporting
+--------------
+
+the goal is to have a flexible and dynamic, yet simple and easy to use reporting system.
+
+definitions
+-----------
+a "report" is a list of issues, consisting of 
+ - filter criteria
+ - sort criteria
+ - list of columns to be shown
+ - automatic pagination via GET parameter 
+ 
+report definitions are stored in the database, and loaded into templates via the {% load_report %} template tag.
+as they are customizing, they can be modified globally by administrators, and individual users can create
+variants which are also stored in the database (but do not affect other users). report variants are not part
+of the scope of the first version. 
+
+ui
+--
+in the first version, reports will be administered through the admin interface only. in later versions,
+we could have a "customize this view" link which will have a more concise UI. 
+
+tags
+----
+reports are included through the {% load_report %} tag, which will produce a table of issues.
+the {% load_report %} tag takes arbitrary parameters, which are passed to the filter of the 
+report in question. therefore the syntax is as follows:
+
+ {% load_report 'reportname' [p0 [p1 [p2 [...]]]] as varname %}
+ 
+pagination is taken from the request context automatically. By convention, we will always
+add the current user as parameter p0
+
+...in the dashboard (user_dashboard.html):
+
+ {% load_report 'user_dashboard' request.user as report %}
+ {% include 'report.html' %}
+ 
+...in the project view (project_index.html):
+ 
+ {% load_report 'project_index.html' request.user project as report %}
+ {% include 'report.html' %}
+
+models
+------
+all metadata of a report is stored in the database. we have the following types of models:
+
+  Report - a report, which can be loaded into template via {% load_report 'reportname' p1 p2 ... %}
+  
+  
+  

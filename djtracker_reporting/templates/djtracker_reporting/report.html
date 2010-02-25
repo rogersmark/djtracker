@@ -1,0 +1,6 @@
+{# note: this is pretty much useless right now, and only used in unittest  #}
+<table>
+{% for row in report.rows %}
+<tr><td>{{row.pk}}</td><td>{{row}}</td></tr>
+{% endfor %}
+</table>

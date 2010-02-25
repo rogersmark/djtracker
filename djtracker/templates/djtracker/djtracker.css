@@ -189,7 +189,7 @@ td.col {
     background:#E5ECF9 none repeat scroll 0 0;
 }
 
-.prio-critical, .prio-urgent {
+.prio-critical, .prio-urgent, .prio-high {
     background-color:#FFDEDE;
 }
 

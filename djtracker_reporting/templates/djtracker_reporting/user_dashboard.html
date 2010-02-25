@@ -1,0 +1,20 @@
+{% extends "djtracker/base.html" %}
+{% load i18n reporting %}
+{% block head %}
+<script type="text/javascript">
+{% include 'djtracker/sorttable.js' %}
+</script>
+{% endblock %}
+
+{% block content %}
+{% with 1 as issues_with_project %}
+  <p><a href="{% url feeds rss_feed %}">Subscribe to Your RSS Feed</a></p>
+  
+  <div class="hideable">
+  {% load_report 'dashboard' as report %}
+  <h4>{% trans "Issues assigned to me" %} ( {{report.row_count}} )</h4>
+  {% include 'djtracker_reporting/issue_report.html' %} 
+  </div>
+
+{% endwith %}
+{% endblock %}
