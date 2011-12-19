@@ -2,12 +2,12 @@
 {% load comments i18n  markup %}
 {% block title %} - {{ issue }} {% endblock %}
 {% block content %}
-  <table style="width: 100%"><tr><td class="col" style="width: 100%; padding-right: 10px;">  
-  <h3>{% if request.user.is_authenticated %}<small class="inlineaction">{% if can_edit %}<a href="{% url project_modify_issue project.slug issue.id %}">{% trans "edit" %}</a> |{% endif %} {% if is_watching %}<a href="{% url project_issue project.slug issue.id %}?watch=no">{% trans "unwatch" %}</a>{% else %}<a href="{% url project_issue project.slug issue.id %}?watch=yes">{% trans "watch" %}</a>{% endif %}{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">{% trans "submit issue" %}</a>{% endif %}</small>{% endif %}<a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a> : {{ issue }}</h3>  
+  <table style="width: 100%"><tr><td class="col" style="width: 100%; padding-right: 10px;">
+  <h3>{% if request.user.is_authenticated %}<small class="inlineaction">{% if can_edit %}<a href="{% url project_modify_issue project.slug issue.id %}">{% trans "edit" %}</a> |{% endif %} {% if is_watching %}<a href="{% url project_issue project.slug issue.id %}?watch=no">{% trans "unwatch" %}</a>{% else %}<a href="{% url project_issue project.slug issue.id %}?watch=yes">{% trans "watch" %}</a>{% endif %}{% if can_comment %} | <a href="{% url project_submit_issue project.slug %}">{% trans "submit issue" %}</a>{% endif %}</small>{% endif %}<a href="{{ issue.project.get_absolute_url }}">{{ issue.project }}</a> : {{ issue }}</h3>
   <div class="description">{{ issue.description|restructuredtext }}</div>
   <h4>{% if can_comment %}<small class="inlineaction"><a href="{% url project_file_upload project.slug issue.id %}">{% trans "Add an Attachment" %}</a></small>{% endif %}{% trans "Attachments" %}</h4>
   {% if issue.fileupload_set.all %}
-  <ul>    
+  <ul>
   {% for file in issue.fileupload_set.all %}
       <li><a href="{{ file.get_absolute_url }}">{{ file }}</a></li>
   {% endfor %}
@@ -22,11 +22,11 @@
       <a name="comment{{comment.pk}}"/>(<a class="headerlink" title="permalink to this comment" href="#comment{{comment.pk}}">#</a>){% if comment.user_name %}
         <em style="color: #888888;">{% if comment.user %}<a href="{{ comment.user.userprofile.get_absolute_url }}">{% endif %}{{ comment.user_name }}</a>{% else %}anon{% endif %}, {{ comment.submit_date|date:'r' }}:</em><br/>{{ comment.comment|restructuredtext }}<br/><br/>
     {% endfor %}
-  {% endif %}  
+  {% endif %}
   {% if can_comment %}
   <h4>{% trans "New Comment" %}</h4>
   {% if request.user.is_authenticated %}
-    {% get_comment_form for issue as form %}	
+    {% get_comment_form for issue as form %}
     <form action="{% comment_form_target %}" method="post">
 		 {{ form.content_type }}
          {{ form.object_pk }}
@@ -47,12 +47,12 @@
 	     <span style="display: none;">{{ form.honeypot }}</span>
 	  {{ form.comment }}</td></tr>
 	 <tr><td><input type="submit" name="post" class="submit-post" value="{% trans "Post" %}"/></td></tr></table>
-    </form>			
+    </form>
   {% else %}
     {% render_comment_form for issue %}
   {% endif %}
   {% endif %}
   </td><td class="col">
   	{% include 'djtracker/blocks/issue_proptab.html' %}
-  </td></tr></table>    
+  </td></tr></table>
 {% endblock %}

@@ -43,7 +43,7 @@
           {% endif %}
           <option value="{{ x.slug }}">{{ x }}</option>
         {% endfor %}
-        </select>      
+        </select>
       {% trans "Priority" %}: <select name="priority">
         {% for x in priority_choices %}
           {% if forloop.first %}
@@ -54,16 +54,16 @@
       </select>
       </p>
       {% if request.user.is_authenticated %}
-        <p>{% trans "Save this filter for future use" %}: <input type="checkbox" name="save" value="{% trans "save" %}" /> 
+        <p>{% trans "Save this filter for future use" %}: <input type="checkbox" name="save" value="{% trans "save" %}" />
         {% trans "Saved filter name" %}: <input type="text" name="savename" /></p>
-      {% endif %}      
+      {% endif %}
     <p><input type="submit" value="Submit" /></p>
     </form>
     <h4> {{ project }}: {% trans "Issues" %} <small class="inlineaction">{% if can_comment %}<a href="{% url project_submit_issue project.slug %}">{% trans "Submit Issue" %}</a>{% endif %}</small></h4>
-    {% with issues as issue_list %}	
+    {% with issues as issue_list %}
 	{% include 'djtracker/blocks/issue_list.html' %}
 	{% endwith %}
-	
+
 	{% if can_comment %}
       <a href="{% url project_submit_issue project.slug %}">{% trans "Submit Issue" %}</a>
     {% endif %}

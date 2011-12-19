@@ -3,8 +3,8 @@
 
 {% block title %} - {% blocktrans %}Modify {{ issue }}{% endblocktrans %}{% endblock %}
 {% block content %}
-  <form action="{% url project_modify_issue project.slug issue.id %}" method="post"> 
-	<table>{{ form.as_table }}</table>	
+  <form action="{% url project_modify_issue project.slug issue.id %}" method="post">
+	<table>{{ form.as_table }}</table>
     <input type="submit" value="{% trans "Submit Issue" %}" />
   </form>
 {% endblock %}

@@ -3,13 +3,13 @@
   version 2
   7th April 2007
   Stuart Langridge, http://www.kryogenix.org/code/browser/sorttable/
-  
+
   Thanks to many, many people for contributions and suggestions.
   Licenced as X11: http://www.kryogenix.org/code/browser/licence.html
   This basically means: do what you want with it.
 */
 
- 
+
 var stIsIE = /*@cc_on!@*/false;
 
 sorttable = {
@@ -20,19 +20,19 @@ sorttable = {
     arguments.callee.done = true;
     // kill the timer
     if (_timer) clearInterval(_timer);
-    
+
     if (!document.createElement || !document.getElementsByTagName) return;
-    
+
     sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
-    
+
     forEach(document.getElementsByTagName('table'), function(table) {
       if (table.className.search(/\bsortable\b/) != -1) {
         sorttable.makeSortable(table);
       }
     });
-    
+
   },
-  
+
   makeSortable: function(table) {
     if (table.getElementsByTagName('thead').length == 0) {
       // table doesn't have a tHead. Since it should have, create one and
@@ -43,9 +43,9 @@ sorttable = {
     }
     // Safari doesn't support table.tHead, sigh
     if (table.tHead == null) table.tHead = table.getElementsByTagName('thead')[0];
-    
+
     if (table.tHead.rows.length != 1) return; // can't cope with two header rows
-    
+
     // Sorttable v1 put rows with a class of "sortbottom" at the bottom (as
     // "total" rows, for example). This is B&R, since what you're supposed
     // to do is put them in a tfoot. So, if there are sortbottom rows,
@@ -67,7 +67,7 @@ sorttable = {
       }
       delete sortbottomrows;
     }
-    
+
     // work through each column and calculate its type
     headrow = table.tHead.rows[0].cells;
     for (var i=0; i<headrow.length; i++) {
@@ -86,7 +86,7 @@ sorttable = {
 	      dean_addEvent(headrow[i],"click", function(e) {
 
           if (this.className.search(/\bsorttable_sorted\b/) != -1) {
-            // if we're already sorted by this column, just 
+            // if we're already sorted by this column, just
             // reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
             this.className = this.className.replace('sorttable_sorted',
@@ -99,7 +99,7 @@ sorttable = {
             return;
           }
           if (this.className.search(/\bsorttable_sorted_reverse\b/) != -1) {
-            // if we're already sorted by this column in reverse, just 
+            // if we're already sorted by this column in reverse, just
             // re-reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
             this.className = this.className.replace('sorttable_sorted_reverse',
@@ -111,7 +111,7 @@ sorttable = {
             this.appendChild(sortfwdind);
             return;
           }
-          
+
           // remove sorttable_sorted classes
           theadrow = this.parentNode;
           forEach(theadrow.childNodes, function(cell) {
@@ -124,7 +124,7 @@ sorttable = {
           if (sortfwdind) { sortfwdind.parentNode.removeChild(sortfwdind); }
           sortrevind = document.getElementById('sorttable_sortrevind');
           if (sortrevind) { sortrevind.parentNode.removeChild(sortrevind); }
-          
+
           this.className += ' sorttable_sorted';
           sortfwdind = document.createElement('span');
           sortfwdind.id = "sorttable_sortfwdind";
@@ -145,18 +145,18 @@ sorttable = {
 	        //sorttable.shaker_sort(row_array, this.sorttable_sortfunction);
 	        /* and comment out this one */
 	        row_array.sort(this.sorttable_sortfunction);
-	        
+
 	        tb = this.sorttable_tbody;
 	        for (var j=0; j<row_array.length; j++) {
 	          tb.appendChild(row_array[j][1]);
 	        }
-	        
+
 	        delete row_array;
 	      });
 	    }
     }
   },
-  
+
   guessType: function(table, column) {
     // guess the type of a column based on its first non-blank row
     sortfn = sorttable.sort_alpha;
@@ -166,7 +166,7 @@ sorttable = {
         if (text.match(/^-?[£$¤]?[\d,.]+%?$/)) {
           return sorttable.sort_numeric;
         }
-        // check for a date: dd/mm/yyyy or dd/mm/yy 
+        // check for a date: dd/mm/yyyy or dd/mm/yy
         // can have / or . or - as separator
         // can be mm/dd as well
         possdate = text.match(sorttable.DATE_RE)
@@ -189,17 +189,17 @@ sorttable = {
     }
     return sortfn;
   },
-  
+
   getInnerText: function(node) {
     // gets the text we want to use for sorting for a cell.
     // strips leading and trailing whitespace.
     // this is *not* a generic getInnerText function; it's special to sorttable.
     // for example, you can override the cell text with a customkey attribute.
     // it also gets .value for <input> fields.
-    
+
     hasInputs = (typeof node.getElementsByTagName == 'function') &&
                  node.getElementsByTagName('input').length;
-    
+
     if (node.getAttribute("sorttable_customkey") != null) {
       return node.getAttribute("sorttable_customkey");
     }
@@ -234,7 +234,7 @@ sorttable = {
       }
     }
   },
-  
+
   reverse: function(tbody) {
     // reverse the rows in a tbody
     newrows = [];
@@ -246,14 +246,14 @@ sorttable = {
     }
     delete newrows;
   },
-  
+
   /* sort functions
      each sort function takes two parameters, a and b
      you are comparing a[0] and b[0] */
   sort_numeric: function(a,b) {
     aa = parseFloat(a[0].replace(/[^0-9.-]/g,''));
     if (isNaN(aa)) aa = 0;
-    bb = parseFloat(b[0].replace(/[^0-9.-]/g,'')); 
+    bb = parseFloat(b[0].replace(/[^0-9.-]/g,''));
     if (isNaN(bb)) bb = 0;
     return aa-bb;
   },
@@ -292,7 +292,7 @@ sorttable = {
     if (dt1<dt2) return -1;
     return 1;
   },
-  
+
   shaker_sort: function(list, comp_func) {
     // A stable sort function to allow multi-level sorting of data
     // see: http://en.wikipedia.org/wiki/Cocktail_sort
@@ -322,38 +322,38 @@ sorttable = {
         b++;
 
     } // while(swap)
-  }  
+  }
 }
 
 hidediv = {
 	init: function(){
 		// quit if this function has already been called
-		if (arguments.callee.done) 
+		if (arguments.callee.done)
 			return;
 		// flag this function so we don't do the same thing twice
 		arguments.callee.done = true;
 		// kill the timer
-		if (_timer) 
+		if (_timer)
 			clearInterval(_timer);
-		
-		if (!document.createElement || !document.getElementsByTagName) 
+
+		if (!document.createElement || !document.getElementsByTagName)
 			return;
-				
+
 		forEach(document.getElementsByTagName('div'), function(div){
 			if (div.className.search(/\bhideable\b/) != -1) {
 				hidediv.makeHideDiv(div);
 			}
 		});
-		
+
 	},
-	
+
 	setAttribute: function(elem, attr, value) {
 		var myAttr = document.createAttribute(attr);
 		myAttr.nodeValue = value;
 		elem.setAttributeNode(myAttr);
 		return elem;
 	},
-	
+
 	makeLink: function(action, target, text) {
 		var myLink = document.createElement('a');
 		this.setAttribute(myLink, 'href', target);
@@ -362,30 +362,30 @@ hidediv = {
 		dean_addEvent(myLink, 'click', this.onClickLink);
 		return myLink;
 	},
-	
+
 	makeHideDiv: function(div) {
 		var h = div.getElementsByTagName('h4')[0];
 		var h_content = h.firstChild;
-		var link = this.makeLink('', '#', 'hide');		
+		var link = this.makeLink('', '#', 'hide');
 		var small = document.createElement("small");
 		this.setAttribute(small, 'class', 'inlineaction');
-		small.appendChild(link);		
+		small.appendChild(link);
 		h.removeChild(h.firstChild);
 		h.appendChild(small);
 		h.appendChild(h_content);
 		if (div.className.search(/\bhidden\b/) != -1) {
 			this.toggleElem(link);
 		};
-		
+
 	},
-	
+
 	onClickLink: function(e) {
-		hidediv.toggleElem(this);		
+		hidediv.toggleElem(this);
 	},
-	
+
 	toggleElem: function(link) {
 		var elem_to_toggle = link.parentNode.parentNode.parentNode.getElementsByTagName('table')[0];
-		if (link.firstChild.textContent == 'hide') {			
+		if (link.firstChild.textContent == 'hide') {
 			link.firstChild.textContent = 'show';
 			hidediv.setAttribute(elem_to_toggle, 'style', 'display: none;');
 		} else {
@@ -393,8 +393,8 @@ hidediv = {
 			elem_to_toggle.removeAttribute('style');
 		}
 	}
-	
-	
+
+
 
 }
 

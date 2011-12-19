@@ -49,7 +49,7 @@ These permissions break down into three methods so that you can give groups, ind
 
 Git Repo Polling (complete):
 
-DjTracker can polling a git repo's commits, and auto-update issues based on a certain string. This is pretty common in other issue trackers as well. You can set this up by setting the "Git Repo Path" of a project, which correlates to a location on your *filesystem*. gitpython doesn't handle parsing git URLs as far as I can tell yet, so you need to have the repo checked out on the server. This has a couple of drawbacks, such as you'll need to setup a cron to pull down commits to that repo on a semi-regular basis. 
+DjTracker can polling a git repo's commits, and auto-update issues based on a certain string. This is pretty common in other issue trackers as well. You can set this up by setting the "Git Repo Path" of a project, which correlates to a location on your *filesystem*. gitpython doesn't handle parsing git URLs as far as I can tell yet, so you need to have the repo checked out on the server. This has a couple of drawbacks, such as you'll need to setup a cron to pull down commits to that repo on a semi-regular basis.
 
 You'll also need to initialize the project by giving it a starting commit hash as well. This allows the git poller to have a starting location in the git log to parse from. It'll then be able to parse from that commit forward. Again, some drawbacks, it'll brute force the list of commits, meaning that it can find commits in other branches than the master. Again, this appears to me as another limit of the 'gitpython' package. (Note: I don't mean any ill towards gitpython, I love the package, and I'm sure it'll continue its improvement.)
 
@@ -75,12 +75,12 @@ Issues are attached to projects via foreign keys. You can comment on issues, cha
 User Profiles (80% complete):
 ------------------------------------------------
 
-Currently I don't see an excessively large need for these, but that could change depending on use cases. As a result I went ahead and built a user profile module just in case. It's currently very limited, but you can view your profile (and the profile of others) to see what issues they have assigned to them. 
+Currently I don't see an excessively large need for these, but that could change depending on use cases. As a result I went ahead and built a user profile module just in case. It's currently very limited, but you can view your profile (and the profile of others) to see what issues they have assigned to them.
 
 Email Handling
 ------------------------------------------------
 
-DjTracker has the ability to parse email addresses for new comments and new issues. Currently this only supports IMAP, but POP3 support is planned for the future. 
+DjTracker has the ability to parse email addresses for new comments and new issues. Currently this only supports IMAP, but POP3 support is planned for the future.
 
 Email Settings
 ------------------------------------------------
@@ -99,12 +99,12 @@ Expected Email Subjects
 DjTracker needs email subjects to be formed in a certain fashion in order to properly create issues on your behalf. If you're creating a new issue via email, the following subject is expected:
 
     DjTracker: [project-slug]: Your Title
-    
+
 If you're responding on an issue, you'd use the following:
 
     DjTracker: [project-slug]: Issue #5
-    
-That'll add the comment onto the end of the current issue with an ID of 5. 
+
+That'll add the comment onto the end of the current issue with an ID of 5.
 
 Email Cron Job
 ------------------------------------------------

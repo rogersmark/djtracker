@@ -13,7 +13,7 @@
 </head>
 <body>
 {% include "djtracker/usermenu.html" %}
-<div id="wrapper">  
+<div id="wrapper">
   <div id="banner">
     <h1><a href="/">DjTracker Issue Tracker</a>{% if project %} &raquo; {{project}}{% endif %}</h1>
   </div>
@@ -26,9 +26,9 @@
   	</div>
 	<div id="mainwrap">
 	{% block content %}
-	{% endblock %}	
+	{% endblock %}
     </div>
-	</td>	
+	</td>
 	<td id="sidebar" class="col"><div id="sidebarwrap">
   	{% include "djtracker/sidebar.html" %}
     {% block sidebar %}

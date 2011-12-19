@@ -6,7 +6,7 @@
 </script>
 {% endblock %}
 
-  
+
 {% block content %}
 
   <p><a href="{% url feeds rss_feed %}">Subscribe to Your RSS Feed</a></p>
@@ -23,11 +23,11 @@
   {# if profile.issuefilter_set.all #}
   <h4>{% trans "Saved Filters" %}</h4>
   {% for issue_filter in profile.issuefilter_set.all %}
-  <span><small class="inlineaction">(<a href="{% url project_filter_delete issue_filter.id %}">{% trans "delete" %}</a>)</small><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a></span>        
+  <span><small class="inlineaction">(<a href="{% url project_filter_delete issue_filter.id %}">{% trans "delete" %}</a>)</small><a href="{{ issue_filter.get_filtered_url }}">{{ issue_filter.name }}</a></span>
    {% if not forloop.last %} | {% endif %}
   {% endfor %}
   {# endif #}
-  
+
 
   <div class="hideable hidden">
   <h4>{% trans "Recently Updated Issues" %}</h4>
@@ -35,7 +35,7 @@
   {% include 'djtracker/blocks/issue_list.html' %}
   {% endwith %}
   </div>
-    
+
   {% if created_issues %}
   <div class="hideable hidden">
   <h4>{% trans "Issues created by me" %}</h4>
@@ -44,7 +44,7 @@
   {% endwith %}
   {% endif %}
   </div>
-  
+
   {% if watched_issues %}
   <div class="hideable hidden">
   <h4>{% trans "Issues I am watching" %}</h4>

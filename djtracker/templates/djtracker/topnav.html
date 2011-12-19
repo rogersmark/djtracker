@@ -8,7 +8,7 @@
 	{% endif %}
     {% if bar_project_list %}
 	<li class="dir"><a href="{% url index %}">{% trans "Projects" %}</a>
-      <ul>                
+      <ul>
         {% for bar_project in bar_project_list %}
           <li><a href="{{ bar_project.get_absolute_url }}">{{ bar_project }}</a></li>
         {% endfor %}
