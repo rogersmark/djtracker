@@ -1,4 +1,4 @@
-[ { "fields" : 
+[ { "fields" :
       { "date_joined" : "2009-12-08 03:56:19",
         "email" : "admin@djtracker.corp",
         "first_name" : "",
@@ -15,7 +15,7 @@
     "model" : "auth.user",
     "pk" : 1
   },
-  { "fields" : 
+  { "fields" :
   	  { "date_joined" : "2009-12-13 20:26:17",
         "email" : "creator@djtracker.corp",
         "first_name" : "",

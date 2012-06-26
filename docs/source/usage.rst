@@ -1,7 +1,7 @@
 Using DjTracker
 *****************************
 
-The most important part of an issue tracker is being able to effeciently use it. 
+The most important part of an issue tracker is being able to effeciently use it.
 
 Users and Profiles
 =============================
@@ -15,7 +15,7 @@ After you've created a profile you can have issues assigned to you, 'watch' issu
 Getting Organized
 =============================
 
-Assuming you have a user, there's a variety of things you can do to get yourself organized. First off, there's the rudimentary search in the sidebar. This'll allow you to search a project, or all projects, for issues containing whatever keyword you type in. 
+Assuming you have a user, there's a variety of things you can do to get yourself organized. First off, there's the rudimentary search in the sidebar. This'll allow you to search a project, or all projects, for issues containing whatever keyword you type in.
 
 Second, there's issue filtering. When you go to a project page, you can click to "View All Issues". At that screen you have a slew of filtering options. These allow you to pinpoint an exact set of criteria for that project of issues that you'd like to find. You may also save these filters for future use. They will then appear on your dashboard for future use (and removal once you're done with them).
 

@@ -13,19 +13,19 @@
     <p>{% trans "IM Information" %}: {{ profile.instant_messanger }}</p>
     {% if request.user.is_authenticated %}
       <p>{% trans "Email" %}: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
-    {% endif %}    
-	{% with 1 as issues_with_project %}	   
+    {% endif %}
+	{% with 1 as issues_with_project %}
 	{% if assigned %}
 	  <div class="hideable">
-	  <h4>{% trans "Issues assigned to me" %}</h4>	     
+	  <h4>{% trans "Issues assigned to me" %}</h4>
 	  {% with assigned as issue_list %}
 	  {% include 'djtracker/blocks/issue_list.html' %}
 	  {% endwith %}
 	  </div>
-    {% endif %}	
+    {% endif %}
     {% if created %}
 	  <div class="hideable">
-	  <h4>{% trans "Issues created by me" %}</h4>	  
+	  <h4>{% trans "Issues created by me" %}</h4>
 	  {% with created as issue_list %}
 	  {% include 'djtracker/blocks/issue_list.html' %}
 	  {% endwith %}

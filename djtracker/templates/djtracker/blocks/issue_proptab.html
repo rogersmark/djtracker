@@ -1,12 +1,12 @@
 {% load i18n %}
-<table class="proptab">			
+<table class="proptab">
 	<tr><th>{% trans "Status" %}</th><td>{{ issue.status }}</td></tr>
 	<tr><th>{% trans "Type" %}</th><td>{{ issue.issue_type }}</td></tr>
 	<tr><th>{% trans "Priority" %}</th><td>{{ issue.priority }}</td></tr>
 	{% if issue.component %}
 	<tr><th>{% trans "Component" %}</th><td><a href="{{ issue.component.get_absolute_url }}">{{ issue.component }}</a></td></tr>
 	{% endif %}
-	{% if issue.version %}    
+	{% if issue.version %}
 	<tr><th>{% trans "Version" %}</th><td><a href="{{ issue.version.get_absolute_url }}">{{ issue.version }}</a></td></tr>
 	{% endif %}
 	{% if issue.milestone %}

@@ -14,10 +14,10 @@
             <td>{{ form.password.label_tag }}</td>
             <td>{{ form.password }}</td>
         </tr>
-    </table>	
+    </table>
     <input type="submit" value="{% trans "Login" %}" />
-    <input type="hidden" name="next" value="{% url project_user_dashboard %}" />		
+    <input type="hidden" name="next" value="{% url project_user_dashboard %}" />
     </form>
 	<p><small>{% trans "Forgot your password? Click " %}<a href="{% url django.contrib.auth.views.password_reset %}">{% trans "here" %}</a> {% trans "to get a fresh one." %}</small></p>
   {% endblock %}
- 
+

@@ -19,7 +19,7 @@ a:hover {
 #usermenu {
     text-align:right;
     border-bottom: 1px solid #C3D9FF;
-    padding: 5px 10px;  
+    padding: 5px 10px;
 }
 
 /* BANNER */
@@ -32,7 +32,7 @@ a:hover {
 
 #banner h1 a, #banner h1 a:visited {
     color: black;
-    text-decoration: none;  
+    text-decoration: none;
 }
 
 #banner ul {
@@ -48,7 +48,7 @@ div#mainNav {
 
 #mainNav ul {
     margin: 0;
-    padding: 0; 
+    padding: 0;
     border-bottom: 1px solid #E5ECF9;
     width: 100%;
     font-size: 14px;
@@ -63,7 +63,7 @@ div#mainNav {
     color: black;
     text-decoration: none;
     padding: 2px 10px;
-    display: block; 
+    display: block;
 }
 
 #mainNav li a:hover {
@@ -94,7 +94,7 @@ td.col {
 #main h1 {
     color: #663900;
     padding-top: 15px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
 }
 
 #main h2 {
@@ -113,7 +113,7 @@ td.col {
 }
 
 #main h2, #main h3, #main h4 {
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
     border-bottom: 1px solid #E5ECF9;
 }
 
@@ -169,11 +169,11 @@ td.col {
 }
 
 .issuelist {
-    width: 100%;    
+    width: 100%;
 }
 
-.issuelist th { 
-    background-color:#E5ECF9;   
+.issuelist th {
+    background-color:#E5ECF9;
 }
 
 .issuelist td:hover {
@@ -218,7 +218,7 @@ ul.errorlist, #mainwrap ul.errorlist {
     clear: both;
     padding: 5px;
     border-top: 1px solid #E5ECF9;
-    border-bottom: 1px solid #E5ECF9;           
+    border-bottom: 1px solid #E5ECF9;
     color: #888888;
     text-align: center;
     font-size: 80%;
@@ -229,27 +229,27 @@ ul.errorlist, #mainwrap ul.errorlist {
         float: right;
         width: 200px;
         margin-bottom: 2px;
-        margin-left: 10px; 
+        margin-left: 10px;
         position: relative;
-}                          
+}
 
 #main .figure p {
         position: absolute;
-        left: 10px;        
-        bottom: 10px;      
-        width: 168px;      
+        left: 10px;
+        bottom: 10px;
+        width: 168px;
         background-color: #FFF;
         border: 1px dashed #666666;
-        font-size: 1.1em;          
-        font-weight: bold;         
-        text-align: center;        
-        padding: 5px;              
-        margin: 0;                 
-}                                  
+        font-size: 1.1em;
+        font-weight: bold;
+        text-align: center;
+        padding: 5px;
+        margin: 0;
+}
 
 #main .figure img {
     display: block;
-}                      
+}
 
 /* prop tables */
 .proptab {
@@ -351,7 +351,7 @@ ul.dropdown li:hover > ul {
 }
 
 
-/** 
+/**
  * Default CSS Drop-Down Menu Theme
  *
  * @file        default.css
@@ -389,7 +389,7 @@ ul.dropdown li {
 }
 
     ul.dropdown li.hover,
-    ul.dropdown li:hover {   
+    ul.dropdown li:hover {
      color: #FFFFFF;
     }
 
